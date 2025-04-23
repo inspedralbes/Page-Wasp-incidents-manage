@@ -1,1 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ULTitWnh)
+Objectiu breu del projecte
+
+Desenvolupar una aplicació web per registrar, gestionar i fer seguiment d’incidències informàtiques dins de l'institut. El sistema permet la comunicació entre usuaris, tècnics i responsables informàtics, així com la generació d’informes i estadístiques.
