@@ -27,7 +27,7 @@ app.use(express.json());
 // app.use('/api/categories', categoryRoutes);
 
 // // Configuracio Estatica per les Imatges
-// const path = require('path');
+const path = require('path');
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // Ruta de prova
@@ -48,13 +48,12 @@ const port = process.env.PORT || 3000;
     // const catCarretera = await Category.create({ name: 'Carretera' });
     // const catEnduro = await Category.create({ name: 'Enduro' });
 
-    // await Motorcycle.create({
-    //   name: 'CBR 600 RR',
-    //   brand: 'Honda',
-    //   cc: 600,
-    //   country: 'japon',
-    //   categoryId: catCarretera.id,
-    // });
+    await Incidencias.create({
+      descripcio: 'Ordenador roto',
+      prioritat: 'Alta',
+      departament: 'Matematiques',
+      dataincidencia: '12-02-2025'
+    });
 
     // await Motorcycle.create({
     //   name: 'Africa Twin',

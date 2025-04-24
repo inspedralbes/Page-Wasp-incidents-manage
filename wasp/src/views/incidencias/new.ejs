@@ -1,0 +1,36 @@
+<%- include('../partials/header', { title: 'Afegir moto' }) %>
+  <h1>Nova moto</h1>
+  <form action="/motorcycles/create" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nom</label>
+      <input type="text" name="name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Marca</label>
+      <input type="text" name="brand" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="cc" class="form-label">Centímetres cúbics</label>
+      <input type="number" name="cc" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="country" class="form-label">Pais</label>
+      <select name="country" class="form-select">
+        <option value="espana">España</option>
+        <option value="japon">Japon</option>
+        <option value="estados-unidos">Estados Unidos</option>
+        <option value="india">India</option>
+        <option value="italia">Italia</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="categoryId" class="form-label">Categoria</label>
+      <select name="categoryId" class="form-select">
+        <% categories.forEach(cat => { %>
+          <option value="<%= cat.id %>"><%= cat.name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success">Crear</button>
+  </form>
+<%- include('../partials/footer') %>
