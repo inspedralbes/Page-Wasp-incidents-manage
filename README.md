@@ -8,7 +8,7 @@
 
 ## Indice
 
-<img src="./assets/img/diag/iconapp.png">
+<img src="./content/iconapp.png">
 
 ## Objectiu breu del projecte
 
@@ -16,4 +16,4 @@ Desenvolupar una aplicació web per registrar, gestionar i fer seguiment d’inc
 
 ## Diagrama casos d'us
 
-<img src="./assets/img/diag/diagcasus.png">
+<img src="./content/diagcasus.png">
