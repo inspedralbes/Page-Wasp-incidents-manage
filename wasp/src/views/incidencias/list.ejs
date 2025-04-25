@@ -1,47 +1,33 @@
-<%- include('../partials/header', { title: 'Llista de motos' }) %>
-  <h1>Llista de motos</h1>
+<%- include('../partials/header', { title: 'Editar moto' }) %>
 
-  <table class="table">
-    <tr>
-      <th>Nombre</th>
-      <th>Marca</th>
-      <th>Centímethes Cúbics</th>
-      <th>Categoria</th>
-      <th></th>
-    </tr>
-    <% motorcycles.forEach(moto=> { %>
-      <tr>
-        <td>
-          <%= moto.name %>
-        </td>
-        <td>
-          <%= moto.brand %>
-          <img height="30px" src="/images/<%= moto.country %>.png" alt="icon-bander" />
-        </td>
-        <td>
-          <%= moto.cc %> cv
-        </td>
-        <td>
-          <% if (moto.Category) { %>
-            <%= moto.Category.name %>
-              <% } %>
-        </td>
-        <td>
-          <div class="dropdown"></div>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<%= moto.id %>" data-bs-toggle="dropdown" aria-expanded="false"></button>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= moto.id %>">
-              <li><a class="dropdown-item" href="/motorcycles/<%= moto.id %>/edit">Editar</a></li>
-              <li><a class="dropdown-item" href="/motorcycles/<%= moto.id %>/delete">Eliminar</a></li>
-            </ul>
-          </div>
-        </td>
-      </tr>
-      <% }) %>
-      <tr>
-        <td colspan="5">
-          <a class="btn btn-success" href="/motorcycles/new">+</a>
-        </td>
-      </tr>
-  </table>
-  <%- include('../partials/footer') %>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Prioridad</th>
+            <th>Departamento</th>
+            <th>Fecha de Incidencia</th>
+            <th>cat</th>
+        </tr>
+        <% incidencias.forEach(inc => { %>
+            <tr>
+                <td><%= inc.id %></td>
+                <td><%= inc.descripcio %></td>
+                <td><%= inc.prioritat %></td>
+                <td><%= inc.departament %></td>
+                <td><%= inc.dataincidencia %></td> 
+                <td>
+                    <div class="dropdown"></div>
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<%= inc.id %>" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= inc.id %>">
+                        <li><a class="dropdown-item" href="/incidencias/<%= inc.id %>/edit">Editar</a></li>
+                        <li><a class="dropdown-item" href="/incidencias/<%= inc.id %>/delete">Eliminar</a></li>
+                      </ul>
+                    </div>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+
+<%- include('../partials/footer') %>

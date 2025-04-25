@@ -5,26 +5,17 @@ const sequelize = require('./db');
 const Incidencias = require('./models/Incidencias');
 
 // Category.hasMany(Motorcycle, { foreignKey: 'categoryId', onDelete: 'CASCADE' });
-// Motorcycle.belongsTo(Category, { foreignKey: 'categoryId' });
-
-// const motorcycleRoutes = require('./routes/motorcycles.routes');
-// const categoryRoutes = require('./routes/categories.routes');
+// Motorcycle.belongsTo(Category, { foreignKey: 'casategoryId' });
 
 const app = express();
 app.use(express.urlencoded({ extended: true })); // per formularis
 app.use(express.json());
 
-// // Rutes EJS
-// const motorcycleRoutesEJS = require('./routes/motorcyclesEJS.routes');
-// const categoryRoutesEJS = require('./routes/categoriesEJS.routes');
+// Rutes EJS
+const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
 
 // // Rutes EJS
-// app.use('/motorcycles', motorcycleRoutesEJS);
-// app.use('/categories', categoryRoutesEJS);
-
-// // Rutes JSON
-// app.use('/api/motorcycles', motorcycleRoutes);
-// app.use('/api/categories', categoryRoutes);
+app.use('/incidencias', incidenciaRoutesEJS);
 
 // // Configuracio Estatica per les Imatges
 const path = require('path');
@@ -55,13 +46,19 @@ const port = process.env.PORT || 3000;
       dataincidencia: '12-02-2025'
     });
 
-    // await Motorcycle.create({
-    //   name: 'Africa Twin',
-    //   brand: 'Honda',
-    //   cc: 1000,
-    //   country: 'estados-unidos',
-    //   categoryId: catEnduro.id,
-    // });
+    await Incidencias.create({
+      descripcio: 'Proyector no funciona',
+      prioritat: 'Mitjana',
+      departament: 'Fisica',
+      dataincidencia: '15-03-2025'
+    });
+
+    await Incidencias.create({
+      descripcio: 'Falta material de oficina',
+      prioritat: 'Baixa',
+      departament: 'Administracio',
+      dataincidencia: '20-04-2025'
+    });
 
     // Engeguem servidor
     app.listen(port, () => {

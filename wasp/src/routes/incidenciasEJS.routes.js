@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Incidencias = require('../models/Incidencias');
 
-// Llistar motos (GET) 
+// Llistar incidencias (GET) 
 router.get('/', async (req, res) => {
     try {
         const incidencias = await Incidencias.findAll();
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Form per crear una moto (GET)
+// Form per crear una incidencia (GET)
 router.get('/new', async (req, res) => {
     try {
         res.render('incidencias/new');
@@ -23,7 +23,7 @@ router.get('/new', async (req, res) => {
     }
 });
 
-// Crear moto (POST)
+// Crear incidencia (POST)
 router.post('/create', async (req, res) => {
     try {
         const { id, descripcio, prioritat, departament, dataincidencia } = req.body;
@@ -33,21 +33,20 @@ router.post('/create', async (req, res) => {
     catch (error) { res.status(500).send('Error al crear la incidencia'); }
 });
 
-// Form per editar una moto (GET)
+// Form per editar una incidencia (GET)
 router.get('/:id/edit', async (req, res) => {
     try {
         const incidencia = await Incidencias.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidència no trobada');
 
-        res.render('incidencias/edit', { moto });
+        res.render('incidencias/edit', { incidencia });
     } catch (error) {
         res.status(500).send('Error al carregar el formulari d’edició');
     }
 
 });
 
-// Actualitzar moto (POST)
-
+// Actualitzar incidencia (POST)
 router.post('/:id/update', async (req, res) => {
     try {
         const { id, descripcio, prioritat, departament, dataincidencia } = req.body;
@@ -67,7 +66,7 @@ router.post('/:id/update', async (req, res) => {
 
 });
 
-// Eliminar moto (GET, per simplicitat)
+// Eliminar incidencia (GET, per simplicitat)
 
 router.get('/:id/delete', async (req, res) => {
     try {
