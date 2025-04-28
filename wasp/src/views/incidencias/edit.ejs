@@ -5,36 +5,36 @@
       <label for="name" class="form-label">Descripción</label>
       <input
         type="text"
-        name="descripcion"
+        name="descripcio"
         value="<%= incidencia.descripcio %>"
         class="form-control"
         required
       />
     </div>
     <div class="mb-3">
-      <label for="Prioridad" class="form-label">Prioritat</label>
-      <select name="Prioridad" class="form-select">
-        <option value="muy-alta" <%= incidencia.prioritat === 'Molt Alta' ? 'selected' : '' %>>Molt Alta</option>
-        <option value="alta" <%= incidencia.prioritat === 'Alta' ? 'selected' : '' %>>Alta</option>
-        <option value="media" <%= incidencia.prioritat === 'Mitjana' ? 'selected' : '' %>>Mitjana</option>
-        <option value="baja" <%= incidencia.prioritat === 'Baixa' ? 'selected' : '' %>>Baixa</option>
+      <label for="prioritat" class="form-label">Prioritat</label>
+      <select name="prioritat" class="form-select">
+        <option value="Molt Alta" <%= incidencia.prioritat === 'Molt Alta' ? 'selected' : '' %>>Molt Alta</option>
+        <option value="Alta" <%= incidencia.prioritat === 'Alta' ? 'selected' : '' %>>Alta</option>
+        <option value="Mitjana" <%= incidencia.prioritat === 'Mitjana' ? 'selected' : '' %>>Mitjana</option>
+        <option value="Baixa" <%= incidencia.prioritat === 'Baixa' ? 'selected' : '' %>>Baixa</option>
       </select>
     </div>
     <div class="mb-3">
-      <label for="country" class="form-label">Departament</label>
+      <label for="departament" class="form-label">Departament</label>
       <input
         type="text"
-        name="name"
+        name="departament"
         value="<%= incidencia.departament %>"
         class="form-control"
         required
       />
     </div>
     <div class="mb-3">
-      <label for="country" class="form-label">Data Incidencia</label>
+      <label for="dataincidencia" class="form-label">Data Incidencia</label>
       <input
         type="text"
-        name="name"
+        name="dataincidencia"
         value="<%= incidencia.dataincidencia %>"
         class="form-control"
         required

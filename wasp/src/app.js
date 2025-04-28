@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 
+const path = require('path');
 const sequelize = require('./db');
 const Incidencias = require('./models/Incidencias');
 
@@ -18,7 +19,6 @@ const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
 app.use('/incidencias', incidenciaRoutesEJS);
 
 // // Configuracio Estatica per les Imatges
-const path = require('path');
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 // Ruta de prova
