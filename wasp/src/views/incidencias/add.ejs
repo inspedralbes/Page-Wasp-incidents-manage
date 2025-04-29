@@ -1,0 +1,38 @@
+<%- include('../partials/header', { title: 'Afegir incidencia' }) %>
+
+  <h1>Nova incidencia</h1>
+  <form action="/incidencias/create" method="post">
+    <div class="mb-3">
+      <label for="name" class="form-label">Descripción</label>
+      <input
+      type="text"
+      name="descripcio"
+      class="form-control"
+      placeholder="Ejemplo: La impresora no funciona"
+      required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="departament" class="form-label">Departament</label>
+      <input
+      type="text"
+      name="departament"
+      class="form-control"
+      placeholder="Ejemplo: Recursos Humanos"
+      required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="dataincidencia" class="form-label">Data Incidencia</label>
+      <input
+      type="text"
+      name="dataincidencia"
+      class="form-control"
+      placeholder="Ejemplo: 2023-10-15"
+      required
+      />
+    </div>
+  
+    <button type="submit" class="btn btn-success">Crear</button>
+  </form>
+<%- include('../partials/footer') %>

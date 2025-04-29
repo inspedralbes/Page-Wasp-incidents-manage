@@ -3,4 +3,31 @@
   <h1>Benvingut al projecte d'Incidencies!</h1>
   <p>Aquesta és la pàgina d’inici, renderitzada amb EJS.</p>
 
+  <div class="row">
+    <div class="col-4" id="usuari">
+      <h2>Usuari</h2>
+
+      <a href="/incidencias/add" class="btn btn-primary">Crear Incidencia</a>
+
+      <input type="text" id="incidenciaId" name="id" class="form-control" placeholder="ID de la incidencia" required>
+      <button type="submit" class="btn btn-primary">Comprobar</button>
+    
+    </div>
+
+    <div class="col-4" id="tecnic">
+      <h2>Técnic</h2>
+
+      <a href="/incidencias/manage" class="btn btn-primary">Asignar Incidencia</a>
+    
+    </div>
+
+    <div class="col-4" id="management">
+      <h2>Encarregat</h2>
+      
+      <a href="/incidencias/new" class="btn btn-primary">Crear Incidencia</a>
+    
+    </div>
+  </div>
+
+
 <%- include('partials/footer') %>

@@ -1,9 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 
-const path = require('path');
 const sequelize = require('./db');
 const Incidencias = require('./models/Incidencias');
+
+const path = require('path');
 
 // Category.hasMany(Motorcycle, { foreignKey: 'categoryId', onDelete: 'CASCADE' });
 // Motorcycle.belongsTo(Category, { foreignKey: 'casategoryId' });

@@ -6,17 +6,29 @@ const Incidencias = require('../models/Incidencias');
 router.get('/', async (req, res) => {
     try {
         const incidencias = await Incidencias.findAll();
-        res.render('incidencias/list', { incidencias });
+        res.render('incidencias/gets', { incidencias });
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidències');
     }
 });
 
+// Llistar Incidencia per id (GET)
+router.get('/:id', async (req, res) => {
+    try {
+        const incidencia = await Incidencias.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidència no trobada');
+        res.render('incidencias/get', { incidencia });
+    }
+    catch (error) {
+        res.status(500).send('Error al recuperar la incidència');
+    }
+});
+
 // Form per crear una incidencia (GET)
 router.get('/new', async (req, res) => {
     try {
-        res.render('incidencias/new');
+        res.render('incidencias/add');
     }
     catch (error) {
         res.status(500).send('Error al carregar el formulari');
@@ -67,7 +79,6 @@ router.post('/:id/update', async (req, res) => {
 });
 
 // Eliminar incidencia (GET, per simplicitat)
-
 router.get('/:id/delete', async (req, res) => {
     try {
         const incidencia = await Incidencias.findByPk(req.params.id);
