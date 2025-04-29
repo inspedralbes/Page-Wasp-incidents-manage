@@ -2,12 +2,21 @@ const express = require('express');
 require('dotenv').config();
 
 const sequelize = require('./db');
+const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
+const Departamentos = require('./models/Departamentos');
+const Tecnicos = require('./models/Tecnicos');
 
 const path = require('path');
 
-// Category.hasMany(Motorcycle, { foreignKey: 'categoryId', onDelete: 'CASCADE' });
-// Motorcycle.belongsTo(Category, { foreignKey: 'casategoryId' });
+Departamentos.hasMany(Incidencias, { foreignKey: 'departament', onDelete: 'CASCADE' });
+Incidencias.belongsTo(Departamentos, { foreignKey: 'departament' });
+
+Tecnicos.hasMany(Actuaciones, { foreignKey: 'idt', onDelete: 'CASCADE' });
+Actuaciones.belongsTo(Tecnicos, { foreignKey: 'idt' });
+
+Incidencias.hasMany(Actuaciones, { foreignKey: 'idi', onDelete: 'CASCADE' });
+Actuaciones.belongsTo(Incidencias, { foreignKey: 'idi' });
 
 const app = express();
 app.use(express.urlencoded({ extended: true })); // per formularis
@@ -36,28 +45,28 @@ const port = process.env.PORT || 3000;
     await sequelize.sync({ force: true });
     console.log('Base de dades sincronitzada (API JSON)');
 
-    // //Creem un parell de motos i un parell de caterories
-    // const catCarretera = await Category.create({ name: 'Carretera' });
-    // const catEnduro = await Category.create({ name: 'Enduro' });
+    //Creem un parell de motos i un parell de caterories
+    const fisica = await Departamentos.create({ nombre: 'Fisica', ubicacio:'Planta baja'});
+    const administracio = await Departamentos.create({ nombre: 'Administracio', ubicacio:'Planta mitjana' });
 
     await Incidencias.create({
       descripcio: 'Ordenador roto',
       prioritat: 'Alta',
-      departament: 'Matematiques',
+      departament: 'Administracio',
       dataincidencia: '12-02-2025'
     });
 
     await Incidencias.create({
       descripcio: 'Proyector no funciona',
       prioritat: 'Mitjana',
-      departament: 'Fisica',
+      departament: fisica.nombre,
       dataincidencia: '15-03-2025'
     });
 
     await Incidencias.create({
       descripcio: 'Falta material de oficina',
       prioritat: 'Baixa',
-      departament: 'Administracio',
+      departament: administracio.nombre,
       dataincidencia: '20-04-2025'
     });
 

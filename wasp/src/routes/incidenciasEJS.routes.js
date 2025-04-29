@@ -1,34 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Incidencias = require('../models/Incidencias');
+const Incidencia = require('../models/Incidencias');
+const Departamento = require('../models/Departamentos');
 
 // Llistar incidencias (GET) 
 router.get('/', async (req, res) => {
     try {
-        const incidencias = await Incidencias.findAll();
-        res.render('incidencias/gets', { incidencias });
+        const incidencias = await Incidencia.findAll({ include: Departamento });
+        res.render('incidencias/incidencia', { incidencias });
     }
     catch (error) {
-        res.status(500).send('Error al recuperar incidències');
-    }
-});
-
-// Llistar Incidencia per id (GET)
-router.get('/:id', async (req, res) => {
-    try {
-        const incidencia = await Incidencias.findByPk(req.params.id);
-        if (!incidencia) return res.status(404).send('Incidència no trobada');
-        res.render('incidencias/get', { incidencia });
-    }
-    catch (error) {
-        res.status(500).send('Error al recuperar la incidència');
+        res.status(500).send('Error al recuperar incidencias');
     }
 });
 
 // Form per crear una incidencia (GET)
 router.get('/new', async (req, res) => {
     try {
-        res.render('incidencias/add');
+        const departamentos = await Departamento.findAll(); 
+        res.render('incidencias/crear', { departamentos });
     }
     catch (error) {
         res.status(500).send('Error al carregar el formulari');
@@ -38,20 +28,23 @@ router.get('/new', async (req, res) => {
 // Crear incidencia (POST)
 router.post('/create', async (req, res) => {
     try {
-        const { id, descripcio, prioritat, departament, dataincidencia } = req.body;
-        await Incidencias.create({ id, descripcio, prioritat, departament, dataincidencia });
+        const { name, brand, cc, country, departamentoId } = req.body;
+        await Incidencia.create({ name, brand, cc, country, departamentoId });
         res.redirect('/incidencias'); // Torna al llistat 
     }
-    catch (error) { res.status(500).send('Error al crear la incidencia'); }
+    catch (error) { 
+        res.status(500).send('Error al crear la incidencia'); 
+    }
 });
 
 // Form per editar una incidencia (GET)
 router.get('/:id/edit', async (req, res) => {
     try {
-        const incidencia = await Incidencias.findByPk(req.params.id);
-        if (!incidencia) return res.status(404).send('Incidència no trobada');
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
 
-        res.render('incidencias/edit', { incidencia });
+        const departamentos = await Departamento.findAll();
+        res.render('incidencias/asignar', { incidencia, departamentos });
     } catch (error) {
         res.status(500).send('Error al carregar el formulari d’edició');
     }
@@ -59,31 +52,34 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 // Actualitzar incidencia (POST)
+
 router.post('/:id/update', async (req, res) => {
     try {
-        const { id, descripcio, prioritat, departament, dataincidencia } = req.body;
-        const incidencia = await Incidencias.findByPk(req.params.id);
-        if (!incidencia) return res.status(404).send('Incidència no trobada');
-        incidencia.id = id;
-        incidencia.descripcio = descripcio;
-        incidencia.prioritat = prioritat;
-        incidencia.departament = departament;
-        incidencia.dataincidencia = dataincidencia;
+        const { name, brand, cc, country, departamentoId } = req.body;
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+        incidencia.name = name;
+        incidencia.brand = brand;
+        incidencia.cc = cc;
+        incidencia.country = country;
+        incidencia.departamentoId = departamentoId;
         await incidencia.save();
 
         res.redirect('/incidencias');
     } catch (error) {
-        res.status(500).send('Error al actualitzar la incidencias');
+        res.status(500).send('Error al actualitzar la incidencia');
     }
 
 });
 
 // Eliminar incidencia (GET, per simplicitat)
+
 router.get('/:id/delete', async (req, res) => {
     try {
-        const incidencia = await Incidencias.findByPk(req.params.id);
-        if (!incidencia) return res.status(404).send('Incidència no trobada');
-        await incidencia.destroy(); res.redirect('/incidencias');
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+        await incidencia.destroy(); 
+        res.redirect('/incidencias');
     }
     catch (error) {
         res.status(500).send('Error al eliminar la incidencia');

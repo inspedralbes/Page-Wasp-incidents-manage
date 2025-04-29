@@ -1,26 +1,17 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
-const Incidencias = sequelize.define('Incidencias', {
+const Tecnicos = sequelize.define('Tecnicos', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
   },
-  descripcio: {
+  nombre: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  prioritat: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-
-  dataincidencia: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  }
 });
 
-module.exports = Incidencias;
+module.exports = Tecnicos;
