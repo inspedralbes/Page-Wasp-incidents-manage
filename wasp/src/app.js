@@ -2,12 +2,12 @@ const express = require('express');
 require('dotenv').config();
 
 const sequelize = require('./db');
+const path = require('path');
+
 const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
 const Departamentos = require('./models/Departamentos');
 const Tecnicos = require('./models/Tecnicos');
-
-const path = require('path');
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'departament', onDelete: 'CASCADE' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'departament' });
@@ -24,28 +24,35 @@ app.use(express.json());
 
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
+const departamentRoutesEJS = require('./routes/incidenciasEJS.routes');
 
-// // Rutes EJS
 app.use('/incidencias', incidenciaRoutesEJS);
+app.use('/departamentos', departamentRoutesEJS)
 
 // // Configuracio Estatica per les Imatges
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Ruta de prova
+// Rutes Perfils
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('usuari');
+});
+
+app.get('/tecnic', (req, res) => {
+  res.render('tecnic');
+});
+
+app.get('/admin', (req, res) => {
+  res.render('admin');
 });
 
 
 const port = process.env.PORT || 3000;
-
 
 (async () => {
   try {
     await sequelize.sync({ force: true });
     console.log('Base de dades sincronitzada (API JSON)');
 
-    //Creem un parell de motos i un parell de caterories
     const fisica = await Departamentos.create({ nombre: 'Fisica', ubicacio:'Planta baja'});
     const administracio = await Departamentos.create({ nombre: 'Administracio', ubicacio:'Planta mitjana' });
 

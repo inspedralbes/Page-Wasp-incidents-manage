@@ -14,13 +14,11 @@
     </div>
     <div class="mb-3">
       <label for="departament" class="form-label">Departament</label>
-      <input
-      type="text"
-      name="departament"
-      class="form-control"
-      placeholder="Ejemplo: Recursos Humanos"
-      required
-      />
+      <select name="departament" class="form-control" required>
+        <% departamentos.forEach(dept => { %>
+          <option value="<%= dept.id %>"><%= dept.nombre %></option>
+        <% }); %>
+      </select>
     </div>
     <div class="mb-3">
       <label for="dataincidencia" class="form-label">Data Incidencia</label>

@@ -4,13 +4,31 @@ const Incidencia = require('../models/Incidencias');
 const Departamento = require('../models/Departamentos');
 
 // Llistar incidencias (GET) 
-router.get('/', async (req, res) => {
+router.get('/list', async (req, res) => {
     try {
         const incidencias = await Incidencia.findAll({ include: Departamento });
-        res.render('incidencias/incidencia', { incidencias });
+        res.render('incidencias/listall', { incidencias });
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidencias');
+    }
+});
+
+// Llistar una incidencia específica (GET)
+router.get('/list/:id', async (req, res) => {
+    try {
+        const incidencia = await Incidencia.findByPk(req.params.id, {
+            include: Departamento, // Incluye el departamento relacionado si es necesario
+        });
+
+        if (!incidencia) {
+            return res.status(404).send('Incidència no trobada');
+        }
+
+        res.render('incidencias/listone', { incidencia });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al recuperar la incidència');
     }
 });
 
@@ -30,7 +48,7 @@ router.post('/create', async (req, res) => {
     try {
         const { name, brand, cc, country, departamentoId } = req.body;
         await Incidencia.create({ name, brand, cc, country, departamentoId });
-        res.redirect('/incidencias'); // Torna al llistat 
+        res.redirect('/incidencias/listall'); // Torna al llistat 
     }
     catch (error) { 
         res.status(500).send('Error al crear la incidencia'); 
