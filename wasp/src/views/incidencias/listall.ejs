@@ -16,16 +16,6 @@
                 <td><%= inc.prioritat %></td>
                 <td><%= inc.departament %></td>
                 <td><%= inc.dataincidencia %></td> 
-                <td>
-                    <div class="dropdown"></div>
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<%= inc.id %>" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<%= inc.id %>">
-                        <li><a class="dropdown-item" href="/incidencias/<%= inc.id %>/edit">Editar</a></li>
-                        <li><a class="dropdown-item" href="/incidencias/<%= inc.id %>/delete">Eliminar</a></li>
-                      </ul>
-                    </div>
-                </td>
             </tr>
         <% }); %>
     </table>

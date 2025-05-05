@@ -1,0 +1,16 @@
+<%- include('../partials/header', { title: 'Mostrar Departaments' }) %>
+
+    <table class="table">
+        <tr>
+            <th>Nombre</th>
+            <th>Ubicacio</th>
+        </tr>
+        <% departamentos.forEach(dept => { %>
+            <tr>
+                <td><%= dept.nombre %></td>
+                <td><%= dept.ubicacio %></td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <%- include('../partials/footer') %>

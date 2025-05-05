@@ -16,6 +16,18 @@ const Actuaciones = sequelize.define('Actuaciones', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    descripcio: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    hores: {
+        type: DataTypes.DECIMAL,
+        allowNull: false,
+    },
+    resolt: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+    },
 });
 
 module.exports = Actuaciones;

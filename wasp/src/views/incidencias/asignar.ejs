@@ -1,46 +1,32 @@
-<%- include('../partials/header', { title: 'Editar incidencia' }) %>
-  <h1>Editar incidencia</h1>
-  <form action="/incidencias/<%= incidencia.id %>/update" method="POST">
-    <div class="mb-3">
-      <label for="name" class="form-label">Descripción</label>
-      <input
-        type="text"
-        name="descripcio"
-        value="<%= incidencia.descripcio %>"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="prioritat" class="form-label">Prioritat</label>
-      <select name="prioritat" class="form-select">
-        <option value="Molt Alta" <%= incidencia.prioritat === 'Molt Alta' ? 'selected' : '' %>>Molt Alta</option>
-        <option value="Alta" <%= incidencia.prioritat === 'Alta' ? 'selected' : '' %>>Alta</option>
-        <option value="Mitjana" <%= incidencia.prioritat === 'Mitjana' ? 'selected' : '' %>>Mitjana</option>
-        <option value="Baixa" <%= incidencia.prioritat === 'Baixa' ? 'selected' : '' %>>Baixa</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="departament" class="form-label">Departament</label>
-      <input
-        type="text"
-        name="departament"
-        value="<%= incidencia.departament %>"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="dataincidencia" class="form-label">Data Incidencia</label>
-      <input
-        type="text"
-        name="dataincidencia"
-        value="<%= incidencia.dataincidencia %>"
-        class="form-control"
-        required
-      />
-    </div>
+<%- include('../partials/header', { title: 'Asignar Incidencia' }) %>
+  <h1>Asignar Incidencia</h1>
   
-    <button type="submit" class="btn btn-primary">Actualitzar</button>
-  </form>
+  <table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Descripción</th>
+        <th>Prioridad</th>
+        <th>Departamento</th>
+        <th>Fecha de Incidencia</th>
+        <th>Tecnic</th>
+    </tr>
+    <% incidencias.forEach(inc => { %>
+        <tr>
+            <td><%= inc.id %></td>
+            <td><%= inc.descripcio %></td>
+            <td><%= inc.prioritat %></td>
+            <td><%= inc.departament %></td>
+            <td><%= inc.dataincidencia %></td> 
+            <td>
+              <select name="tecnico" class="form-select">
+                <option value="" disabled <%= !inc.tecnicoId ? 'selected' : '' %>>Selecciona un técnico</option>
+                <% tecnicos.forEach(tec => { %>
+                  <option value="<%= tec.id %>"><%= tec.nombre %></option>
+                <% }) %>
+              </select>
+            </td>
+        </tr>
+    <% }); %>
+</table>
+
 <%- include('../partials/footer') %>

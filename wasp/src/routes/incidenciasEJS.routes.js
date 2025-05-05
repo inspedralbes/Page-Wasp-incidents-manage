@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+
 const Incidencia = require('../models/Incidencias');
 const Departamento = require('../models/Departamentos');
+const Tecnico = require('../models/Tecnicos');
 
 // Llistar incidencias (GET) 
 router.get('/list', async (req, res) => {
@@ -11,6 +13,35 @@ router.get('/list', async (req, res) => {
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidencias');
+    }
+});
+
+router.get('/asignar', async (req, res) => {
+    try {
+        const incidencias = await Incidencia.findAll({ include: Departamento });
+        const tecnicos = await Tecnico.findAll(); // Obtener todos los técnicos
+        res.render('incidencias/asignar', { incidencias, tecnicos });
+    }
+    catch (error) {
+        res.status(500).send('Error al recuperar incidencias o técnicos');
+    }
+});
+
+router.post('/:id/updaate', async (req, res) => {
+    try {
+        const { id, descripcio, prioritat, departament, dataincidencia} = req.body;
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+        incidencia.id = id;
+        incidencia.descripcio = descripcio;
+        incidencia.prioridat = prioritat;
+        incidencia.departament = departament;
+        incidencia.dataincidencia = dataincidencia;
+        await incidencia.save();
+
+        res.redirect('/incidencias');
+    } catch (error) {
+        res.status(500).send('Error al actualitzar la incidencia');
     }
 });
 
@@ -56,7 +87,7 @@ router.post('/create', async (req, res) => {
 });
 
 // Form per editar una incidencia (GET)
-router.get('/:id/edit', async (req, res) => {
+router.get('/list/:id/editar', async (req, res) => {
     try {
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
@@ -70,24 +101,22 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 // Actualitzar incidencia (POST)
-
 router.post('/:id/update', async (req, res) => {
     try {
-        const { name, brand, cc, country, departamentoId } = req.body;
+        const { id, descripcio, prioritat, departament, dataincidencia} = req.body;
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
-        incidencia.name = name;
-        incidencia.brand = brand;
-        incidencia.cc = cc;
-        incidencia.country = country;
-        incidencia.departamentoId = departamentoId;
+        incidencia.id = id;
+        incidencia.descripcio = descripcio;
+        incidencia.prioridat = prioritat;
+        incidencia.departament = departament;
+        incidencia.dataincidencia = dataincidencia;
         await incidencia.save();
 
         res.redirect('/incidencias');
     } catch (error) {
         res.status(500).send('Error al actualitzar la incidencia');
     }
-
 });
 
 // Eliminar incidencia (GET, per simplicitat)

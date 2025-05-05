@@ -24,7 +24,7 @@ app.use(express.json());
 
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
-const departamentRoutesEJS = require('./routes/incidenciasEJS.routes');
+const departamentRoutesEJS = require('./routes/departamentsEJS.routes');
 
 app.use('/incidencias', incidenciaRoutesEJS);
 app.use('/departamentos', departamentRoutesEJS)
@@ -41,8 +41,8 @@ app.get('/tecnic', (req, res) => {
   res.render('tecnic');
 });
 
-app.get('/admin', (req, res) => {
-  res.render('admin');
+app.get('/moderador', (req, res) => {
+  res.render('moderador');
 });
 
 
@@ -53,8 +53,11 @@ const port = process.env.PORT || 3000;
     await sequelize.sync({ force: true });
     console.log('Base de dades sincronitzada (API JSON)');
 
-    const fisica = await Departamentos.create({ nombre: 'Fisica', ubicacio:'Planta baja'});
+    const fisica = await Departamentos.create({ nombre: 'Fisica', ubicacio:'Planta baja' });
     const administracio = await Departamentos.create({ nombre: 'Administracio', ubicacio:'Planta mitjana' });
+
+    const juan = await Tecnicos.create({ nombre: 'Juan' });
+    const marcos = await Tecnicos.create({ nombre: 'Marcos' });
 
     await Incidencias.create({
       descripcio: 'Ordenador roto',
