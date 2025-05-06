@@ -2,24 +2,18 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
 const Incidencias = sequelize.define('Incidencias', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
-  },
   descripcio: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   prioritat: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
-
   dataincidencia: {
-    type: DataTypes.STRING,
+    type: DataTypes.DATEONLY,
     allowNull: false,
+    defaultValue: DataTypes.NOW, 
   }
 });
 

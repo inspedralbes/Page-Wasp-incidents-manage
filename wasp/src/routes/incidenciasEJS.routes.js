@@ -27,19 +27,20 @@ router.get('/asignar', async (req, res) => {
     }
 });
 
-router.post('/:id/updaate', async (req, res) => {
+router.post('asignar/:id/update', async (req, res) => {
     try {
-        const { id, descripcio, prioritat, departament, dataincidencia} = req.body;
+        const { id, nombret, descripcio, prioritat, departament, dataincidencia} = req.body;
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
         incidencia.id = id;
+        incidencia.nombret = nombret;
         incidencia.descripcio = descripcio;
         incidencia.prioridat = prioritat;
         incidencia.departament = departament;
         incidencia.dataincidencia = dataincidencia;
         await incidencia.save();
 
-        res.redirect('/incidencias');
+        res.redirect('incidencias/asignar');
     } catch (error) {
         res.status(500).send('Error al actualitzar la incidencia');
     }
@@ -70,19 +71,19 @@ router.get('/new', async (req, res) => {
         res.render('incidencias/crear', { departamentos });
     }
     catch (error) {
-        res.status(500).send('Error al carregar el formulari');
+        res.status(500).send('Error al carregar el formulari' + error.message);
     }
 });
 
 // Crear incidencia (POST)
 router.post('/create', async (req, res) => {
     try {
-        const { name, brand, cc, country, departamentoId } = req.body;
-        await Incidencia.create({ name, brand, cc, country, departamentoId });
-        res.redirect('/incidencias/listall'); // Torna al llistat 
-    }
-    catch (error) { 
-        res.status(500).send('Error al crear la incidencia'); 
+        const { descripcio, prioritat, departament, dataincidencia } = req.body;
+        await Incidencia.create({ descripcio, prioritat, departament, dataincidencia });
+        res.redirect('/incidencias/list'); // Torna al llistat 
+    } catch (error) { 
+        console.error(error);
+        res.status(500).send('Error al crear la incidencia'+ error.message); 
     }
 });
 
@@ -93,9 +94,9 @@ router.get('/list/:id/editar', async (req, res) => {
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
 
         const departamentos = await Departamento.findAll();
-        res.render('incidencias/asignar', { incidencia, departamentos });
+        res.render('incidencias/editar', { incidencia, departamentos });
     } catch (error) {
-        res.status(500).send('Error al carregar el formulari d’edició');
+        res.status(500).send('Error al carregar el formulari d’edició' + error.message);
     }
 
 });
@@ -116,6 +117,32 @@ router.post('/:id/update', async (req, res) => {
         res.redirect('/incidencias');
     } catch (error) {
         res.status(500).send('Error al actualitzar la incidencia');
+    }
+});
+
+// Actualitzar totes les incidencias (POST)
+router.post('/updateAll', async (req, res) => {
+    try {
+        const updates = Object.keys(req.body).reduce((acc, key) => {
+            const [field, id] = key.split('_');
+            if (!acc[id]) acc[id] = {};
+            acc[id][field] = req.body[key];
+            return acc;
+        }, {});
+
+        for (const id in updates) {
+            const incidencia = await Incidencia.findByPk(id);
+            if (incidencia) {
+                incidencia.prioritat = updates[id].prioridad || incidencia.prioritat;
+                incidencia.idt = updates[id].tecnico || incidencia.idt;
+                await incidencia.save();
+            }
+        }
+
+        res.redirect('/moderador');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al actualizar las incidencias');
     }
 });
 

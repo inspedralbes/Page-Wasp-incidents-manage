@@ -7,14 +7,13 @@
             <th>Prioridad</th>
             <th>Departamento</th>
             <th>Fecha de Incidencia</th>
-            <th>cat</th>
         </tr>
         <% incidencias.forEach(inc => { %>
             <tr>
                 <td><%= inc.id %></td>
                 <td><%= inc.descripcio %></td>
                 <td><%= inc.prioritat %></td>
-                <td><%= inc.departament %></td>
+                <td><%= inc.Departamento ?  inc.Departamento.nombre : 'Sin departamento' %></td>
                 <td><%= inc.dataincidencia %></td> 
             </tr>
         <% }); %>

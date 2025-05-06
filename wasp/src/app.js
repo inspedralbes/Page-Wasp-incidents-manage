@@ -9,14 +9,17 @@ const Incidencias = require('./models/Incidencias');
 const Departamentos = require('./models/Departamentos');
 const Tecnicos = require('./models/Tecnicos');
 
-Departamentos.hasMany(Incidencias, { foreignKey: 'departament', onDelete: 'CASCADE' });
-Incidencias.belongsTo(Departamentos, { foreignKey: 'departament' });
+Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'CASCADE' });
+Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
 
 Tecnicos.hasMany(Actuaciones, { foreignKey: 'idt', onDelete: 'CASCADE' });
 Actuaciones.belongsTo(Tecnicos, { foreignKey: 'idt' });
 
 Incidencias.hasMany(Actuaciones, { foreignKey: 'idi', onDelete: 'CASCADE' });
 Actuaciones.belongsTo(Incidencias, { foreignKey: 'idi' });
+
+Tecnicos.hasMany(Incidencias, { foreignKey: 'idt', onDelete: 'SET NULL' });
+Incidencias.belongsTo(Tecnicos, { foreignKey: 'idt' });
 
 const app = express();
 app.use(express.urlencoded({ extended: true })); // per formularis
@@ -62,22 +65,19 @@ const port = process.env.PORT || 3000;
     await Incidencias.create({
       descripcio: 'Ordenador roto',
       prioritat: 'Alta',
-      departament: 'Administracio',
-      dataincidencia: '12-02-2025'
+      idd: administracio.id,
     });
 
     await Incidencias.create({
       descripcio: 'Proyector no funciona',
       prioritat: 'Mitjana',
-      departament: fisica.nombre,
-      dataincidencia: '15-03-2025'
+      idd: fisica.id,
     });
 
     await Incidencias.create({
       descripcio: 'Falta material de oficina',
       prioritat: 'Baixa',
-      departament: administracio.nombre,
-      dataincidencia: '20-04-2025'
+      idd: administracio.id,
     });
 
     // Engeguem servidor

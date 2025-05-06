@@ -20,7 +20,7 @@
             <%= incidencia.prioritat %>
         </td>
         <td>
-            <%= incidencia.departament %>
+            <%= incidencia.Departamento ?  incidencia.Departamento.nombre : 'Sin departamento' %>
         </td>
         <td>
             <%= incidencia.dataincidencia %>
