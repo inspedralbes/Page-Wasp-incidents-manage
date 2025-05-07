@@ -3,6 +3,29 @@
 <h1>Pàgina del Usuari</h1>
 <p>Aquesta és la pàgina dedicada als tècnics.</p>
 
+<!-- Botón para crear una nueva incidencia -->
 <a href="incidencias/new" class="btn btn-warning">Afegir Incidencia</a>
+
+<!-- Cuadro con input y botón debajo -->
+<div class="card mt-4" style="max-width: 300px;">
+  <div class="card-body">
+    <h5 class="card-title">Buscar Incidència</h5>
+    <div class="mb-3">
+      <input type="number" id="pageInput" placeholder="Número de pàgina" class="form-control">
+    </div>
+    <button onclick="goToPage()" class="btn btn-warning w-100">Buscar</button>
+  </div>
+</div>
+
+<script>
+  function goToPage() {
+    const page = document.getElementById('pageInput').value;
+    if (page && page > 0) {
+      window.location.href = `/incidencias/list/${page}`;
+    } else {
+      alert("Si us plau, introdueix un número de pàgina vàlid.");
+    }
+  }
+</script>
 
 <%- include('partials/footer') %>
