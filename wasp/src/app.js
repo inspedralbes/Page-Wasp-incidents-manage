@@ -45,7 +45,7 @@ app.get('/tecnic', (req, res) => {
 });
 
 app.get('/moderador', async (req, res) => {
-  const incidencias = await Incidencias.findAll({ include: Departamentos });
+  const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
   res.render('moderador', { data: incidencias });
 });
 
