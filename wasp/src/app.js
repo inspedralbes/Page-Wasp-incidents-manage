@@ -35,6 +35,9 @@ app.use('/departamentos', departamentRoutesEJS)
 // // Configuracio Estatica per les Imatges
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 // Rutes Perfils
 app.get('/', (req, res) => {
   res.render('usuari');
@@ -44,8 +47,9 @@ app.get('/tecnic', (req, res) => {
   res.render('tecnic');
 });
 
-app.get('/moderador', (req, res) => {
-  res.render('moderador');
+app.get('/moderador', async (req, res) => {
+  const incidencias = await Incidencias.findAll({ include: Departamentos });
+  res.render('moderador', { data: incidencias });
 });
 
 
@@ -90,6 +94,3 @@ const port = process.env.PORT || 3000;
   }
 
 })();
-
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));

@@ -1,4 +1,4 @@
-<%- include('../partials/header', { title: 'Asignar Incidencia' }) %>
+<%- include('../../partials/header', { title: 'Asignar Incidencia' }) %>
 <h1>Asignar Incidencia</h1>
 
 <form action="/incidencias/updateAll" method="POST">
@@ -12,7 +12,8 @@
           <th>Técnico</th>
       </tr>
       <% incidencias.forEach(inc => { %>
-          <tr>
+          <% if (!inc.Tecnico) { %> <!-- Solo mostrar incidencias sin técnico asignado -->
+            <tr>
               <td><%= inc.id %></td>
               <td><%= inc.descripcio %></td>
               <td>
@@ -23,7 +24,7 @@
                   <option value="Baja" <%= inc.prioritat === 'Baja' ? 'selected' : '' %>>Baja</option>
                 </select>
               </td>
-              <td><%= inc.Departamento.nombre %></td>
+              <td><%= inc.Departamento ? inc.Departamento.nombre : 'Sin departamento' %></td>
               <td><%= inc.dataincidencia %></td> 
               <td>
                 <select name="tecnico_<%= inc.id %>" class="form-select">
@@ -34,9 +35,10 @@
                 </select>
               </td>
           </tr>
+        <% } %>
       <% }); %>
   </table>
   <button type="submit" class="btn btn-primary">Actualizar Todos</button>
 </form>
 
-<%- include('../partials/footer') %>
+<%- include('../../partials/footer') %>

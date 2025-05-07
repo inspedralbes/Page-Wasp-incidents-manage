@@ -9,7 +9,7 @@ const Tecnico = require('../models/Tecnicos');
 router.get('/list', async (req, res) => {
     try {
         const incidencias = await Incidencia.findAll({ include: Departamento });
-        res.render('incidencias/listall', { incidencias });
+        res.render('incidencias', { incidencias });
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidencias');
@@ -18,9 +18,9 @@ router.get('/list', async (req, res) => {
 
 router.get('/asignar', async (req, res) => {
     try {
-        const incidencias = await Incidencia.findAll({ include: Departamento });
+        const incidencias = await Incidencia.findAll({ include: Departamento, Tecnico});
         const tecnicos = await Tecnico.findAll(); // Obtener todos los técnicos
-        res.render('incidencias/asignar', { incidencias, tecnicos });
+        res.render('incidencias/moderador/asignar', { incidencias, tecnicos });
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidencias o técnicos');
@@ -40,7 +40,7 @@ router.post('asignar/:id/update', async (req, res) => {
         incidencia.dataincidencia = dataincidencia;
         await incidencia.save();
 
-        res.redirect('incidencias/asignar');
+        res.redirect('incidencias/moderador/asignar');
     } catch (error) {
         res.status(500).send('Error al actualitzar la incidencia');
     }
@@ -57,7 +57,7 @@ router.get('/list/:id', async (req, res) => {
             return res.status(404).send('Incidència no trobada');
         }
 
-        res.render('incidencias/listone', { incidencia });
+        res.render('incidencias/usuari/listone', { incidencia });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al recuperar la incidència');
@@ -68,7 +68,7 @@ router.get('/list/:id', async (req, res) => {
 router.get('/new', async (req, res) => {
     try {
         const departamentos = await Departamento.findAll(); 
-        res.render('incidencias/crear', { departamentos });
+        res.render('incidencias/usuari/crear', { departamentos });
     }
     catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
@@ -79,8 +79,8 @@ router.get('/new', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         const { descripcio, prioritat, departament, dataincidencia } = req.body;
-        await Incidencia.create({ descripcio, prioritat, departament, dataincidencia });
-        res.redirect('/incidencias/list'); // Torna al llistat 
+        inc = await Incidencia.create({ descripcio, prioritat, departament, dataincidencia });
+        res.render('incidencias/usuari/ticket'); 
     } catch (error) { 
         console.error(error);
         res.status(500).send('Error al crear la incidencia'+ error.message); 
