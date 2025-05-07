@@ -1,4 +1,5 @@
-<%- include('../partials/header', { title: 'Asignar Incidencia' }) %>
+<%- include('../partials/header', { title: 'Editar Incidencia' }) %>
+
   <h1>Asignar Incidencia</h1>
   <form action="/incidencias/<%= incidencia.id %>/update" method="POST">
     <div class="mb-3">
@@ -43,4 +44,5 @@
   
     <button type="submit" class="btn btn-primary">Actualitzar</button>
   </form>
+
 <%- include('../partials/footer') %>

@@ -8,8 +8,8 @@ const Tecnico = require('../models/Tecnicos');
 // Llistar incidencias (GET) 
 router.get('/list', async (req, res) => {
     try {
-        const incidencias = await Incidencia.findAll({ include: Departamento });
-        res.render('incidencias', { incidencias });
+        const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico] });
+        res.render('incidencias/listall', { incidencias });
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidencias');
@@ -18,33 +18,46 @@ router.get('/list', async (req, res) => {
 
 router.get('/asignar', async (req, res) => {
     try {
-        const incidencias = await Incidencia.findAll({ include: Departamento, Tecnico});
-        const tecnicos = await Tecnico.findAll(); // Obtener todos los técnicos
-        res.render('incidencias/moderador/asignar', { incidencias, tecnicos });
+        const incidencias_w = await Incidencia.findAll({ include: [Departamento, Tecnico] });
+        const incidencias = incidencias_w.filter(inc => !inc.idt || !inc.prioritat); 
+        const tecnicos = await Tecnico.findAll();
+
+        res.render('incidencias/asignar', { incidencias, tecnicos });
     }
     catch (error) {
-        res.status(500).send('Error al recuperar incidencias o técnicos');
+        res.status(500).send('Error al recuperar incidencias o técnicos' + error.message);
     }
 });
 
-router.post('asignar/:id/update', async (req, res) => {
+
+router.post('/asignar/:id/update', async (req, res) => {
     try {
-        const { id, nombret, descripcio, prioritat, departament, dataincidencia} = req.body;
-        const incidencia = await Incidencia.findByPk(req.params.id);
-        if (!incidencia) return res.status(404).send('Incidencia no trobada');
-        incidencia.id = id;
-        incidencia.nombret = nombret;
+        const { descripcio, prioritat, dataincidencia, idd, idt } = req.body;
+
+        // Buscar la incidencia por ID
+        const incidencia = await Incidencias.findByPk(req.params.id);
+
+        if (!incidencia) {
+            return res.status(404).send('Incidencia no trobada'); 
+        }
+
+        // Actualizar los campos de la incidencia
         incidencia.descripcio = descripcio;
-        incidencia.prioridat = prioritat;
-        incidencia.departament = departament;
+        incidencia.prioritat = prioritat;
         incidencia.dataincidencia = dataincidencia;
+        incidencia.idd = idd; // Actualizar ID del departamento
+        incidencia.idt = idt; // Actualizar ID del técnico
+
         await incidencia.save();
 
-        res.redirect('incidencias/moderador/asignar');
+        res.redirect('/incidencias/asignar');
     } catch (error) {
-        res.status(500).send('Error al actualitzar la incidencia');
+        console.error('Error al actualizar la incidencia:', error); 
+        res.status(500).send('Error al actualizar la incidencia'); 
     }
 });
+
+
 
 // Llistar una incidencia específica (GET)
 router.get('/list/:id', async (req, res) => {
@@ -68,7 +81,7 @@ router.get('/list/:id', async (req, res) => {
 router.get('/new', async (req, res) => {
     try {
         const departamentos = await Departamento.findAll(); 
-        res.render('incidencias/usuari/crear', { departamentos });
+        res.render('incidencias/crear', { departamentos });
     }
     catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
@@ -79,13 +92,20 @@ router.get('/new', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         const { descripcio, prioritat, departament, dataincidencia } = req.body;
-        inc = await Incidencia.create({ descripcio, prioritat, departament, dataincidencia });
-        res.render('incidencias/usuari/ticket'); 
+        console.log('Departamento recibido:', departament); // Verifica que recibes el valor correcto
+        inc = await Incidencia.create({
+            descripcio,
+            prioritat,
+            departament,  // Esto debe coincidir con el campo que necesitas
+            dataincidencia
+        });
+        res.render('incidencias/ticket'); 
     } catch (error) { 
         console.error(error);
         res.status(500).send('Error al crear la incidencia'+ error.message); 
     }
 });
+
 
 // Form per editar una incidencia (GET)
 router.get('/list/:id/editar', async (req, res) => {

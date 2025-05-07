@@ -35,9 +35,6 @@ app.use('/departamentos', departamentRoutesEJS)
 // // Configuracio Estatica per les Imatges
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
 // Rutes Perfils
 app.get('/', (req, res) => {
   res.render('usuari');
@@ -70,6 +67,7 @@ const port = process.env.PORT || 3000;
       descripcio: 'Ordenador roto',
       prioritat: 'Alta',
       idd: administracio.id,
+      idt: juan.id,
     });
 
     await Incidencias.create({
@@ -94,3 +92,6 @@ const port = process.env.PORT || 3000;
   }
 
 })();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));

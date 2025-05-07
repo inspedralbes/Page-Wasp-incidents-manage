@@ -23,6 +23,9 @@
             <td>
                 <%= inc.dataincidencia %>
             </td>
+            <td>
+                <%= inc.Tecnico ? inc.Tecnico.nombre : 'Sin Tecnico' %>
+            </td>
         </tr>
         <% }); %>
 </table>
