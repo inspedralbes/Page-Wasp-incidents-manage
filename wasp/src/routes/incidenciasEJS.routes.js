@@ -9,7 +9,7 @@ const Tecnico = require('../models/Tecnicos');
 router.get('/list', async (req, res) => {
     try {
         const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico] });
-        res.render('incidencias/listall', { incidencias });
+        res.render('incidencias/list_all', { incidencias });
     }
     catch (error) {
         res.status(500).send('Error al recuperar incidencias');
@@ -58,19 +58,16 @@ router.post('/asignar/:id/update', async (req, res) => {
 });
 
 
-
 // Llistar una incidencia específica (GET)
 router.get('/list/:id', async (req, res) => {
     try {
-        const incidencia = await Incidencia.findByPk(req.params.id, {
-            include: Departamento, // Incluye el departamento relacionado si es necesario
-        });
+        const incidencia = await Incidencia.findByPk(req.params.id, { include: Departamento });
 
         if (!incidencia) {
             return res.status(404).send('Incidència no trobada');
         }
 
-        res.render('incidencias/usuari/listone', { incidencia });
+        res.render('incidencias/list_one', { incidencia });
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al recuperar la incidència');
@@ -106,6 +103,21 @@ router.post('/create', async (req, res) => {
     }
 });
 
+// Incidencias del tecnic
+router.get('/list/tecnic/:id', async (req, res) => {
+    const idt = req.params.id;
+  
+    try {
+        const incidencias = await Incidencia.findAll({ where:{idt: idt}, include: [Departamento, Tecnico] });
+
+        const tecnico = await Tecnico.findByPk(idt);
+        const tecnicoNombre = tecnico ? tecnico.nombre : 'Sense tècnic';
+        
+        res.render('incidencias/list_tecnic', { incidencias, tecnicoNombre});
+    } catch (error) {
+      res.status(500).send('Error al carregar el formulari d’edició: ' + error.message);
+    }
+});
 
 // Form per editar una incidencia (GET)
 router.get('/list/:id/editar', async (req, res) => {

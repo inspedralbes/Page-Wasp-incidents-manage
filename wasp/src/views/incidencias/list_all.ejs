@@ -7,25 +7,25 @@
         <th>Fecha de Incidencia</th>
         <th>Tecnico</th>
     </tr>
-    <% data.forEach(inc=> { %>
+    <% incidencias.forEach(incidencia=> { %>
         <tr>
             <td>
-                <%= inc.id %>
+                <%= incidencia.id %>
             </td>
             <td>
-                <%= inc.descripcio %>
+                <%= incidencia.descripcio %>
             </td>
             <td>
-                <%= inc.prioritat %>
+                <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat'%>
             </td>
             <td>
-                <%= inc.Departamento ? inc.Departamento.nombre : 'Sin departamento' %>
+                <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %>
             </td>
             <td>
-                <%= inc.dataincidencia %>
+                <%= incidencia.dataincidencia %>
             </td>
             <td>
-                <%= inc.Tecnico ? inc.Tecnico.nombre : 'Sin Tecnico' %>
+                <%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sin Tecnico' %>
             </td>
         </tr>
         <% }); %>

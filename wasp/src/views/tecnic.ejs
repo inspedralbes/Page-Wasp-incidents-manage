@@ -3,5 +3,14 @@
 <h1>Pàgina del Tècnic</h1>
 <p>Aquesta és la pàgina dedicada als tècnics.</p>
 
+<div class="card-body">
+    <h5 class="card-title">Buscar Técnic</h5>
+    <form method="GET" action="/incidencias/tecnic">
+      <div class="mb-3">
+        <input type="number" name="page" placeholder="Número de pàgina" class="form-control" min="1" required>
+      </div>
+      <button type="submit" class="btn btn-warning w-100">Buscar</button>
+    </form>    
+  </div>
 
 <%- include('partials/footer') %>

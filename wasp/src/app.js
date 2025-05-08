@@ -35,7 +35,8 @@ app.use('/departamentos', departamentRoutesEJS)
 // // Configuracio Estatica per les Imatges
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Rutes Perfils
+
+// Perfiles
 app.get('/', (req, res) => {
   res.render('usuari');
 });
@@ -46,9 +47,19 @@ app.get('/tecnic', (req, res) => {
 
 app.get('/moderador', async (req, res) => {
   const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
-  res.render('moderador', { data: incidencias });
+  res.render('moderador', { incidencias });
 });
 
+// Redirecciones
+app.get('/incidencias/incidencia', (req, res) => {
+  const page = parseInt(req.query.page);
+  res.redirect(`/incidencias/list/${page}`);
+});
+
+app.get('/incidencias/tecnic', (req, res) => {
+  const page = parseInt(req.query.page);
+  res.redirect(`/incidencias/list/tecnic/${page}`);
+});
 
 const port = process.env.PORT || 3000;
 
@@ -66,6 +77,7 @@ const port = process.env.PORT || 3000;
     await Incidencias.create({
       descripcio: 'Ordenador roto',
       prioritat: 'Alta',
+      dataincidencia: '2025-04-02',
       idd: administracio.id,
       idt: juan.id,
     });
@@ -73,12 +85,14 @@ const port = process.env.PORT || 3000;
     await Incidencias.create({
       descripcio: 'Proyector no funciona',
       prioritat: 'Mitjana',
+      dataincidencia: '2025-04-05',
       idd: fisica.id,
     });
 
     await Incidencias.create({
       descripcio: 'Falta material de oficina',
       prioritat: 'Baixa',
+      dataincidencia: '2025-12-3',
       idd: administracio.id,
     });
 

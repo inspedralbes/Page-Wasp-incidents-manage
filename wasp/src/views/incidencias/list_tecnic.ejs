@@ -1,0 +1,38 @@
+<%- include('../partials/header', { title: 'Mostrar Incidencias Tecnic' }) %>
+
+<h1 class="title">Bienvenido <%= tecnicoNombre %></h1>
+
+<% if (incidencias.length === 0) { %>
+    <h3 class="">No hay Incidencias asignadas para este tecnico</h3>
+<% } else { %>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Prioridad</th>
+            <th>Departamento</th>
+            <th>Fecha de Incidencia</th>
+        </tr>
+            <% incidencias.forEach(incidencia=> { %>
+                <tr>
+                    <td>
+                        <%= incidencia.id %>
+                    </td>
+                    <td>
+                        <%= incidencia.descripcio %>
+                    </td>
+                    <td>
+                        <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat'%>
+                    </td>
+                    <td>
+                        <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %>
+                    </td>
+                    <td>
+                        <%= incidencia.dataincidencia %>
+                    </td>
+                </tr>
+            <% }); %>
+    </table>
+<% } %>
+
+<%- include('../partials/footer') %>
