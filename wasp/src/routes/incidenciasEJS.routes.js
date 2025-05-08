@@ -90,7 +90,6 @@ router.get('/new', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         const { descripcio, prioritat, departament, dataincidencia } = req.body;
-        console.log('Departamento recibido:', departament); // Verifica que recibes el valor correcto
         inc = await Incidencia.create({
             descripcio,
             prioritat,

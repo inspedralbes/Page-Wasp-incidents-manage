@@ -1,0 +1,25 @@
+<%- include('../partials/header', { title: 'Crear Incidencia' }) %>
+
+    <h1>Crear Nueva Incidencia</h1>
+    <form action="/actuaciones/create" method="post">
+        <div class="mb-3">
+            <label for="descripcio" class="form-label">Descripción</label>
+            <input type="text" name="descripcio" class="form-control" placeholder="Ejemplo: La impresora no funciona"
+                required />
+        </div>
+
+        <div class="mb-3">
+            <label for="hores" class="form-label">Duración (en minutos)</label>
+            <input type="number" name="hores" class="form-control" placeholder="Ejemplo: 120" required />
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="resolt" value="true" class="form-check-input" />
+
+            <label for="resolt" class="form-check-label">¿Incidencia resuelta?</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear Incidencia</button>
+    </form>
+
+    <%- include('../partials/footer') %>
