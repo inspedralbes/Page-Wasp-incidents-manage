@@ -6,27 +6,19 @@
         <th>Departamento</th>
         <th>Fecha de Incidencia</th>
         <th>Tecnico</th>
+        <th>Accions</th>
     </tr>
-    <% incidencias.forEach(incidencia=> { %>
+    <% incidencias.forEach(incidencia => { %>
         <tr>
+            <td><%= incidencia.id %></td>
+            <td><%= incidencia.descripcio %></td>
+            <td><%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat' %></td>
+            <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %></td>
+            <td><%= incidencia.dataincidencia %></td>
+            <td><%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sin Tecnico' %></td>
             <td>
-                <%= incidencia.id %>
-            </td>
-            <td>
-                <%= incidencia.descripcio %>
-            </td>
-            <td>
-                <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat'%>
-            </td>
-            <td>
-                <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %>
-            </td>
-            <td>
-                <%= incidencia.dataincidencia %>
-            </td>
-            <td>
-                <%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sin Tecnico' %>
+                <a href="/incidencias/list/<%= incidencia.id %>/editar" class="btn btn-sm btn-secondary">Editar</a>
             </td>
         </tr>
-        <% }); %>
+    <% }); %>
 </table>
