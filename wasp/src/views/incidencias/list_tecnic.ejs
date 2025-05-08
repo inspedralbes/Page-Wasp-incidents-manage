@@ -1,38 +1,58 @@
 <%- include('../partials/header', { title: 'Mostrar Incidencias Tecnic' }) %>
 
-<h1 class="title">Bienvenido <%= tecnicoNombre %></h1>
+    <h1 class="title">Bienvenido <%= tecnicoNombre %>
+    </h1>
 
-<% if (incidencias.length === 0) { %>
-    <h3 class="">No hay Incidencias asignadas para este tecnico</h3>
-<% } else { %>
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Prioridad</th>
-            <th>Departamento</th>
-            <th>Fecha de Incidencia</th>
-        </tr>
-            <% incidencias.forEach(incidencia=> { %>
-                <tr>
-                    <td>
-                        <%= incidencia.id %>
-                    </td>
-                    <td>
-                        <%= incidencia.descripcio %>
-                    </td>
-                    <td>
-                        <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat'%>
-                    </td>
-                    <td>
-                        <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %>
-                    </td>
-                    <td>
-                        <%= incidencia.dataincidencia %>
-                    </td>
-                </tr>
-            <% }); %>
-    </table>
-<% } %>
+    <% if (incidencias.length===0) { %>
+        <div class="alert alert-info">No hay Incidencias asignadas para este técnico</div>
+        <% } else { %>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <% incidencias.forEach(incidencia=> { %>
+                    <div class="col">
+                        <div class="card shadow-sm border-0 mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="bi bi-exclamation-circle-fill text-warning me-2"></i>
+                                    Incidència <%= incidencia.id %>
+                                </h5>
 
-<%- include('../partials/footer') %>
+                                <p class="card-text mb-2">
+                                    <strong><i class="bi bi-file-text me-1"></i> Descripció:</strong>
+                                    <%= incidencia.descripcio %>
+                                </p>
+
+                                <p class="card-text mb-2">
+                                    <strong><i class="bi bi-flag me-1"></i> Prioritat:</strong>
+                                    <% if (incidencia.prioritat==='Alta' ) { %>
+                                        <span class="badge bg-danger">Alta</span>
+                                        <% } else if (incidencia.prioritat==='Mitjana' ) { %>
+                                            <span class="badge bg-warning text-dark">Mitjana</span>
+                                            <% } else if (incidencia.prioritat==='Baixa' ) { %>
+                                                <span class="badge bg-success">Baixa</span>
+                                                <% } else { %>
+                                                    <span class="badge bg-secondary">Sense prioritat</span>
+                                                    <% } %>
+                                </p>
+
+                                <p class="card-text mb-2">
+                                    <strong><i class="bi bi-building me-1"></i> Departament:</strong>
+                                    <%= incidencia.Departamento?.nombre || 'Sense departament' %>
+                                </p>
+
+                                <p class="card-text mb-3 text-muted">
+                                    <i class="bi bi-calendar-event me-1"></i>
+                                    <%= incidencia.dataincidencia %>
+                                </p>
+
+                                <a href="/actuaciones/list/<%= incidencia.id %>" class="btn btn-outline-primary w-100">
+                                    <i class="bi bi-list-ul me-1"></i> Ver actuacions
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% }) %>
+            </div>
+            <% } %>
+
+                <%- include('../partials/footer') %>

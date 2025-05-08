@@ -27,10 +27,12 @@ app.use(express.json());
 
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
-const departamentRoutesEJS = require('./routes/departamentsEJS.routes');
+const departamentoRoutesEJS = require('./routes/departamentosEJS.routes');
+const actuacionRoutesEJS = require('./routes/actuacionesEJS.routes');
 
 app.use('/incidencias', incidenciaRoutesEJS);
-app.use('/departamentos', departamentRoutesEJS)
+app.use('/departamentos', departamentoRoutesEJS);
+app.use('/actuaciones', actuacionRoutesEJS);
 
 // // Configuracio Estatica per les Imatges
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
@@ -100,6 +102,14 @@ const port = process.env.PORT || 3000;
       prioritat: 'Baixa',
       dataincidencia: '2025-12-3',
       idd: administracio.id,
+    });
+
+    await Actuaciones.create({
+      descripcio: 'He reiniciado el ordenador pero no ha funcionado, mañana probaré otra vez',
+      hores: '0.3',
+      resolt: false,
+      idt: juan.id,
+      idi: 1,
     });
 
     // Engeguem servidor

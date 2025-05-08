@@ -4,6 +4,7 @@ const router = express.Router();
 const Incidencia = require('../models/Incidencias');
 const Departamento = require('../models/Departamentos');
 const Tecnico = require('../models/Tecnicos');
+const Actuacion = require('../models/Actuaciones');
 
 // Llistar incidencias (GET) 
 router.get('/list', async (req, res) => {
@@ -112,7 +113,7 @@ router.get('/list/tecnic/:id', async (req, res) => {
 
         const tecnico = await Tecnico.findByPk(idt);
         const tecnicoNombre = tecnico ? tecnico.nombre : 'Sense tècnic';
-        
+
         res.render('incidencias/list_tecnic', { incidencias, tecnicoNombre});
     } catch (error) {
       res.status(500).send('Error al carregar el formulari d’edició: ' + error.message);

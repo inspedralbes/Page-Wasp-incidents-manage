@@ -7,7 +7,7 @@ const Actuaciones = sequelize.define('Actuaciones', {
         allowNull: true,
     },
     hores: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(5, 1),
         allowNull: false,
     },
     resolt: {

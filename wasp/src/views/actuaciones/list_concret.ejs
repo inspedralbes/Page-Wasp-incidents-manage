@@ -1,0 +1,26 @@
+<%- include('../partials/header', { title: 'Actuacions de la incidència' }) %>
+
+<h2 class="mb-4">Actuacions per a la incidència #<%=  %></h2>
+
+<% if (actuaciones.length === 0) { %>
+    <div class="alert alert-warning">Encara no hi ha actuacions per aquesta incidència.</div>
+<% } else { %>
+    <div class="list-group mb-5">
+        <% actuaciones.forEach(actuacion => { %>
+            <div class="list-group-item list-group-item-action flex-column align-items-start mb-3">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"><%= actuacion.Tecnico?.nombre || 'Tècnic desconegut' %></h5>
+                    <small><%= actuacion.hores %> hores</small>
+                </div>
+                <p class="mb-1"><%= actuacion.descripcio %></p>
+                <small><strong>Estat:</strong> <%= actuacion.resolt ? 'Resolt' : 'No resolt' %></small>
+            </div>
+        <% }); %>
+    
+        <a href="/actuaciones/create/<%= 2 %>" class="btn btn-success">
+            <i class="bi bi-plus-circle me-1"></i> Afegir actuació
+        </a>
+    </div>
+<% } %>
+
+<%- include('../partials/footer') %>
