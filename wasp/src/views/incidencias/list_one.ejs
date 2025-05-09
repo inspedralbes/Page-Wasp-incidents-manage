@@ -7,6 +7,7 @@
         <th>Prioridad</th>
         <th>Departamento</th>
         <th>Fecha de Incidencia</th>
+        <th>Acciones</th>
     </tr>
     <tr>
         <td>
@@ -23,6 +24,10 @@
         </td>
         <td>
             <%= incidencia.dataincidencia %>
+        </td>
+        <td>
+            <!-- Botón para ver actuaciones -->
+            <a href="/actuaciones/list/<%= incidencia.id %>" class="btn btn-info btn-sm">Ver Actuaciones</a>
         </td>
     </tr>
 </table>
