@@ -1,6 +1,6 @@
 <%- include('../partials/header', { title: 'Editar Incidencia' }) %>
 
-  <h1>Asignar Incidencia</h1>
+  <h1>Editar Incidencia</h1>
   <form action="/incidencias/<%= incidencia.id %>/update" method="POST">
     <div class="mb-3">
       <label for="name" class="form-label">Descripción</label>
@@ -23,13 +23,13 @@
     </div>
     <div class="mb-3">
       <label for="departament" class="form-label">Departament</label>
-      <input
-        type="text"
-        name="departament"
-        value="<%= incidencia.departament %>"
-        class="form-control"
-        required
-      />
+      <select name="departament" class="form-select">
+        <% departamentos.forEach(departament => { %>
+          <option value="<%= departament.id %>" <%= incidencia.idd === departament.id ? 'selected' : '' %>>
+            <%= departament.nombre %>
+          </option>
+        <% }) %>
+      </select>
     </div>
     <div class="mb-3">
       <label for="dataincidencia" class="form-label">Data Incidencia</label>
