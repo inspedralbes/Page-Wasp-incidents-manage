@@ -48,8 +48,18 @@ app.get('/tecnic', (req, res) => {
 });
 
 app.get('/moderador', async (req, res) => {
-  const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
-  res.render('moderador', { incidencias });
+  try {
+    const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
+
+    // Dividir las incidencias en dos listas
+    const incidenciasSinTecnico = incidencias.filter(incidencia => !incidencia.idt); // Sin técnico asignado
+    const incidenciasConTecnico = incidencias.filter(incidencia => incidencia.idt); // Con técnico asignado
+
+    res.render('moderador', { incidenciasSinTecnico, incidenciasConTecnico });
+  } catch (error) {
+    console.error('Error al obtener las incidencias:', error);
+    res.status(500).send('Error al obtener las incidencias');
+  }
 });
 
 // Redirecciones
