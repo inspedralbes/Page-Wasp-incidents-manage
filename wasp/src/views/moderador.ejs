@@ -13,6 +13,7 @@
       <th>Prioritat</th>
       <th>Departament</th>
       <th>Data Incidència</th>
+      <th>Accions</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +24,9 @@
         <td><%= incidencia.prioritat %></td>
         <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
         <td><%= incidencia.dataincidencia %></td>
+        <td>
+          <a href="/incidencias/list/<%= incidencia.id %>/editar" class="btn btn-secondary btn-sm">Editar</a>
+        </td>
       </tr>
     <% }) %>
   </tbody>
@@ -42,6 +46,7 @@
       <th>Departament</th>
       <th>Tècnic</th>
       <th>Data Incidència</th>
+      <th>Accions</th>
     </tr>
   </thead>
   <tbody>
@@ -53,6 +58,9 @@
         <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
         <td><%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sense tècnic' %></td>
         <td><%= incidencia.dataincidencia %></td>
+        <td>
+          <a href="/incidencias/list/<%= incidencia.id %>/editar" class="btn btn-secondary btn-sm">Editar</a>
+        </td>
       </tr>
     <% }) %>
   </tbody>

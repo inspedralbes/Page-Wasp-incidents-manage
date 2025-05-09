@@ -80,16 +80,16 @@ const port = process.env.PORT || 3000;
     await sequelize.sync({ force: true });
     console.log('Base de dades sincronitzada (API JSON)');
 
-    const fisica = await Departamentos.create({ nombre: 'Fisica', ubicacio: 'Planta baja' });
-    const administracio = await Departamentos.create({ nombre: 'Administracio', ubicacio: 'Planta mitjana' });
-    const informatica = await Departamentos.create({ nombre: 'Informatica', ubicacio: 'Planta alta' });
-    const quimica = await Departamentos.create({ nombre: 'Quimica', ubicacio: 'Laboratori 1' });
-    const matematiques = await Departamentos.create({ nombre: 'Matematiques', ubicacio: 'Aula 3' });
+    const fisica = await Departamentos.create({ nombre: 'Física', ubicacio: 'Planta baixa' });
+    const administracio = await Departamentos.create({ nombre: 'Administració', ubicacio: 'Planta mitjana' });
+    const informatica = await Departamentos.create({ nombre: 'Informàtica', ubicacio: 'Planta alta' });
+    const quimica = await Departamentos.create({ nombre: 'Química', ubicacio: 'Laboratori 1' });
+    const matematiques = await Departamentos.create({ nombre: 'Matemàtiques', ubicacio: 'Aula 3' });
 
     const juan = await Tecnicos.create({ nombre: 'Juan' });
     const marcos = await Tecnicos.create({ nombre: 'Marcos' });
     const ana = await Tecnicos.create({ nombre: 'Ana' });
-    const lucia = await Tecnicos.create({ nombre: 'Lucia' });
+    const lucia = await Tecnicos.create({ nombre: 'Lucía' });
     const pedro = await Tecnicos.create({ nombre: 'Pedro' });
 
     await Incidencias.create({

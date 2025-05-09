@@ -3,11 +3,11 @@
 <table class="table">
     <tr>
         <th>ID</th>
-        <th>Descripción</th>
-        <th>Prioridad</th>
-        <th>Departamento</th>
-        <th>Fecha de Incidencia</th>
-        <th>Acciones</th>
+        <th>Descripció</th>
+        <th>Prioritat</th>
+        <th>Departament</th>
+        <th>Data de la Incidència</th>
+        <th>Accions</th>
     </tr>
     <tr>
         <td>
@@ -20,14 +20,14 @@
             <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat'%>
         </td>
         <td>
-            <%= incidencia.Departamento ?  incidencia.Departamento.nombre : 'Sin departamento' %>
+            <%= incidencia.Departamento ?  incidencia.Departamento.nombre : 'Sense departament' %>
         </td>
         <td>
             <%= incidencia.dataincidencia %>
         </td>
         <td>
             <!-- Botón para ver actuaciones -->
-            <a href="/actuaciones/list/<%= incidencia.id %>" class="btn btn-info btn-sm">Ver Actuaciones</a>
+            <a href="/actuaciones/list/<%= incidencia.id %>" class="btn btn-info btn-sm">Ver Actuacions</a>
         </td>
     </tr>
 </table>

@@ -12,7 +12,7 @@ const Actuaciones = sequelize.define('Actuaciones', {
     },
     resolt: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
     },
 });
 
