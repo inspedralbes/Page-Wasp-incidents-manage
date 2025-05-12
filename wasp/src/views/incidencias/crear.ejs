@@ -4,21 +4,15 @@
   <form action="/incidencias/create" method="post">
     <div class="mb-3">
       <label for="name" class="form-label">Descripció</label>
-      <input
-      type="text"
-      name="descripcio"
-      class="form-control"
-      placeholder="Ejemplo: La impresora no funciona"
-      required
-      />
+      <input type="text" name="descripcio" class="form-control" placeholder="Ejemplo: La impresora no funciona"required/>
     </div>
     <div class="mb-3">
-      <label for="departament" class="form-label">Departament</label>
-      <select name="departament" class="form-control" required>
+      <label for="idd" class="form-label">Departament</label>
+      <select name="idd" id="idd" class="form-control" required>
           <option value="" disabled selected>Selecciona un departament</option>
-        <% departamentos.forEach(dept => { %>
+          <% departamentos.forEach(dept => { %>
           <option value="<%= dept.id %>"><%= dept.nombre %></option>
-        <% }); %>
+          <% }); %>
       </select>
     </div>
 

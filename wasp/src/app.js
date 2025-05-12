@@ -37,7 +37,6 @@ app.use('/actuaciones', actuacionRoutesEJS);
 // // Configuracio Estatica per les Imatges
 // app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-
 // Perfiles
 app.get('/', (req, res) => {
   res.render('usuari');
@@ -50,14 +49,15 @@ app.get('/tecnic', (req, res) => {
 app.get('/moderador', async (req, res) => {
   try {
     const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
+    const tecnicos = await Tecnicos.findAll();
 
-    const incidenciasSinTecnico = incidencias.filter(incidencia => !incidencia.idt); // Sin técnico asignado
-    const incidenciasConTecnico = incidencias.filter(incidencia => incidencia.idt); // Con técnico asignado
-
-    res.render('moderador', { incidenciasSinTecnico, incidenciasConTecnico });
+    const incidenciasNoTecnic = incidencias.filter(incidencia => !incidencia.idt); // Sin técnico asignado
+    const incidenciasYesTecnic = incidencias.filter(incidencia => incidencia.idt); // Con técnico asignado
+    
+    res.render('moderador', {tecnicos, incidenciasNoTecnic, incidenciasYesTecnic});
   } catch (error) {
-    console.error('Error al obtener las incidencias:', error);
-    res.status(500).send('Error al obtener las incidencias');
+    console.error('Error al cargar la vista del moderador:'+ error);
+    res.status(500).send('Error al carregar la pàgina del moderador' + error);
   }
 });
 

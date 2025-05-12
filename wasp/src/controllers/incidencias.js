@@ -32,9 +32,10 @@ exports.formCrear = async (req, res) => {
 
 exports.crear = async (req, res) => {
     try {
-        const { descripcio, prioritat, departament, dataincidencia } = req.body;
-        await Incidencia.create({ descripcio, prioritat, departament, dataincidencia });
-        res.render('incidencias/ticket');
+        const { descripcio, prioritat, dataincidencia, idd } = req.body;
+        const incidencia = await Incidencia.create({ descripcio, prioritat, dataincidencia, idd });
+        
+        res.render('incidencias/ticket', {incidencia});
     } catch (error) {
         res.status(500).send('Error al crear la incidencia' + error.message);
     }
@@ -101,12 +102,12 @@ exports.actualizar = async (req, res) => {
 
         incidencia.id = id;
         incidencia.descripcio = descripcio;
-        incidencia.prioridat = prioritat;
+        incidencia.prioritat = prioritat;
         incidencia.departament = departament;
         incidencia.dataincidencia = dataincidencia;
         await incidencia.save();
 
-        res.redirect('/incidencias');
+        res.redirect('/moderador');
     } catch (error) {
         res.status(500).send('Error al actualitzar la incidencia');
     }

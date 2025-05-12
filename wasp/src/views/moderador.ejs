@@ -3,67 +3,8 @@
 <h1>Pàgina del Admin</h1>
 <p>Aquesta és la pàgina dedicada al moderador.</p>
 
-<!-- Incidencias sin técnico asignado -->
-<h2>Incidències sense tècnic assignat</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Descripció</th>
-      <th>Prioritat</th>
-      <th>Departament</th>
-      <th>Data Incidència</th>
-      <th>Accions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% incidenciasSinTecnico.forEach(incidencia => { %>
-      <tr>
-        <td><%= incidencia.id %></td>
-        <td><%= incidencia.descripcio %></td>
-        <td><%= incidencia.prioritat %></td>
-        <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
-        <td><%= incidencia.dataincidencia %></td>
-        <td>
-          <a href="/incidencias/list/<%= incidencia.id %>/editar" class="btn btn-secondary btn-sm">Editar</a>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
+<%- include('incidencias/asignar', { incidencias: incidenciasNoTecnic } ) %>
 
-<!-- Botón para asignar técnico -->
-<a href="/incidencias/asignar" class="btn btn-warning mt-3">Asignar Incidències</a>
-
-<!-- Incidencias con técnico asignado -->
-<h2 class="mt-5">Incidències amb tècnic assignat</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Descripció</th>
-      <th>Prioritat</th>
-      <th>Departament</th>
-      <th>Tècnic</th>
-      <th>Data Incidència</th>
-      <th>Accions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% incidenciasConTecnico.forEach(incidencia => { %>
-      <tr>
-        <td><%= incidencia.id %></td>
-        <td><%= incidencia.descripcio %></td>
-        <td><%= incidencia.prioritat %></td>
-        <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
-        <td><%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sense tècnic' %></td>
-        <td><%= incidencia.dataincidencia %></td>
-        <td>
-          <a href="/incidencias/list/<%= incidencia.id %>/editar" class="btn btn-secondary btn-sm">Editar</a>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
+<%- include('incidencias/list_all', { incidencias: incidenciasYesTecnic } ) %>
 
 <%- include('partials/footer') %>
