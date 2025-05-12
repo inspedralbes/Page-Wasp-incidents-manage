@@ -44,6 +44,7 @@
       <th>Descripció</th>
       <th>Prioritat</th>
       <th>Departament</th>
+      <th>Categoria</th>
       <th>Tècnic</th>
       <th>Data Incidència</th>
       <th>Accions</th>
@@ -55,6 +56,7 @@
         <td><%= incidencia.id %></td>
         <td><%= incidencia.descripcio %></td>
         <td><%= incidencia.prioritat %></td>
+        <td><%= incidencia.Categorium ? incidencia.Categorium.nombre : 'Sense categoria' %></td>
         <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
         <td><%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sense tècnic' %></td>
         <td><%= incidencia.dataincidencia %></td>

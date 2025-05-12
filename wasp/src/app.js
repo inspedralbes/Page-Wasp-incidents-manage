@@ -8,6 +8,7 @@ const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
 const Departamentos = require('./models/Departamentos');
 const Tecnicos = require('./models/Tecnicos');
+const Categoria = require('./models/Categoria');
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'CASCADE' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
@@ -20,6 +21,9 @@ Actuaciones.belongsTo(Incidencias, { foreignKey: 'idi' });
 
 Tecnicos.hasMany(Incidencias, { foreignKey: 'idt', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Tecnicos, { foreignKey: 'idt' });
+
+Categoria.hasMany(Incidencias, { foreignKey: 'idc', onDelete: 'SET NULL' });
+Incidencias.belongsTo(Categoria, { foreignKey: 'idc' });
 
 const app = express();
 app.use(express.urlencoded({ extended: true })); // per formularis
@@ -49,7 +53,7 @@ app.get('/tecnic', (req, res) => {
 
 app.get('/moderador', async (req, res) => {
   try {
-    const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
+    const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos, Categoria] });
 
     const incidenciasSinTecnico = incidencias.filter(incidencia => !incidencia.idt); // Sin técnico asignado
     const incidenciasConTecnico = incidencias.filter(incidencia => incidencia.idt); // Con técnico asignado
@@ -90,6 +94,10 @@ const port = process.env.PORT || 3000;
     const ana = await Tecnicos.create({ nombre: 'Ana' });
     const lucia = await Tecnicos.create({ nombre: 'Lucía' });
     const pedro = await Tecnicos.create({ nombre: 'Pedro' });
+
+    const informatic = await Categoria.create({ nombre: 'Informàtica' });
+    const logistica = await Categoria.create({ nombre: 'Logística' });
+    const manteniment = await Categoria.create({ nombre: 'Manteniment' });
 
     await Incidencias.create({
       descripcio: 'Ordenador roto',
