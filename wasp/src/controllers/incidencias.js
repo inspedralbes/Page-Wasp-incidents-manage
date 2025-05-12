@@ -1,0 +1,148 @@
+const Incidencia = require('../models/Incidencias');
+const Departamento = require('../models/Departamentos');
+const Tecnico = require('../models/Tecnicos');
+
+exports.listarTodas = async (req, res) => {
+    try {
+        const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico] });
+        res.render('incidencias/list_all', { incidencias });
+    } catch (error) {
+        res.status(500).send('Error al recuperar incidencias');
+    }
+};
+
+exports.listarUna = async (req, res) => {
+    try {
+        const incidencia = await Incidencia.findByPk(req.params.id, { include: Departamento });
+        if (!incidencia) return res.status(404).send('Incidència no trobada');
+        res.render('incidencias/list_one', { incidencia });
+    } catch (error) {
+        res.status(500).send('Error al recuperar la incidència');
+    }
+};
+
+exports.formCrear = async (req, res) => {
+    try {
+        const departamentos = await Departamento.findAll();
+        res.render('incidencias/crear', { departamentos });
+    } catch (error) {
+        res.status(500).send('Error al carregar el formulari' + error.message);
+    }
+};
+
+exports.crear = async (req, res) => {
+    try {
+        const { descripcio, prioritat, departament, dataincidencia } = req.body;
+        await Incidencia.create({ descripcio, prioritat, departament, dataincidencia });
+        res.render('incidencias/ticket');
+    } catch (error) {
+        res.status(500).send('Error al crear la incidencia' + error.message);
+    }
+};
+
+exports.formAsignar = async (req, res) => {
+    try {
+        const incidencias_w = await Incidencia.findAll({ include: [Departamento, Tecnico] });
+        const incidencias = incidencias_w.filter(inc => !inc.idt || !inc.prioritat);
+        const tecnicos = await Tecnico.findAll();
+        res.render('incidencias/asignar', { incidencias, tecnicos });
+    } catch (error) {
+        res.status(500).send('Error al recuperar incidencias o técnicos' + error.message);
+    }
+};
+
+exports.asignar = async (req, res) => {
+    try {
+        const { descripcio, prioritat, dataincidencia, idd, idt } = req.body;
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+
+        incidencia.descripcio = descripcio;
+        incidencia.prioritat = prioritat;
+        incidencia.dataincidencia = dataincidencia;
+        incidencia.idd = idd;
+        incidencia.idt = idt;
+        await incidencia.save();
+
+        res.redirect('/incidencias/asignar');
+    } catch (error) {
+        res.status(500).send('Error al actualizar la incidencia');
+    }
+};
+
+exports.listarPorTecnico = async (req, res) => {
+    try {
+        const idt = req.params.id;
+        const incidencias = await Incidencia.findAll({ where: { idt }, include: [Departamento, Tecnico] });
+        const tecnico = await Tecnico.findByPk(idt);
+        const tecnicoNombre = tecnico ? tecnico.nombre : 'Sense tècnic';
+        res.render('incidencias/list_tecnic', { incidencias, tecnicoNombre });
+    } catch (error) {
+        res.status(500).send('Error al carregar el formulari d’edició: ' + error.message);
+    }
+};
+
+exports.formEditar = async (req, res) => {
+    try {
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+        const departamentos = await Departamento.findAll();
+        res.render('incidencias/editar', { incidencia, departamentos });
+    } catch (error) {
+        res.status(500).send('Error al carregar el formulari d’edició' + error.message);
+    }
+};
+
+exports.actualizar = async (req, res) => {
+    try {
+        const { id, descripcio, prioritat, departament, dataincidencia } = req.body;
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+
+        incidencia.id = id;
+        incidencia.descripcio = descripcio;
+        incidencia.prioridat = prioritat;
+        incidencia.departament = departament;
+        incidencia.dataincidencia = dataincidencia;
+        await incidencia.save();
+
+        res.redirect('/incidencias');
+    } catch (error) {
+        res.status(500).send('Error al actualitzar la incidencia');
+    }
+};
+
+exports.actualizarTodas = async (req, res) => {
+    try {
+        const updates = Object.keys(req.body).reduce((acc, key) => {
+            const [field, id] = key.split('_');
+            if (!acc[id]) acc[id] = {};
+            acc[id][field] = req.body[key];
+            return acc;
+        }, {});
+
+        for (const id in updates) {
+            const incidencia = await Incidencia.findByPk(id);
+            if (incidencia) {
+                incidencia.prioritat = updates[id].prioridad || incidencia.prioritat;
+                incidencia.idt = updates[id].tecnico || incidencia.idt;
+                await incidencia.save();
+            }
+        }
+
+        res.redirect('/moderador');
+    } catch (error) {
+        res.status(500).send('Error al actualizar las incidencias');
+    }
+};
+
+exports.eliminar = async (req, res) => {
+    try {
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+        await incidencia.destroy();
+        res.redirect('/incidencias');
+    } catch (error) {
+        res.status(500).send('Error al eliminar la incidencia');
+    }
+};

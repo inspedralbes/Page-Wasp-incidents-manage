@@ -51,7 +51,6 @@ app.get('/moderador', async (req, res) => {
   try {
     const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
 
-    // Dividir las incidencias en dos listas
     const incidenciasSinTecnico = incidencias.filter(incidencia => !incidencia.idt); // Sin técnico asignado
     const incidenciasConTecnico = incidencias.filter(incidencia => incidencia.idt); // Con técnico asignado
 
