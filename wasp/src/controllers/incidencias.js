@@ -1,10 +1,11 @@
 const Incidencia = require('../models/Incidencias');
 const Departamento = require('../models/Departamentos');
 const Tecnico = require('../models/Tecnicos');
+const Categoria = require('../models/Categoria');
 
 exports.listarTodas = async (req, res) => {
     try {
-        const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico] });
+        const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico, Categoria] });
         res.render('incidencias/list_all', { incidencias });
     } catch (error) {
         res.status(500).send('Error al recuperar incidencias');
@@ -24,7 +25,8 @@ exports.listarUna = async (req, res) => {
 exports.formCrear = async (req, res) => {
     try {
         const departamentos = await Departamento.findAll();
-        res.render('incidencias/crear', { departamentos });
+        const categorias = await Categoria.findAll();
+        res.render('incidencias/crear', { departamentos, categorias });
     } catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
     }
@@ -46,6 +48,7 @@ exports.formAsignar = async (req, res) => {
         const incidencias_w = await Incidencia.findAll({ include: [Departamento, Tecnico] });
         const incidencias = incidencias_w.filter(inc => !inc.idt || !inc.prioritat);
         const tecnicos = await Tecnico.findAll();
+        const categorias = await Categoria.findAll();
         res.render('incidencias/asignar', { incidencias, tecnicos });
     } catch (error) {
         res.status(500).send('Error al recuperar incidencias o técnicos' + error.message);
@@ -127,6 +130,7 @@ exports.actualizarTodas = async (req, res) => {
             if (incidencia) {
                 incidencia.prioritat = updates[id].prioridad || incidencia.prioritat;
                 incidencia.idt = updates[id].tecnico || incidencia.idt;
+                incidencia.idc = updates[id].categoria || incidencia.idc;
                 await incidencia.save();
             }
         }
