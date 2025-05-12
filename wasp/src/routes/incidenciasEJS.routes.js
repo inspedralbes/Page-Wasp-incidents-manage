@@ -9,6 +9,9 @@ router.get('/list', incidenciaController.listarTodas);
 // Listar una específica
 router.get('/list/:id', incidenciaController.listarUna);
 
+// Incidencias por técnico
+router.get('/list/tecnic/:id', incidenciaController.listarPorTecnico);
+
 // Crear incidencia
 router.get('/new', incidenciaController.formCrear);
 router.post('/create', incidenciaController.crear);
@@ -16,9 +19,6 @@ router.post('/create', incidenciaController.crear);
 // Asignar incidencia
 router.get('/asignar', incidenciaController.formAsignar);
 router.post('/asignar/:id/update', incidenciaController.asignar);
-
-// Incidencias por técnico
-router.get('/list/tecnic/:id', incidenciaController.listarPorTecnico);
 
 // Editar incidencia
 router.get('/list/:id/editar', incidenciaController.formEditar);
