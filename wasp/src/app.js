@@ -1,14 +1,21 @@
-const express = require('express');
 require('dotenv').config();
 
 const sequelize = require('./db');
 const path = require('path');
 
+const express = require('express');
+const session = require('express-session');
+
+const detectarRol = require('./middleware/rolMiddleware');
+
 const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
 const Departamentos = require('./models/Departamentos');
-const Tecnicos = require('./models/Tecnicos');
 const Categoria = require('./models/Categoria');
+
+const Usuarios = require('./models/Usuarios');
+const Tecnicos = require('./models/Tecnicos');
+const Moderadores = require('./models/Moderadores');
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'CASCADE' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
@@ -29,6 +36,13 @@ const app = express();
 app.use(express.urlencoded({ extended: true })); // per formularis
 app.use(express.json());
 
+// Sesion de usuario
+app.use(session({
+  secret: 'clau-secreta-xula',
+  resave: false,
+  saveUninitialized: false
+}));
+
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
 const departamentoRoutesEJS = require('./routes/departamentosEJS.routes');
@@ -43,11 +57,22 @@ app.use('/actuaciones', actuacionRoutesEJS);
 
 // Perfiles
 app.get('/', (req, res) => {
-  res.render('usuari');
+  res.render('login');
 });
 
-app.get('/tecnic', (req, res) => {
-  res.render('tecnic');
+app.get('/usuari', async(req, res) => {
+  res.render('usuari')
+});
+
+app.get('/tecnic', async(req, res) => {
+  try {
+    const tecnicos = await Tecnicos.findAll();
+
+    res.render('tecnic', {tecnicos});
+  } catch (error) {
+    console.error('Error al cargar la vista del moderador:'+ error);
+    res.status(500).send('Error al carregar la pàgina del moderador' + error);
+  }
 });
 
 app.get('/moderador', async (req, res) => {
@@ -62,6 +87,25 @@ app.get('/moderador', async (req, res) => {
   } catch (error) {
     console.error('Error al cargar la vista del moderador:'+ error);
     res.status(500).send('Error al carregar la pàgina del moderador' + error);
+  }
+});
+
+// Comprobar roles
+app.get('/', detectarRol, (req, res) => {
+  const rol = req.userRole;
+
+  switch (rol) {
+    case 'usuari':
+      res.render('usuari', { nombre: req.nombre });
+      break;
+    case 'moderador':
+      res.redirect('/moderador?nombre=' + req.nombre);
+      break;
+    case 'tecnic':
+      res.redirect('/tecnic?nombre=' + req.nombre);
+      break;
+    default:
+      res.status(403).send('No autoritzat');
   }
 });
 
@@ -89,11 +133,11 @@ const port = process.env.PORT || 3000;
     const quimica = await Departamentos.create({ nombre: 'Química', ubicacio: 'Laboratori 1' });
     const matematiques = await Departamentos.create({ nombre: 'Matemàtiques', ubicacio: 'Aula 3' });
 
-    const juan = await Tecnicos.create({ nombre: 'Juan' });
-    const marcos = await Tecnicos.create({ nombre: 'Marcos' });
-    const ana = await Tecnicos.create({ nombre: 'Ana' });
-    const lucia = await Tecnicos.create({ nombre: 'Lucía' });
-    const pedro = await Tecnicos.create({ nombre: 'Pedro' });
+    const juan = await Tecnicos.create({ nombre: 'Juan', contrasena: '12345' });
+    const marcos = await Tecnicos.create({ nombre: 'Marcos', contrasena: '12345' });
+    const ana = await Tecnicos.create({ nombre: 'Ana', contrasena: '12345' });
+    const lucia = await Tecnicos.create({ nombre: 'Lucía', contrasena: '12345' });
+    const pedro = await Tecnicos.create({ nombre: 'Pedro', contrasena: '12345' });
 
     const informatic = await Categoria.create({ nombre: 'Informàtica' });
     const logistica = await Categoria.create({ nombre: 'Logística' });

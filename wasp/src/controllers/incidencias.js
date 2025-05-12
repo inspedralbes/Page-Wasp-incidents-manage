@@ -75,16 +75,18 @@ exports.asignar = async (req, res) => {
 };
 
 exports.listarPorTecnico = async (req, res) => {
-    try {
-        const idt = req.params.id;
-        const incidencias = await Incidencia.findAll({ where: { idt }, include: [Departamento, Tecnico] });
-        const tecnico = await Tecnico.findByPk(idt);
-        const tecnicoNombre = tecnico ? tecnico.nombre : 'Sense tècnic';
-        res.render('incidencias/list_tecnic', { incidencias, tecnicoNombre });
-    } catch (error) {
-        res.status(500).send('Error al carregar el formulari d’edició: ' + error.message);
-    }
+  try {
+    const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia });
+    const incidencias = await Incidencia.findAll({ where: { idt: req.params.id } });
+
+    res.render('incidencias/list_person', { tecnico, incidencias });
+
+  } catch (error) {
+    console.error('Error al cargar incidencias del tècnic: ' + error);
+    res.status(500).send('Error al cargar incidencias del tècnic' + error);
+  }
 };
+
 
 exports.formEditar = async (req, res) => {
     try {

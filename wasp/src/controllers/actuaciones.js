@@ -2,7 +2,7 @@ const Actuacion = require('../models/Actuaciones');
 const Tecnico = require('../models/Tecnicos');
 const Incidencia = require('../models/Incidencias');
 
-exports.listAll = async (req, res) => {
+exports.listarTodas = async (req, res) => {
     try {
         const actuaciones = await Actuacion.findAll();
         res.render('actuaciones/list_all', { actuaciones });
@@ -11,7 +11,7 @@ exports.listAll = async (req, res) => {
     }
 };
 
-exports.listByIncidencia = async (req, res) => {
+exports.listarPorIncidencia = async (req, res) => {
     try {
         const actuaciones = await Actuacion.findAll({
             where: { idi: req.params.id },
@@ -22,27 +22,27 @@ exports.listByIncidencia = async (req, res) => {
             return res.status(404).send('No s’han trobat actuacions per a aquesta incidència');
         }
 
-        res.render('actuaciones/list_concret', { actuaciones });
+        res.render('actuaciones/list_concret', { actuaciones, id: req.params.id });
     } catch (error) {
         res.status(500).send('Error al recuperar les actuacions: ' + error.message);
     }
 };
 
-exports.newForm = async (req, res) => {
+exports.formCrear = async (req, res) => {
     try {
-        const tecnicos = await Tecnico.findAll();
-        const incidencias = await Incidencia.findAll();
-        res.render('actuaciones/crear', { tecnicos, incidencias });
+        const idi = req.query.id || req.body.idi || '';
+
+        res.render('actuaciones/crear', { tecnicos, incidencias, idi });
     } catch (error) {
         res.status(500).send('Error al carregar el formulari: ' + error.message);
     }
 };
 
-exports.create = async (req, res) => {
+exports.crear = async (req, res) => {
     try {
         const { descripcio, hores, resolt, idt, idi } = req.body;
         await Actuacion.create({ descripcio, hores, resolt, idt, idi });
-        res.redirect('/actuaciones/list/' + idi);
+        res.redirect('/incidencias/list/tecnic/'+1);
     } catch (error) {
         res.status(500).send('Error al crear la actuació: ' + error.message);
     }

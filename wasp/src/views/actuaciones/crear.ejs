@@ -1,25 +1,13 @@
 <%- include('../partials/header', { title: 'Crear Actuació' }) %>
 
     <h1>Crear Nova Actuació</h1>
-    <form action="/actuaciones/create" method="post">
-        <div class="mb-3">
-            <label for="descripcio" class="form-label">Descripció</label>
-            <input type="text" name="descripcio" class="form-control" placeholder="Ejemplo: La impresora no funciona"
-                required />
-        </div>
-
-        <div class="mb-3">
-            <label for="hores" class="form-label">Duració (en minuts)</label>
-            <input type="number" name="hores" class="form-control" placeholder="Ejemplo: 120" required />
-        </div>
-
-        <div class="mb-3 form-check">
-            <input type="checkbox" name="resolt" value="true" class="form-check-input" />
-
-            <label for="resolt" class="form-check-label">¿Incidencia resolta?</label>
-        </div>
-
-        <button type="submit" class="btn btn-success">Crear actuació</button>
+    <form action="/actuaciones/crear" method="POST">
+        <!-- otros campos -->
+        <input type="text" name="descripcio" />
+        <input type="number" name="hores" />
+        <input type="checkbox" name="resolt" />
+        <button type="submit">Crear</button>
     </form>
+
 
     <%- include('../partials/footer') %>

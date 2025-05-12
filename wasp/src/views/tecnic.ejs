@@ -4,13 +4,18 @@
 <p>Aquesta és la pàgina dedicada als tècnics.</p>
 
 <div class="card-body">
-    <h5 class="card-title">Buscar Técnic</h5>
-    <form method="GET" action="/incidencias/tecnic">
-      <div class="mb-3">
-        <input type="number" name="page" placeholder="Introdueix el teu ID" class="form-control" min="1" required>
-      </div>
-      <button type="submit" class="btn btn-warning w-100">Buscar</button>
-    </form>    
-  </div>
+  <h5 class="card-title">Buscar Tècnic</h5>
+  <form method="GET" action="/incidencias/tecnic">
+    <div class="mb-3">
+      <select name="page" class="form-control" required>
+        <option value="">Selecciona un tècnic</option>
+        <% tecnicos.forEach( tecnico => { %>
+            <option value="<%= tecnico.id %>"><%= tecnico.nombre %></option>
+        <% }) %>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-warning w-100">Buscar</button>
+  </form>    
+</div>
 
 <%- include('partials/footer') %>
