@@ -2,7 +2,7 @@ const Usuarios = require('../models/Usuarios');
 const Tecnicos = require('../models/Tecnicos');
 const Moderadores = require('../models/Moderadores');
 
-async function detectarRol(req, res, next) {
+async function detectRole(req, res, next) {
   const nombre = req.query?.nombre || req.body?.nombre || req.session?.nombre;
 
   if (!nombre) return res.redirect('/');
@@ -21,4 +21,4 @@ async function detectarRol(req, res, next) {
   next();
 }
 
-module.exports = detectarRol;
+module.exports = detectRole;

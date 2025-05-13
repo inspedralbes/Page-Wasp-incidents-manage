@@ -7,8 +7,9 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 
-const detectarRol = require('./middleware/typePerfil');
-const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('./middleware/auth');
+const detectRole = require('./middleware/roleMiddleware');
+const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('./middleware/authMiddleware');
+const setLocals = require('./middleware/localsMiddleware');
 
 const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
@@ -36,7 +37,9 @@ Incidencias.belongsTo(Categoria, { foreignKey: 'idc' });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use(session({ secret: 'secreto', resave: false, saveUninitialized: true }));
+app.use(setLocals);
 
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
@@ -102,9 +105,8 @@ app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
   }
 });
 
-
 // Comprobar roles
-app.get('/', detectarRol, (req, res) => {
+app.get('/', detectRole, (req, res) => {
   const rol = req.userRole;
 
   switch (rol) {
@@ -152,7 +154,8 @@ const port = process.env.PORT || 3000;
     const lucia = await Tecnicos.create({ nombre: 'Lucía', contrasena: '12345' });
     const pedro = await Tecnicos.create({ nombre: 'Pedro', contrasena: '12345' });
 
-    const usuario = await Usuarios.create({ nombre: 'user', contrasena: '12345' })
+    const usuario = await Usuarios.create({ nombre: 'user', contrasena: '12345' });
+    const moderador = await Moderadores.create({ nombre: 'admin', contrasena: '12345' })
 
     const informatic = await Categoria.create({ nombre: 'Informàtica' });
     const logistica = await Categoria.create({ nombre: 'Logística' });
