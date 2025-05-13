@@ -5,7 +5,27 @@
 <% if (actuaciones.length === 0) { %>
     <div class="alert alert-warning">Encara no hi ha actuacions per aquesta incidència.</div>
 <% } else { %>
-
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                <th>Descripció</th>
+                <th>Hores</th>
+                </tr>
+            </thead>
+            <% actuaciones.forEach(act => { %>
+              <tr>
+                <td><%= act.descripcio %></td>
+                <td><%= act.hores %></td>
+              </tr>
+            <% }) %>
+        </table>
+    </div>
 <% } %>
+
+<div class="text-center mt-4">
+    <a href="javascript:history.back()" class="btn btn-secondary">Tornar enrere</a>
+</div>
+
 
 <%- include('../partials/footer') %>

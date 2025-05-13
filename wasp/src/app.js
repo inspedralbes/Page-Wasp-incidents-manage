@@ -20,13 +20,13 @@ const Usuarios = require('./models/Usuarios');
 const Tecnicos = require('./models/Tecnicos');
 const Moderadores = require('./models/Moderadores');
 
-Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'CASCADE' });
+Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
 
-Tecnicos.hasMany(Actuaciones, { foreignKey: 'idt', onDelete: 'CASCADE' });
+Tecnicos.hasMany(Actuaciones, { foreignKey: 'idt', onDelete: 'SET NULL' });
 Actuaciones.belongsTo(Tecnicos, { foreignKey: 'idt' });
 
-Incidencias.hasMany(Actuaciones, { foreignKey: 'idi', onDelete: 'CASCADE' });
+Incidencias.hasMany(Actuaciones, { foreignKey: 'idi', onDelete: 'SET NULL' });
 Actuaciones.belongsTo(Incidencias, { foreignKey: 'idi' });
 
 Tecnicos.hasMany(Incidencias, { foreignKey: 'idt', onDelete: 'SET NULL' });
@@ -187,6 +187,7 @@ const port = process.env.PORT || 3000;
       prioritat: 'Mitjana',
       dataincidencia: '2025-04-05',
       idd: fisica.id,
+      idc: informatic.id,
     });
 
     await Incidencias.create({
@@ -194,6 +195,7 @@ const port = process.env.PORT || 3000;
       prioritat: 'Baixa',
       dataincidencia: '2025-12-3',
       idd: administracio.id,
+      idc: manteniment.id,
     });
 
     await Actuaciones.create({

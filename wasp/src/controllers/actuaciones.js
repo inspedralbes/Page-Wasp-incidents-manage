@@ -12,21 +12,26 @@ exports.listarTodas = async (req, res) => {
 };
 
 exports.listarPorIncidencia = async (req, res) => {
-    try {
-        const actuaciones = await Actuacion.findAll({
-            where: { idi: req.params.id },
-            include: [Tecnico, Incidencia]
-        });
+  try {
+    const incidencia = await Incidencia.findByPk(req.params.id, {
+      include: Actuacion
+    });
 
-        if (actuaciones.length === 0) {
-            return res.status(404).send('No s’han trobat actuacions per a aquesta incidència');
-        }
-
-        res.render('actuaciones/list_concret', { actuaciones, id: req.params.id });
-    } catch (error) {
-        res.status(500).send('Error al recuperar les actuacions: ' + error.message);
+    if (!incidencia) {
+      return res.status(404).send('Incidència no trobada');
     }
+
+    res.render('actuaciones/list_incidencia', {
+      incidencia,
+      actuaciones: incidencia.Actuaciones
+    });
+
+  } catch (error) {
+    console.error('Error al carregar actuacions de la incidència:'+ error);
+    res.status(500).send('Error al carregar actuacions de la incidència' + error);
+  }
 };
+
 
 exports.formCrear = async (req, res) => {
     try {

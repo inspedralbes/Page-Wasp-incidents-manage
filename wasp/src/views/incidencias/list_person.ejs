@@ -1,14 +1,19 @@
-<table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Descripción</th>
-        <th>Prioridad</th>
-        <th>Departamento</th>
-        <th>Categoria</th>
-        <th>Fecha de Incidencia</th>
-        <th>Actuaciones</th>
-    </tr>
-    <% if (incidencias && incidencias.length> 0) { %>
+<% if (incidencias.length === 0) { %>
+    <div class="alert alert-warning">Encara no hi han incidencias.</div>
+<% } else { %>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Prioridad</th>
+                    <th>Departamento</th>
+                    <th>Categoria</th>
+                    <th>Fecha de Incidencia</th>
+                    <th>Actuaciones</th>
+                </tr>
+            </thead>
         <% incidencias.forEach(incidencia=> { %>
             <tr>
                 <td>
@@ -30,13 +35,10 @@
                     <%= incidencia.dataincidencia %>
                 </td>
                 <td>
-                    <a href=""></a>
+                    <a class="btn btn-warning" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Ver Actuaciones</a>
                 </td>
             </tr>
         <% }) %>
-    <% } else { %>
-        <tr>
-            <td colspan="4">No hi ha incidències assignades.</td>
-        </tr>
-    <% } %>
-</table>
+        </table>
+    </div>
+<% } %>

@@ -1,11 +1,11 @@
 const Incidencia = require('../models/Incidencias');
 const Departamento = require('../models/Departamentos');
 const Tecnico = require('../models/Tecnicos');
-const Categorias = require('../models/Categorias');
+const Categoria = require('../models/Categorias');
 
 exports.listarTodas = async (req, res) => {
     try {
-        const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico, Categorias] });
+        const incidencias = await Incidencia.findAll({ include: [Departamento, Tecnico, Categoria] });
         res.render('incidencias/list_all', { incidencias });
     } catch (error) {
         res.status(500).send('Error al recuperar incidencias');
@@ -26,8 +26,6 @@ exports.listarPorTecnico = async (req, res) => {
   try {
     const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia });
 
-    console.log("Tecnico hola que tal: "+tecnico.toJSON());
-
     if (!tecnico) {
         return res.status(404).send('Tècnic no trobat');
     }
@@ -46,7 +44,7 @@ exports.listarPorTecnico = async (req, res) => {
 exports.formCrear = async (req, res) => {
     try {
         const departamentos = await Departamento.findAll();
-        const categorias = await Categorias.findAll();
+        const categorias = await Categoria.findAll();
         res.render('incidencias/crear', { departamentos, categorias });
     } catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
@@ -69,7 +67,7 @@ exports.formAsignar = async (req, res) => {
         const incidencias_w = await Incidencia.findAll({ include: [Departamento, Tecnico] });
         const incidencias = incidencias_w.filter(inc => !inc.idt || !inc.prioritat);
         const tecnicos = await Tecnico.findAll();
-        const categorias = await Categorias.findAll();
+        const categorias = await Categoria.findAll();
         res.render('incidencias/asignar', { incidencias, tecnicos });
     } catch (error) {
         res.status(500).send('Error al recuperar incidencias o técnicos' + error.message);
