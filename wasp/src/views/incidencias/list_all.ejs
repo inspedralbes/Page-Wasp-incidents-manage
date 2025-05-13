@@ -4,6 +4,7 @@
         <th>Descripción</th>
         <th>Prioridad</th>
         <th>Departamento</th>
+        <th>Categoría</th>
         <th>Fecha de Incidencia</th>
         <th>Tecnico</th>
         <th>Accions</th>
@@ -14,6 +15,7 @@
             <td><%= incidencia.descripcio %></td>
             <td><%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat' %></td>
             <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %></td>
+            <td><%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %></td>
             <td><%= incidencia.dataincidencia %></td>
             <td><%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sense Tècnic' %></td>
             <td>

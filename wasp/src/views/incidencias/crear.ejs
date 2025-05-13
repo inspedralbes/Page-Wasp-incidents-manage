@@ -15,7 +15,15 @@
           <% }); %>
       </select>
     </div>
-
+    <div class="mb-3">
+      <label for="idc" class="form-label">Categoria</label>
+      <select name="idc" id="idc" class="form-control" required>
+          <option value="" disabled selected>Selecciona una categoria</option>
+          <% categorias.forEach(cat => { %>
+          <option value="<%= cat.id %>"><%= cat.nombre %></option>
+          <% }); %>
+      </select>
+    </div>
   
     <button type="submit" class="btn btn-success">Crear</button>
   </form>

@@ -14,7 +14,7 @@ const setLocals = require('./middleware/localsMiddleware');
 const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
 const Departamentos = require('./models/Departamentos');
-const Categoria = require('./models/Categoria');
+const Categorias = require('./models/Categorias');
 
 const Usuarios = require('./models/Usuarios');
 const Tecnicos = require('./models/Tecnicos');
@@ -32,8 +32,8 @@ Actuaciones.belongsTo(Incidencias, { foreignKey: 'idi' });
 Tecnicos.hasMany(Incidencias, { foreignKey: 'idt', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Tecnicos, { foreignKey: 'idt' });
 
-Categoria.hasMany(Incidencias, { foreignKey: 'idc', onDelete: 'SET NULL' });
-Incidencias.belongsTo(Categoria, { foreignKey: 'idc' });
+Categorias.hasMany(Incidencias, { foreignKey: 'idc', onDelete: 'SET NULL' });
+Incidencias.belongsTo(Categorias, { foreignKey: 'idc' });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -91,13 +91,14 @@ app.get('/tecnic', isAuthenticated, isTecnic, async (req, res) => {
 
 app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
   try {
-    const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos] });
+    const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos, Categorias] });
     const tecnicos = await Tecnicos.findAll();
+    const categorias = await Categorias.findAll();
 
     const incidenciasNoTecnic = incidencias.filter(incidencia => !incidencia.idt);
     const incidenciasYesTecnic = incidencias.filter(incidencia => incidencia.idt);
     
-    res.render('moderador', {tecnicos, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol});
+    res.render('moderador', {tecnicos, categorias, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol});
 
   } catch (error) {
     console.error('Error al cargar la vista del moderador: ' + error);
@@ -157,9 +158,9 @@ const port = process.env.PORT || 3000;
     const usuario = await Usuarios.create({ nombre: 'user', contrasena: '12345' });
     const moderador = await Moderadores.create({ nombre: 'admin', contrasena: '12345' })
 
-    const informatic = await Categoria.create({ nombre: 'Informàtica' });
-    const logistica = await Categoria.create({ nombre: 'Logística' });
-    const manteniment = await Categoria.create({ nombre: 'Manteniment' });
+    const informatic = await Categorias.create({ nombre: 'Informàtica' });
+    const logistica = await Categorias.create({ nombre: 'Logística' });
+    const manteniment = await Categorias.create({ nombre: 'Manteniment' });
 
     await Incidencias.create({
       descripcio: 'Ordenador roto',
@@ -167,6 +168,7 @@ const port = process.env.PORT || 3000;
       dataincidencia: '2025-04-02',
       idd: administracio.id,
       idt: juan.id,
+      idc: logistica.id,
     });
 
     await Incidencias.create({
