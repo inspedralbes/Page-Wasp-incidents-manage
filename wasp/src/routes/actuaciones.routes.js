@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const actuacionController = require('../controllers/actuaciones');
+const actuacionController = require('../controllers/actuaciones.controllers');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middleware/authMiddleware');
  
 // Lista todas las actuaciones

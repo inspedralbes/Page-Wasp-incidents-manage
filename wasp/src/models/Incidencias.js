@@ -11,7 +11,7 @@ const Incidencias = sequelize.define('Incidencias', {
     allowNull: true,
   },
   dataincidencia: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW, 
   }

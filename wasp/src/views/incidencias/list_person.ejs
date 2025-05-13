@@ -32,7 +32,7 @@
                     <%= incidencia.Categoria.nombre %>
                 </td>
                 <td>
-                    <%= incidencia.dataincidencia %>
+                    <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
                 </td>
                 <td>
                     <a class="btn btn-warning" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Ver Actuaciones</a>

@@ -16,7 +16,7 @@
             <td><%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat' %></td>
             <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %></td>
             <td><%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %></td>
-            <td><%= incidencia.dataincidencia %></td>
+            <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
             <td><%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sense Tècnic' %></td>
             <td class="text-center">
                 <div class="d-flex">

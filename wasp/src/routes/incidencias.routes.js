@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const incidenciaController = require('../controllers/incidencias');
+const incidenciaController = require('../controllers/incidencias.controllers');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middleware/authMiddleware');
 
 // Listar incidencias

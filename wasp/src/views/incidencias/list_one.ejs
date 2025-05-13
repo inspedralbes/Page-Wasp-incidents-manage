@@ -23,7 +23,7 @@
             <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %>
         </td>
         <td>
-            <%= incidencia.dataincidencia %>
+            <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
         </td>
         <td>
             <!-- Botón para ver actuaciones -->

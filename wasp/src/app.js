@@ -4,8 +4,10 @@ const sequelize = require('./db');
 const path = require('path');
 
 const express = require('express');
-const session = require('express-session');
 const app = express();
+const session = require('express-session');
+
+const moment = require('moment');
 
 const detectRole = require('./middleware/roleMiddleware');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('./middleware/authMiddleware');
@@ -42,10 +44,10 @@ app.use(session({ secret: 'secreto', resave: false, saveUninitialized: true }));
 app.use(setLocals);
 
 // Rutes EJS
-const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
-const departamentoRoutesEJS = require('./routes/departamentosEJS.routes');
-const actuacionRoutesEJS = require('./routes/actuacionesEJS.routes');
-const authRoutesEJS = require('./routes/authEJS.routes');
+const incidenciaRoutesEJS = require('./routes/incidencias.routes');
+const departamentoRoutesEJS = require('./routes/departamentos.routes');
+const actuacionRoutesEJS = require('./routes/actuaciones.routes');
+const authRoutesEJS = require('./routes/auth.routes');
 const { console } = require('inspector');
 
 app.use('/incidencias', incidenciaRoutesEJS);
@@ -53,8 +55,11 @@ app.use('/departamentos', departamentoRoutesEJS);
 app.use('/actuaciones', actuacionRoutesEJS);
 app.use('/', authRoutesEJS);
 
-// // Configuracio Estatica per les Imatges
-// app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.locals.moment = moment;
+
+// // Configuracio Estatica
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
 
 // Perfiles
 app.get('/', (req, res) => {
@@ -67,7 +72,7 @@ app.get('/logout', (req, res) => {
       console.error('Error al cerrar sesión:', error);
       return res.status(500).send('Error al cerrar la sessió');
     }
-    res.redirect('/login'); // o a donde quieras redirigir después del logout
+    res.redirect('/login');
   });
 });
 
