@@ -6,11 +6,14 @@
   <br>
 </h1>
 
-<h4 align="center">A minimal Markdown Editor desktop app built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
+<h4 align="center">A Modifiable Issue Web Page with Docker Compose.</h4>
 
 <p align="center">
   <a href="https://badge.fury.io/js/electron-markdownify">
     <img src="https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white"
+         alt="Gitter">
+  <a href="https://badge.fury.io/js/electron-markdownify">
+    <img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff"
          alt="Gitter">
   </a>
   <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://img.shields.io/badge/EJS-B4CA65?logo=ejs&logoColor=fff"></a>
@@ -26,21 +29,61 @@
 </p>
 
 <p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#related">Related</a>
+  <a href="#🔑-key-features">Key Features</a> •
+  <a href="#🛠️-how-to-use">How To Use</a> •
+  <a href="#📦-download">Download</a> •
+  <a href="#👥-credits">Credits</a> •
+  <a href="#🔗-related">Related</a>
 </p>
 
-## Key Features
+## 🔑 Key Features
 
-Desenvolupar una aplicació web per registrar, gestionar i fer seguiment d’incidències informàtiques dins de l'institut. El sistema permet la comunicació entre usuaris, tècnics i responsables informàtics, així com la generació d’informes i estadístiques.
+Develop a web application to record, manage and track computer incidents within a company, institute or others. The system allows communication between users, technicians and IT managers, as well as the generation of reports and statistics.
 
-## How To Use
+## 🛠️ How To Use
 
-## Download
+To get started with Wasp, follow these steps:
 
-## Credits
+Clone the repository
+Use Git to download the project to your local machine:
 
-## Related
+``` bash
+git clone https://github.com/inspedralbes/projecte-1dam-24-25-dam1pj2
+cd wasp/
+```
+
+Set up environment variables
+Create a `.env` file at the root of the project with all required configuration values. This may include the application port, database credentials, session secrets, etc.
+
+Start the app using Docker Compose
+The project is containerized using Docker and Docker Compose. Build and start all services with:
+
+``` bash
+docker compose up --build
+```
+
+Access the app in your browser
+Once everything is up and running, you can access the application at `http://localhost:3000` or whatever port you’ve configured.
+
+This will launch the full application stack, including the database and the backend server, ready for development or testing.
+
+If you need have the application in the background, you can use:
+
+``` bash
+docker compose up -d
+```
+
+## 📦 Download
+
+## 👥 Credits
+
+## 🔗 Related
+
+If you're interested in learning more or extending the project, here are some useful links:
+
+* [Express.js – Minimalist web framework for Node](https://expressjs.com/)
+* [Sequelize – Promise-based Node.js ORM](https://sequelize.org/)
+* [Docker Compose – Define and run multi-container apps](https://docs.docker.com/compose/)
+* [EJS – Embedded JavaScript templates](https://ejs.co/)
+
+---
