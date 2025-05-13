@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const actuacionController = require('../controllers/actuaciones');
-
+const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middleware/authMiddleware');
+ 
 // Lista todas las actuaciones
 router.get('/list', actuacionController.listarTodas);
 

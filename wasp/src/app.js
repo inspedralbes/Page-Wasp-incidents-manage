@@ -46,6 +46,7 @@ const incidenciaRoutesEJS = require('./routes/incidenciasEJS.routes');
 const departamentoRoutesEJS = require('./routes/departamentosEJS.routes');
 const actuacionRoutesEJS = require('./routes/actuacionesEJS.routes');
 const authRoutesEJS = require('./routes/authEJS.routes');
+const { console } = require('inspector');
 
 app.use('/incidencias', incidenciaRoutesEJS);
 app.use('/departamentos', departamentoRoutesEJS);
@@ -79,8 +80,18 @@ app.get('/usuari', isAuthenticated, isUsuari, async(req, res) => {
 
 app.get('/tecnic', isAuthenticated, isTecnic, async (req, res) => {
   try {
-    const incidencias = await Incidencias.findAll();
-    res.render('tecnic', {incidencias, id: req.session.userId, rol: req.session.rol});
+    const tecnico = await Tecnicos.findByPk(req.session.userId, { include: [{ model: Incidencias, include: [Departamentos, Categorias] }] });
+
+    if (!tecnico) {
+      return res.status(404).send('Tècnic no trobat');
+    }
+
+    res.render('tecnic', {
+      tecnico,
+      incidencias: tecnico.Incidencias,
+      rol: req.session.rol,
+      id: req.session.userId
+    });
 
   } catch (error) {
     console.error('Error al cargar la vista del tècnic: ' + error);

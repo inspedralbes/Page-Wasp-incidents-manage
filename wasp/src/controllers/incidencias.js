@@ -24,13 +24,18 @@ exports.listarUna = async (req, res) => {
 
 exports.listarPorTecnico = async (req, res) => {
   try {
-    const tecnico = await Tecnico.findByPk(req.params.id, {include: Incidencia});
+    const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia });
+
+    console.log("Tecnico hola que tal: "+tecnico.toJSON());
 
     if (!tecnico) {
-      return res.status(404).send('Tècnic no trobat');
+        return res.status(404).send('Tècnic no trobat');
     }
 
-    res.render('incidencias/list_person', {tecnico, incidencias : tecnico.incidencias});
+    res.render('incidencias/list_person', {
+      tecnico,
+      incidencias: tecnico.Incidencia 
+    });
 
   } catch (error) {
     console.error('Error al cargar incidencias del tècnic: ' + error);
