@@ -150,7 +150,7 @@ exports.eliminar = async (req, res) => {
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
         await incidencia.destroy();
-        res.redirect('/incidencias');
+        res.redirect('/moderador');
     } catch (error) {
         res.status(500).send('Error al eliminar la incidencia');
     }
