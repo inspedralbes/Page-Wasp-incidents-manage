@@ -58,8 +58,9 @@ app.use('/', authRoutesEJS);
 app.locals.moment = moment;
 
 // // Configuracio Estatica
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
 
 // Perfiles
 app.get('/', (req, res) => {
