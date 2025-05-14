@@ -3,33 +3,45 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Loggin</title>
+  <title>Wasp</title>
 
+  
+  <link rel="icon" href="images/wasp-icon.svg">
   <link rel="stylesheet" href="/css/bootstrap.css"/>
-  <link rel="stylesheet" href="/css/login.css">
 
 </head>
 
-<div class="login-card mx-auto">
-    <h2 class="text-center mb-4 text-primary">Login</h2>
-    <form method="POST" action="/login">
-      
-      <!-- Campo Nombre -->
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nom</label>
-        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Introduce tu nombre" required />
-      </div>
+<body class="d-flex align-items-center justify-content-center vh-100">
 
-      <!-- Campo Contraseña -->
-      <div class="mb-3">
-        <label for="contrasena" class="form-label">Contrasenya</label>
-        <input type="password" name="contrasena" id="contrasena" class="form-control" placeholder="••••••••" required />
-      </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow rounded-4 p-4">
+          <h2 class="text-center mb-4 text-primary">Login</h2>
+          <form method="POST" action="/login">
+            
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nom</label>
+              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Introduce tu nombre" required />
+            </div>
 
-      <!-- Botón de Entrar -->
-      <button type="submit" class="btn btn-custom w-100">Entrar</button>
-      
-    </form>
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="contrasena" class="form-label">Contrasenya</label>
+              <input type="password" name="contrasena" id="contrasena" class="form-control" placeholder="••••••••" required />
+            </div>
+
+            <!-- Botón -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
 
 <%- include('partials/footer') %>

@@ -1,34 +1,38 @@
-<%- include('../partials/header', { title: 'Mostrar Incidencia' }) %>
+<%- include('../partials/header') %>
 
-<table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Descripció</th>
-        <th>Prioritat</th>
-        <th>Departament</th>
-        <th>Data de la Incidència</th>
-        <th>Accions</th>
-    </tr>
-    <tr>
-        <td>
-            <%= incidencia.id %>
-        </td>
-        <td>
-            <%= incidencia.descripcio %>
-        </td>
-        <td>
-            <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat'%>
-        </td>
-        <td>
-            <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %>
-        </td>
-        <td>
-            <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
-        </td>
-        <td>
-            <a class="btn btn-warning" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Ver Actuaciones</a>
-        </td>
-    </tr>
-</table>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Descripció</th>
+            <th>Prioritat</th>
+            <th>Departament</th>
+            <th>Data de la Incidència</th>
+            <th>Accions</th>
+        </tr>
+        <tr>
+            <td>
+                <%= incidencia.id %>
+            </td>
+            <td>
+                <%= incidencia.descripcio %>
+            </td>
+            <td>
+                <%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat' %>
+            </td>
+            <td>
+                <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %>
+            </td>
+            <td>
+                <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %>
+            </td>
+            <td>
+                <a class="btn btn-warning" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Ver Actuaciones</a>
+            </td>
+        </tr>
+    </table>
 
-<%- include('../partials/footer') %>
+    <div class="d-flex justify-content-between">
+        <a href="/usuari" class="btn btn-secondary">Tornar enrere</a>
+    </div>
+
+    <%- include('../partials/footer') %>

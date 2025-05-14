@@ -10,6 +10,11 @@ const Incidencias = sequelize.define('Incidencias', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  horesactuacio: {
+    type: DataTypes.DECIMAL(5, 1),
+    allowNull: false,
+    defaultValue: 0.0,
+  },
   dataincidencia: {
     type: DataTypes.DATE,
     allowNull: false,

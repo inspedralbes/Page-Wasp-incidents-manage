@@ -1,4 +1,4 @@
-<%- include('../partials/header', { title: 'Crear Incidencia' }) %>
+<%- include('../partials/header') %>
 
   <h1>Nova incidencia</h1>
   <form action="/incidencias/create" method="post">
@@ -24,8 +24,11 @@
           <% }); %>
       </select>
     </div>
-  
-    <button type="submit" class="btn btn-success">Crear</button>
+
+    <div class="d-flex justify-content-between">
+      <a href="/usuari" class="btn btn-secondary">Tornar enrere</a>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
   </form>
 
 <%- include('../partials/footer') %>

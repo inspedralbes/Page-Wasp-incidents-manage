@@ -1,4 +1,4 @@
-<%- include('../partials/header', { title: 'Actuacions de la incidència' }) %>
+<%- include('../partials/header') %>
 
 <h2 class="mb-4">Actuacions per a la incidència <%= incidencia.id %></h2>
 
@@ -29,7 +29,8 @@
     </div>
 <% } %>
 
-<div class="d-grid gap-2 mt-3">
+<div class="d-flex justify-content-between">
+    <a href="/tecnic" class="btn btn-secondary">Tornar enrere</a>
     <a href="/actuaciones/new/incidencias/<%= incidencia.id %>" class="btn btn-success">Crear nova actuació</a>
 </div>
 

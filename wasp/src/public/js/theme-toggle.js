@@ -4,7 +4,6 @@ const setTheme = (theme) => {
     localStorage.setItem('theme', theme);
 };
 
-// Guardar selección al hacer clic en el botón
 document.querySelectorAll('[data-bs-theme-value]').forEach(btn => {
     btn.addEventListener('click', () => {
         const theme = btn.getAttribute('data-bs-theme-value');
@@ -12,7 +11,6 @@ document.querySelectorAll('[data-bs-theme-value]').forEach(btn => {
     });
 });
 
-// Al cargar la página, aplicar el tema guardado (o sistema por defecto)
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
     setTheme(savedTheme);

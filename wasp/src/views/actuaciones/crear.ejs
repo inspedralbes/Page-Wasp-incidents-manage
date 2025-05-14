@@ -1,4 +1,4 @@
-<%- include('../partials/header', { title: 'Crear Actuació' }) %>
+<%- include('../partials/header') %>
 
 <div class="container mt-5">
   <h1 class="mb-4">Crear Nova Actuació</h1>
@@ -33,7 +33,11 @@
       <label class="form-check-label" for="resolt">Resolt?</label>
     </div>
 
-    <button type="submit" class="btn btn-primary">Guardar actuació</button>
+    <div class="d-flex justify-content-between">
+      <a href="/actuaciones/list/incidencias/<%= id %>" class="btn btn-secondary">Tornar enrere</a>
+      <button type="submit" class="btn btn-primary">Guardar actuació</button>
+    </div>
+
   </form>
 </div>
 
