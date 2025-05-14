@@ -23,22 +23,22 @@ exports.listarUna = async (req, res) => {
 };
 
 exports.listarPorTecnico = async (req, res) => {
-  try {
-    const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia });
+    try {
+        const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia });
 
-    if (!tecnico) {
-        return res.status(404).send('Tècnic no trobat');
+        if (!tecnico) {
+            return res.status(404).send('Tècnic no trobat');
+        }
+
+        res.render('incidencias/list_person', {
+            tecnico,
+            incidencias: tecnico.Incidencia
+        });
+
+    } catch (error) {
+        console.error('Error al cargar incidencias del tècnic: ' + error);
+        res.status(500).send('Error al cargar incidencias del tècnic: ' + error);
     }
-
-    res.render('incidencias/list_person', {
-      tecnico,
-      incidencias: tecnico.Incidencia 
-    });
-
-  } catch (error) {
-    console.error('Error al cargar incidencias del tècnic: ' + error);
-    res.status(500).send('Error al cargar incidencias del tècnic: ' + error);
-  }
 };
 
 exports.formCrear = async (req, res) => {
@@ -55,7 +55,7 @@ exports.crear = async (req, res) => {
     try {
         const { descripcio, prioritat, dataincidencia, idd, idc } = req.body;
         const incidencia = await Incidencia.create({ descripcio, prioritat, dataincidencia, idd, idc });
-        
+
         res.render('incidencias/ticket', { incidencia });
     } catch (error) {
         res.status(500).send('Error al crear la incidencia' + error.message);

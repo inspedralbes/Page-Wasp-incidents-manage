@@ -42,7 +42,7 @@ exports.formCrear = async (req, res) => {
       return res.status(404).send('Incidència no trobada');
     }
 
-    res.render('actuaciones/crear', { incidencia });
+    res.render('actuaciones/crear', { incidencia, idi });
   } catch (error) {
     res.status(500).send('Error al carregar el formulari: ' + error.message);
   }
@@ -50,11 +50,11 @@ exports.formCrear = async (req, res) => {
 
 exports.crear = async (req, res) => {
   try {
-    const { descripcio, hores, visibilitat, resolt, idt, idi } = req.body;
+    const { descripcio, dataactuacio, hores, visibilitat, resolt, idt, idi } = req.body;
     
-    await Actuacion.create({ descripcio, hores, visibilitat, resolt, idt, idi });
+    await Actuacion.create({ descripcio, dataactuacio, hores, visibilitat, resolt, idt, idi });
 
-    res.redirect('/tecnic');
+    res.redirect('list/incidencias/'+idi);
 
   } catch (error) {
     console.error('Error al crear la actuació:', error);
