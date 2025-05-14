@@ -22,13 +22,23 @@
       </select>
     </div>
     <div class="mb-3">
-      <label for="departament" class="form-label">Departament</label>
-      <select name="departament" class="form-select">
+      <label for="idd" class="form-label">Departament</label>
+      <select name="idd" class="form-select">
         <% departamentos.forEach(departament => { %>
           <option value="<%= departament.id %>" <%= incidencia.idd === departament.id ? 'selected' : '' %>>
             <%= departament.nombre %>
           </option>
         <% }) %>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="idc" class="form-label">Categoria</label>
+      <select name="idc" id="idc" class="form-control" required>
+          <% categorias.forEach(categoria => { %>
+          <option value="<%= categoria.id %>" <%= incidencia.idd === categoria.id ? 'selected' : '' %>>
+            <%= categoria.nombre %>
+          </option>
+          <% }); %>
       </select>
     </div>
     <div class="mb-3">

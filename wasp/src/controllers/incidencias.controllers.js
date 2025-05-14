@@ -56,7 +56,7 @@ exports.crear = async (req, res) => {
         const { descripcio, prioritat, dataincidencia, idd, idc } = req.body;
         const incidencia = await Incidencia.create({ descripcio, prioritat, dataincidencia, idd, idc });
         
-        res.render('incidencias/ticket', {incidencia});
+        res.render('incidencias/ticket', { incidencia });
     } catch (error) {
         res.status(500).send('Error al crear la incidencia' + error.message);
     }
@@ -98,7 +98,8 @@ exports.formEditar = async (req, res) => {
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
         const departamentos = await Departamento.findAll();
-        res.render('incidencias/editar', { incidencia, departamentos });
+        const categorias = await Categoria.findAll();
+        res.render('incidencias/editar', { incidencia, departamentos, categorias });
     } catch (error) {
         res.status(500).send('Error al carregar el formulari d’edició' + error.message);
     }
@@ -106,15 +107,16 @@ exports.formEditar = async (req, res) => {
 
 exports.actualizar = async (req, res) => {
     try {
-        const { id, descripcio, prioritat, departament, dataincidencia } = req.body;
+        const { id, descripcio, prioritat, idd, dataincidencia, idc } = req.body;
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidencia no trobada');
 
         incidencia.id = id;
         incidencia.descripcio = descripcio;
         incidencia.prioritat = prioritat;
-        incidencia.departament = departament;
+        incidencia.idd = idd;
         incidencia.dataincidencia = dataincidencia;
+        incidencia.idc = idc;
         await incidencia.save();
 
         res.redirect('/moderador');
