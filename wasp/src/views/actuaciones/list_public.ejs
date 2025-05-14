@@ -11,7 +11,6 @@
                 <tr>
                     <th>Descripció</th>
                     <th>Hores</th>
-                    <th>Visibilitat</th>
                     <th>Resolt?</th>
                 </tr>
             </thead>
@@ -19,16 +18,11 @@
               <tr>
                 <td><%= actuacion.descripcio %></td>
                 <td><%= actuacion.hores %>h</td>
-                <td><%= actuacion.visibilitat ? 'Publica' : 'Privada' %></td>
                 <td><%= actuacion.resolt ? 'Resolt' : 'No resolt' %></td>
               </tr>
             <% }) %>
         </table>
     </div>
 <% } %>
-
-<div class="d-grid gap-2 mt-3">
-    <a href="/actuaciones/new/incidencias/<%= incidencia.id %>" class="btn btn-success">Crear nova actuació</a>
-</div>
 
 <%- include('../partials/footer') %>

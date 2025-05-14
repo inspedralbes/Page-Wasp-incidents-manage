@@ -12,36 +12,36 @@
         <th>Fecha de Incidencia</th>
         <th>Técnico</th>
       </tr>
-      <% incidencias.forEach(inc=> { %>
+      <% incidencias.forEach(incidencia=> { %>
         <tr>
           <td>
-            <%= inc.id %>
+            <%= incidencia.id %>
           </td>
           <td>
-            <%= inc.descripcio %>
+            <%= incidencia.descripcio %>
           </td>
           <td>
-            <select name="prioridad_<%= inc.id %>" class="form-select">
+            <select name="prioridad_<%= incidencia.id %>" class="form-select">
               <option value="" disabled selected>Selecciona una prioritat</option>
-              <option value="Alta" <%=inc.prioritat==='Alta' ? 'selected' : '' %>>Alta</option>
-              <option value="Mitjana" <%=inc.prioritat==='Mitjana' ? 'selected' : '' %>>Mitjana</option>
-              <option value="Baixa" <%=inc.prioritat==='Baixa' ? 'selected' : '' %>>Baixa</option>
+              <option value="Alta" <%=incidencia.prioritat==='Alta' ? 'selected' : '' %>>Alta</option>
+              <option value="Mitjana" <%=incidencia.prioritat==='Mitjana' ? 'selected' : '' %>>Mitjana</option>
+              <option value="Baixa" <%=incidencia.prioritat==='Baixa' ? 'selected' : '' %>>Baixa</option>
             </select>
           </td>
           <td>
-            <%= inc.Departamento ? inc.Departamento.nombre : 'Sin departamento' %>
+            <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %>
           </td>
           <td>
-            <%= inc.Categoria ? inc.Categoria.nombre : 'Sense categoria' %>
+            <%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %>
           </td>
           <td>
-            <%= inc.dataincidencia %>
+            <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
           </td>
           <td>
-            <select name="tecnico_<%= inc.id %>" class="form-select">
+            <select name="tecnico_<%= incidencia.id %>" class="form-select">
               <option value="" disabled selected>Selecciona un técnico</option>
               <% tecnicos.forEach(tec=> { %>
-                <option value="<%= tec.id %>" <%=inc.idt===tec.id ? 'selected' : '' %>><%= tec.nombre %></option>
+                <option value="<%= tec.id %>" <%=incidencia.idt===tec.id ? 'selected' : '' %>><%= tec.nombre %></option>
               <% }) %>
             </select>
           </td>

@@ -4,14 +4,14 @@ const router = express.Router();
 const actuacionController = require('../controllers/actuaciones.controllers');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middleware/authMiddleware');
  
-// Lista todas las actuaciones
-router.get('/list', actuacionController.listarTodas);
+// Lista las actuaciones publicas de una incidencia
+router.get('/list/incidencias/public/:id', actuacionController.listarTodas);
 
-// Lista las actuaciones de un tecnico
+// Lista las actuaciones de una incidencia
 router.get('/list/incidencias/:id', actuacionController.listarPorIncidencia);
 
 // Crear una actuacion
-router.get('/new', actuacionController.formCrear);
+router.get('/new/incidencias/:id', actuacionController.formCrear);
 router.post('/create', actuacionController.crear);
 
 module.exports = router;

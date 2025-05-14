@@ -36,7 +36,7 @@
       <input
         type="text"
         name="dataincidencia"
-        value="<%= incidencia.dataincidencia %>"
+        value="<%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %>"
         class="form-control"
         required
       />

@@ -34,21 +34,30 @@ exports.listarPorIncidencia = async (req, res) => {
 
 
 exports.formCrear = async (req, res) => {
-    try {
-        const idi = req.query.id || req.body.idi || '';
+  try {
+    const idi = req.params.id;
+    const incidencia = await Incidencia.findByPk(idi);
 
-        res.render('actuaciones/crear', { tecnicos, incidencias, idi });
-    } catch (error) {
-        res.status(500).send('Error al carregar el formulari: ' + error.message);
+    if (!incidencia) {
+      return res.status(404).send('Incidència no trobada');
     }
+
+    res.render('actuaciones/crear', { incidencia });
+  } catch (error) {
+    res.status(500).send('Error al carregar el formulari: ' + error.message);
+  }
 };
 
 exports.crear = async (req, res) => {
-    try {
-        const { descripcio, hores, resolt, idt, idi } = req.body;
-        await Actuacion.create({ descripcio, hores, resolt, idt, idi });
-        res.redirect('/incidencias/list/tecnic/'+1);
-    } catch (error) {
-        res.status(500).send('Error al crear la actuació: ' + error.message);
-    }
+  try {
+    const { descripcio, hores, visibilitat, resolt, idt, idi } = req.body;
+    
+    await Actuacion.create({ descripcio, hores, visibilitat, resolt, idt, idi });
+
+    res.redirect('/tecnic');
+
+  } catch (error) {
+    console.error('Error al crear la actuació:', error);
+    res.status(500).send('Error al crear la actuació: ' + error.message);
+  }
 };

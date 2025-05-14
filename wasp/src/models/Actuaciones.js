@@ -9,10 +9,16 @@ const Actuaciones = sequelize.define('Actuaciones', {
     hores: {
         type: DataTypes.DECIMAL(5, 1),
         allowNull: false,
+    }, 
+    visibilitat: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
     },
     resolt: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
+        defaultValue: false,
     },
 });
 

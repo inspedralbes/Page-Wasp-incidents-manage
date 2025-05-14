@@ -1,13 +1,40 @@
 <%- include('../partials/header', { title: 'Crear Actuació' }) %>
 
-    <h1>Crear Nova Actuació</h1>
-    <form action="/actuaciones/crear" method="POST">
-        <!-- otros campos -->
-        <input type="text" name="descripcio" />
-        <input type="number" name="hores" />
-        <input type="checkbox" name="resolt" />
-        <button type="submit">Crear</button>
-    </form>
+<div class="container mt-5">
+  <h1 class="mb-4">Crear Nova Actuació</h1>
+  
+  <form action="/actuaciones/create" method="POST">
+    <input type="hidden" name="idi" value="<%= incidencia.id %>">
 
+    <div class="mb-3">
+      <label for="descripcio" class="form-label">Descripció de l'actuació</label>
+      <textarea class="form-control" name="descripcio" id="descripcio" rows="4" required></textarea>
+    </div>
 
-    <%- include('../partials/footer') %>
+    <div class="mb-3">
+      <label for="hores" class="form-label">Hores</label>
+      <input type="number" class="form-control" name="hores" id="hores" step="0.1" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Visibilitat</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="visibilitat" id="publica" value="true" checked>
+        <label class="form-check-label" for="visibilitat">Pública</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="visibilitat" id="privada" value="false">
+        <label class="form-check-label" for="visibilitat">Privada</label>
+      </div>
+    </div>
+
+    <div class="mb-3 form-check">
+      <input class="form-check-input" type="checkbox" name="resolt" id="resolt" value="true">
+      <label class="form-check-label" for="resolt">Resolt?</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar actuació</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
