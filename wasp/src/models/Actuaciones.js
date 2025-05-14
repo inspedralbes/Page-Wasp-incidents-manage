@@ -10,6 +10,11 @@ const Actuaciones = sequelize.define('Actuaciones', {
         type: DataTypes.DECIMAL(5, 1),
         allowNull: false,
     }, 
+    dataactuacio: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW, 
+    },
     visibilitat: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

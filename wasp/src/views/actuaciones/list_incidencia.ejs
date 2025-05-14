@@ -1,6 +1,6 @@
 <%- include('../partials/header', { title: 'Actuacions de la incidència' }) %>
 
-<h2 class="mb-4">Actuacions per a la incidència #<%=  %></h2>
+<h2 class="mb-4">Actuacions per a la incidència <%= incidencia.id %></h2>
 
 <% if (actuaciones.length === 0) { %>
     <div class="alert alert-warning">Encara no hi ha actuacions per aquesta incidència.</div>
@@ -10,6 +10,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>Descripció</th>
+                    <th>Data</th>
                     <th>Hores</th>
                     <th>Visibilitat</th>
                     <th>Resolt?</th>
@@ -18,6 +19,7 @@
             <% actuaciones.forEach(actuacion => { %>
               <tr>
                 <td><%= actuacion.descripcio %></td>
+                <td><%= moment(actuacion.dataactuacio).format('DD/MM/YYYY') %></td>
                 <td><%= actuacion.hores %>h</td>
                 <td><%= actuacion.visibilitat ? 'Publica' : 'Privada' %></td>
                 <td><%= actuacion.resolt ? 'Resolt' : 'No resolt' %></td>
