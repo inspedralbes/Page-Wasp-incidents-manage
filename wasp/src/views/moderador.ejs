@@ -4,9 +4,16 @@
 <p>Aquesta és la pàgina dedicada al moderador.</p>
 
 <%- include('incidencias/asignar', { incidencias: incidenciasNoTecnic } ) %>
-
 <%- include('incidencias/list_all', { incidencias: incidenciasYesTecnic } ) %>
 
-
+<h3>Informació modificable</h3>
+<div class="row">
+  <div class="col-md-8">
+    <%- include('departamentos/list_all', { departamentos: departamentos }) %>
+  </div>
+  <div class="col-md-4">
+    <%- include('categorias/list_all', { categorias: categorias }) %>
+  </div>
+</div>
 
 <%- include('partials/footer') %>

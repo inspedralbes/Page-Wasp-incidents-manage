@@ -48,11 +48,13 @@ const incidenciaRoutesEJS = require('./routes/incidencias.routes');
 const departamentoRoutesEJS = require('./routes/departamentos.routes');
 const actuacionRoutesEJS = require('./routes/actuaciones.routes');
 const authRoutesEJS = require('./routes/auth.routes');
+const categoriaRoutesEJS = require('./routes/categorias.routes');
 const { console } = require('inspector');
 
 app.use('/incidencias', incidenciaRoutesEJS);
 app.use('/departamentos', departamentoRoutesEJS);
 app.use('/actuaciones', actuacionRoutesEJS);
+app.use('/categorias', categoriaRoutesEJS);
 app.use('/', authRoutesEJS);
 
 app.locals.moment = moment;
@@ -111,11 +113,12 @@ app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
     const incidencias = await Incidencias.findAll({ include: [Departamentos, Tecnicos, Categorias] });
     const tecnicos = await Tecnicos.findAll();
     const categorias = await Categorias.findAll();
+    const departamentos = await Departamentos.findAll();
 
     const incidenciasNoTecnic = incidencias.filter(incidencia => !incidencia.idt);
     const incidenciasYesTecnic = incidencias.filter(incidencia => incidencia.idt);
     
-    res.render('moderador', {tecnicos, categorias, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol});
+    res.render('moderador', {tecnicos, categorias, departamentos, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol});
 
   } catch (error) {
     console.error('Error al cargar la vista del moderador: ' + error);

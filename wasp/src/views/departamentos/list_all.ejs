@@ -1,16 +1,12 @@
-<%- include('../partials/header') %>
-
-    <table class="table">
+<table class="table">
+    <tr>
+        <th>Nombre</th>
+        <th>Ubicacio</th>
+    </tr>
+    <% departamentos.forEach(departamento => { %>
         <tr>
-            <th>Nombre</th>
-            <th>Ubicacio</th>
+            <td><%= departamento.nombre %></td>
+            <td><%= departamento.ubicacio %></td>
         </tr>
-        <% departamentos.forEach(departamento => { %>
-            <tr>
-                <td><%= departamento.nombre %></td>
-                <td><%= departamento.ubicacio %></td>
-            </tr>
-        <% }); %>
-    </table>
-
-    <%- include('../partials/footer') %>
+    <% }); %>
+</table>
