@@ -182,6 +182,7 @@ const port = process.env.PORT || 3000;
     await Incidencias.create({
       descripcio: 'Ordenador roto',
       prioritat: 'Alta',
+      horesactuacio: '0.3',
       dataincidencia: '2025-04-02',
       idd: administracio.id,
       idt: juan.id,

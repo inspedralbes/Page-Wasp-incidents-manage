@@ -13,7 +13,7 @@ const Incidencias = sequelize.define('Incidencias', {
   horesactuacio: {
     type: DataTypes.DECIMAL(5, 1),
     allowNull: false,
-    defaultValue: 0.0,
+    defaultValue: 0,
   },
   dataincidencia: {
     type: DataTypes.DATE,

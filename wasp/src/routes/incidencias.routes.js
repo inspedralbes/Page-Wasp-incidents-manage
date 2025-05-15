@@ -21,6 +21,9 @@ router.post('/create', incidenciaController.crear);
 router.get('/asignar', isAuthenticated, isModerador, incidenciaController.formAsignar);
 router.post('/asignar/:id/update', isAuthenticated, isModerador, incidenciaController.asignar);
 
+// Desasignar tecnico de la incidencia
+router.get('/:id/desasignar', isAuthenticated, isModerador, incidenciaController.desasignarTecnico);
+
 // Editar incidencia
 router.get('/list/:id/editar', incidenciaController.formEditar);
 router.post('/:id/update', incidenciaController.actualizar);

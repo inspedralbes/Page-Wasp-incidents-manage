@@ -5,7 +5,7 @@ const actuacionController = require('../controllers/actuaciones.controllers');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middleware/authMiddleware');
  
 // Lista las actuaciones publicas de una incidencia
-router.get('/list/incidencias/public/:id', actuacionController.listarTodas);
+router.get('/list/incidencias/public/:id', actuacionController.listarPublicas);
 
 // Lista las actuaciones de una incidencia
 router.get('/list/incidencias/:id', actuacionController.listarPorIncidencia);

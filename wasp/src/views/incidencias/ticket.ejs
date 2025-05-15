@@ -1,11 +1,17 @@
 <%- include('../partials/header') %>
 
-  <h1>Incidencia creada</h1>
+<div class="d-flex align-items-center justify-content-center">
+  <div class="card shadow-lg p-4">
+    <div class="card-body text-center">
+      <h2 class="card-title text-primary">Incidència creada correctament</h2>
+      <p class="card-text fs-5">
+        La teva incidència s'ha creat amb l'ID:
+        <span class="badge bg-primary fs-4"><%= incidencia.id %></span>
+      </p>
+      <a href="/usuari" class="btn btn-secondary">Tornar enrere</a>
+    </div>
+  </div>
+</div>
 
-  La teva incidencia s'ha creat correctament amb id <h1><%= incidencia.id %></h1>.
+<%- include('../partials/footer') %>
 
-    <a href="/usuari" class="btn btn-primary" >Tornar</a>
-
-  </form>
-
-  <%- include('../partials/footer') %>

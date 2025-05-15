@@ -14,7 +14,7 @@ exports.listarTodas = async (req, res) => {
 
 exports.listarUna = async (req, res) => {
     try {
-        const incidencia = await Incidencia.findByPk(req.params.id, { include: Departamento });
+        const incidencia = await Incidencia.findByPk(req.params.id, { include: [Departamento, Categoria] });
         if (!incidencia) return res.status(404).send('Incidència no trobada');
         res.render('incidencias/list_one', { incidencia });
     } catch (error) {
@@ -24,7 +24,7 @@ exports.listarUna = async (req, res) => {
 
 exports.listarPorTecnico = async (req, res) => {
     try {
-        const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia });
+        const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia, Categoria });
 
         if (!tecnico) {
             return res.status(404).send('Tècnic no trobat');
@@ -90,6 +90,20 @@ exports.asignar = async (req, res) => {
         res.redirect('/incidencias/asignar');
     } catch (error) {
         res.status(500).send('Error al actualizar la incidencia');
+    }
+};
+
+exports.desasignarTecnico = async (req, res) => {
+    try {
+        const incidencia = await Incidencia.findByPk(req.params.id);
+        if (!incidencia) return res.status(404).send('Incidencia no trobada');
+
+        incidencia.idt = null; 
+        await incidencia.save();
+
+        res.redirect('/moderador'); 
+    } catch (error) {
+        res.status(500).send('Error al desasignar el técnico');
     }
 };
 
