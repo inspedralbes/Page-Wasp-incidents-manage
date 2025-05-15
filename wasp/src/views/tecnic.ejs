@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
 <h1>Pàgina del Tècnic</h1>
-<p>Aquesta és la pàgina dedicada als tècnics.</p>
+<p>Hola <%= tecnico.nombre %>, aquesta és la pàgina dedicada als tècnics.</p>
 
 <div class="card-body">
   <%- include('incidencias/list_person', { tecnico, incidencias }) %>

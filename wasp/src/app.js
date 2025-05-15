@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const mongoose = require('mongoose');
 const sequelize = require('./db');
 const path = require('path');
 
@@ -12,6 +13,7 @@ const moment = require('moment');
 const detectRole = require('./middleware/roleMiddleware');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('./middleware/authMiddleware');
 const setLocals = require('./middleware/localsMiddleware');
+const registerLogs = require('./middleware/registerLogs');
 
 const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
@@ -21,6 +23,13 @@ const Categorias = require('./models/Categorias');
 const Usuarios = require('./models/Usuarios');
 const Tecnicos = require('./models/Tecnicos');
 const Moderadores = require('./models/Moderadores');
+
+mongoose.connect('mongodb://root:example@mongo:27017/logs?authSource=admin', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('✅ Conectado a MongoDB (logs)'))
+.catch(err => console.error('❌ Error conectando a MongoDB:', err));
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
@@ -39,6 +48,8 @@ Incidencias.belongsTo(Categorias, { foreignKey: 'idc' });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(registerLogs);
 
 app.use(session({ secret: 'secreto', resave: false, saveUninitialized: true }));
 app.use(setLocals);
@@ -79,7 +90,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get('/usuari', isAuthenticated, isUsuari, async(req, res) => {
+app.get('/usuari', isAuthenticated, isUsuari, async (req, res) => {
   res.render('usuari', {
     id: req.session.id,
     rol: req.session.rol
@@ -117,8 +128,8 @@ app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
 
     const incidenciasNoTecnic = incidencias.filter(incidencia => !incidencia.idt);
     const incidenciasYesTecnic = incidencias.filter(incidencia => incidencia.idt);
-    
-    res.render('moderador', {tecnicos, categorias, departamentos, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol});
+
+    res.render('moderador', { tecnicos, categorias, departamentos, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol });
 
   } catch (error) {
     console.error('Error al carregar la vista del moderador: ' + error);
