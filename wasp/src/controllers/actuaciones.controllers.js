@@ -72,11 +72,18 @@ exports.formCrear = async (req, res) => {
 
 exports.crear = async (req, res) => {
   try {
-    const { descripcio, dataactuacio, hores, visibilitat, resolt, idt, idi } = req.body;
+    const { descripcio, dataactuacio, hores, resolt, visibilitat, idt, idi } = req.body;
 
-    await Actuacion.create({ descripcio, dataactuacio, hores, visibilitat, resolt, idt, idi });
-
+    const actuacion = await Actuacion.create({ descripcio, dataactuacio, hores, visibilitat, idt, idi });
     const incidencia = await Incidencia.findByPk(idi);
+
+    if (resolt) {
+      incidencia.resolt = true;
+      actuacion.descripcio = descripcio + " (resolt)";
+
+      await actuacion.save();
+      await incidencia.save();
+    }
 
     const sumHoras = await Actuacion.sum('hores', { where: { idi: incidencia.id } });
 

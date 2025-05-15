@@ -15,6 +15,11 @@ const Incidencias = sequelize.define('Incidencias', {
     allowNull: false,
     defaultValue: 0,
   },
+  resolt: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   dataincidencia: {
     type: DataTypes.DATE,
     allowNull: false,

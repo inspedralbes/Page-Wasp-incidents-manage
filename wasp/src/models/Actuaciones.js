@@ -20,11 +20,6 @@ const Actuaciones = sequelize.define('Actuaciones', {
         allowNull: false,
         defaultValue: false,
     },
-    resolt: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-    },
 });
 
 module.exports = Actuaciones;
