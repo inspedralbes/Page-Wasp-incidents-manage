@@ -6,4 +6,8 @@ const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middlew
 
 router.get('/list', departamentoController.list);
 
+router.get('/crear', (req, res) => {
+    res.render('departamentos/crear');
+});
+
 module.exports = router;

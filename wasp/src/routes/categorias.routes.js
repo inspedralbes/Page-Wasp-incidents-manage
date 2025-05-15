@@ -6,4 +6,9 @@ const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('../middlew
 
 router.get('/list', categoriaController.list);
 
+router.get('/crear', (req, res) => {
+    res.render('categorias/crear');
+});
+
+
 module.exports = router;

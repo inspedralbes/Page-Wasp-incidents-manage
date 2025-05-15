@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+
+  <h1>Nova categoria</h1>
+  <form action="/categorias/create" method="post">
+    <div class="mb-3">
+      <label for="Nombre" class="form-label">Nom</label>
+      <textarea class="form-control" name="nombre" id="nombre" rows="1" required></textarea>
+    </div>
+    <div class="d-flex justify-content-between">
+      <a href="/moderador" class="btn btn-secondary">Tornar enrere</a>
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+
+<%- include('../partials/footer') %>
