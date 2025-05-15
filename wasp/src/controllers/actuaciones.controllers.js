@@ -29,7 +29,7 @@ exports.listarTodas = async (req, res) => {
     const actuaciones = await Actuacion.findAll();
     res.render('actuaciones/list_all', { actuaciones });
   } catch (error) {
-    res.status(500).send('Error al recuperar actuaciones: ' + error.message);
+    res.status(500).send('Error al recuperar actuacions: ' + error.message);
   }
 };
 
@@ -93,7 +93,7 @@ exports.crear = async (req, res) => {
     res.redirect('list/incidencias/' + idi);
 
   } catch (error) {
-    console.error('Error al crear la actuació:', error);
-    res.status(500).send('Error al crear la actuació: ' + error.message);
+    console.error("Error al crear l'actuació:", error);
+    res.status(500).send("Error al crear l'actuació: " + error.message);
   }
 };

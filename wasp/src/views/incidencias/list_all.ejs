@@ -1,16 +1,16 @@
 <% if (incidencias.length === 0) { %>
-    <div class="alert alert-warning">Encara no hi han incidencias.</div>
+    <div class="alert alert-warning">Encara no hi ha incidències.</div>
 <% } else { %>
     <table class="table table-striped align-middle">
         <tr>
             <th>ID</th>
-            <th>Descripción</th>
-            <th>Prioridad</th>
-            <th>Departamento</th>
-            <th>Categoría</th>
-            <th>Hores de Actuacions</th>
-            <th>Fecha de Incidencia</th>
-            <th>Tecnico</th>
+            <th>Descripció</th>
+            <th>Prioritat</th>
+            <th>Departament</th>
+            <th>Categoria</th>
+            <th>Hores d'actuacions</th>
+            <th>Data d'incidència</th>
+            <th>Tècnic</th>
             <th>Resolt</th>
             <th>Accions</th>
         </tr>
@@ -19,7 +19,7 @@
             <td><%= incidencia.id %></td>
             <td><%= incidencia.descripcio %></td>
             <td><%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat' %></td>
-            <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %></td>
+            <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
             <td><%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %></td>
             <td><%= incidencia.horesactuacio %> h</td>
             <td><%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %></td>
@@ -43,7 +43,7 @@
                     </svg>
                 </a>
 
-                <a href="#" title="Desasignar técnico" style="width: 32px; height: 32px; padding: 0;"
+                <a href="#" title="Desasignar tècnic" style="width: 32px; height: 32px; padding: 0;"
                     onclick="confirmarDesasignar('<%= incidencia.id %>')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-person-fill-x" viewBox="0 0 16 16">

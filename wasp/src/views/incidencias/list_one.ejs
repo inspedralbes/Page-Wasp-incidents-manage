@@ -3,23 +3,23 @@
     <table class="table table-striped align-middle">
         <tr>
             <th>ID</th>
-            <th>Descripción</th>
-            <th>Prioridad</th>
-            <th>Departamento</th>
+            <th>Descripció</th>
+            <th>Prioritat</th>
+            <th>Departament</th>
             <th>Categoria</th>
-            <th>Hores de Actuacions</th>
-            <th>Fecha de Incidencia</th>
-            <th>Actuaciones</th>
+            <th>Hores d'actuacions</th>
+            <th>Data d'incidència</th>
+            <th>Actuacions</th>
         </tr>
         <tr>
             <td><%= incidencia.id %></td>
             <td><%= incidencia.descripcio %></td>
             <td><%= incidencia.prioritat ? incidencia.prioritat : 'Sense prioritat' %></td>
-            <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departamento' %></td>
+            <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
             <td><%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %></td>
             <td><%= incidencia.horesactuacio %> h</td>
             <td><%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %></td>
-            <td><a class="btn btn-primary" href="/actuaciones/list/incidencias/public/<%= incidencia.id %>">Ver Actuaciones</a></td>
+            <td><a class="btn btn-primary" href="/actuaciones/list/incidencias/public/<%= incidencia.id %>">Veure Actuacions</a></td>
         </tr>
     </table>
 

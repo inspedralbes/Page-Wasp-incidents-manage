@@ -72,8 +72,8 @@ app.get('/', (req, res) => {
 app.get('/logout', (req, res) => {
   req.session.destroy(error => {
     if (error) {
-      console.error('Error al cerrar sesión:', error);
-      return res.status(500).send('Error al cerrar la sessió');
+      console.error('Error al tancar sesió:', error);
+      return res.status(500).send('Error al tancar la sessió');
     }
     res.redirect('/login');
   });
@@ -102,7 +102,7 @@ app.get('/tecnic', isAuthenticated, isTecnic, async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error al cargar la vista del tècnic: ' + error);
+    console.error('Error al carregar la vista del tècnic: ' + error);
     res.status(500).send('Error al carregar la pàgina del tècnic: ' + error);
   }
 });
@@ -121,7 +121,7 @@ app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
     res.render('moderador', {tecnicos, categorias, departamentos, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol});
 
   } catch (error) {
-    console.error('Error al cargar la vista del moderador: ' + error);
+    console.error('Error al carregar la vista del moderador: ' + error);
     res.status(500).send('Error al carregar la pàgina del moderador: ' + error);
   }
 });

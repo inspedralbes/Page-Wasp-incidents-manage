@@ -5,12 +5,12 @@
     <table class="table">
       <tr>
         <th>ID</th>
-        <th>Descripción</th>
-        <th>Prioridad</th>
-        <th>Departamento</th>
-        <th>Categoría</th> <!-- Nueva columna -->
-        <th>Fecha de Incidencia</th>
-        <th>Técnico</th>
+        <th>Descripció</th>
+        <th>Prioritat</th>
+        <th>Departament</th>
+        <th>Categoria</th> <!-- Nueva columna -->
+        <th>Data d'incidència</th>
+        <th>Tècnic</th>
       </tr>
       <% incidencias.forEach(incidencia=> { %>
         <tr>
@@ -29,7 +29,7 @@
             </select>
           </td>
           <td>
-            <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sin departamento' %>
+            <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
           </td>
           <td>
             <%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %>
@@ -39,7 +39,7 @@
           </td>
           <td>
             <select name="tecnico_<%= incidencia.id %>" class="form-select">
-              <option value="" disabled selected>Selecciona un técnico</option>
+              <option value="" disabled selected>Selecciona un tècnic</option>
               <% tecnicos.forEach(tec=> { %>
                 <option value="<%= tec.id %>" <%=incidencia.idt===tec.id ? 'selected' : '' %>><%= tec.nombre %></option>
               <% }) %>
@@ -48,6 +48,6 @@
         </tr>
       <% }) %>
     </table>
-    <button type="submit" class="btn btn-primary mb-5">Actualizar Todos</button>
+    <button type="submit" class="btn btn-primary mb-5">Actualitzar tot</button>
   </form>
 <% } %>

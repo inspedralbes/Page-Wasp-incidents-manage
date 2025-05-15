@@ -12,7 +12,7 @@ const loginUser = async (req, res) => {
 
   let user = await Usuario.findOne({ where: { nombre, contrasena } });
   if (user) {
-    console.log('Usuario encontrado:', user);
+    console.log('Usuari trobat:', user);
     req.session.userId = user.id;
     req.session.rol = 'usuari';
     return res.redirect('/usuari');
@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
 
   user = await Moderador.findOne({ where: { nombre, contrasena } });
   if (user) {
-    console.log('Usuario encontrado:', user);
+    console.log('Usuari trobat:', user);
     req.session.userId = user.id;
     req.session.rol = 'moderador';
     return res.redirect('/moderador');
@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
 
   user = await Tecnico.findOne({ where: { nombre, contrasena } });
   if (user) {
-    console.log('Usuario encontrado:', user);
+    console.log('Usuari trobat:', user);
     req.session.userId = user.id;
     req.session.rol = 'tecnic';
     return res.redirect('/tecnic');

@@ -5,6 +5,6 @@ exports.list = async (req, res) => {
         const categorias = await Categoria.findAll();
         res.render('categorias/list_all', { categorias });
     } catch (error) {
-        res.status(500).send('Error al recuperar categorias: ' + error.message);
+        res.status(500).send('Error al recuperar categories: ' + error.message);
     }
 };
