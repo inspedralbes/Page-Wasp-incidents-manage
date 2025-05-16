@@ -10,8 +10,8 @@ const session = require('express-session');
 
 const moment = require('moment');
 
-const detectRole = require('./middleware/roleMiddleware');
 const { isAuthenticated, isTecnic, isModerador, isUsuari } = require('./middleware/authMiddleware');
+const detectRole = require('./middleware/roleMiddleware');
 const setLocals = require('./middleware/localsMiddleware');
 const registerLogs = require('./middleware/registerLogs');
 
@@ -23,6 +23,8 @@ const Categorias = require('./models/Categorias')
 const Usuarios = require('./models/Usuarios');
 const Tecnicos = require('./models/Tecnicos');
 const Moderadores = require('./models/Moderadores');
+
+const Stats = require('./models/Stats');
 
 mongoose.connect('mongodb://root:example@mongo:27017/logs?authSource=admin', {
   useNewUrlParser: true,
@@ -66,14 +68,15 @@ const { console } = require('inspector');
 
 app.use('/incidencias', incidenciaRoutesEJS);
 app.use('/actuaciones', actuacionRoutesEJS);
-app.use('/estadistiques', estadisticaRoutesEJS);
+app.use('/api', estadisticaRoutesEJS);
 
 app.use('/otros', otroRoutesEJS);
 app.use('/', authRoutesEJS);
 
+
 app.locals.moment = moment;
 
-// // Configuracio Estatica
+// Configuracio Estatica
 app.use('/css', express.static(path.join(__dirname, 'public/css')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/js', express.static(path.join(__dirname, 'public/js')));
@@ -91,6 +94,11 @@ app.get('/logout', (req, res) => {
     }
     res.redirect('/login');
   });
+});
+
+app.get('/no-autoritzat', (req, res) => {
+  const rol = req.query.rol;
+  res.render('no-autoritzat', { rol });
 });
 
 app.get('/usuari', isAuthenticated, isUsuari, async (req, res) => {
@@ -230,7 +238,6 @@ const port = process.env.PORT || 3000;
       idi: 1,
     });
 
-    // Engeguem servidor
     app.listen(port, () => {
       console.log(`Servidor escoltant a http://localhost:${port}`);
     });

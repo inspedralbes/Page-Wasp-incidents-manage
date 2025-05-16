@@ -1,44 +1,45 @@
-<% if (incidencias.length === 0) { %>
+<% if (incidencias.length===0) { %>
     <div class="alert alert-warning">Encara no hi ha incidències.</div>
-<% } else { %>
-    <table class="table table-striped align-middle">
-        <tr>
-            <th>ID</th>
-            <th>Descripció</th>
-            <th>Prioritat</th>
-            <th>Departament</th>
-            <th>Categoria</th>
-            <th>Hores d'actuacions</th>
-            <th>Data d'incidència</th>
-            <th>Actuacions</th>
-        </tr>
-    <% incidencias.forEach(incidencia=> { %>
-        <tr>
-            <td>
-                <%= incidencia.id %>
-            </td>
-            <td>
-                <%= incidencia.descripcio %>
-            </td>
-            <td>
-                <%= incidencia.prioritat %>
-            </td>
-            <td>
-                <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
-            </td>
-            <td>
-                <%= incidencia.Categoria.nombre %>
-            </td>
-            <td>
-                <%= incidencia.horesactuacio %> h
-            </td>
-            <td>
-                <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
-            </td>
-            <td>
-                <a class="btn btn-primary" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Veure Actuacions</a>
-            </td>
-        </tr>
-    <% }) %>
-    </table>
-<% } %>
+    <% } else { %>
+        <table class="table table-striped align-middle">
+            <tr>
+                <th>ID</th>
+                <th>Descripció</th>
+                <th>Prioritat</th>
+                <th>Departament</th>
+                <th>Categoria</th>
+                <th>Hores d'actuacions</th>
+                <th>Data d'incidència</th>
+                <th>Actuacions</th>
+            </tr>
+            <% incidencias.forEach(incidencia=> { %>
+                <tr>
+                    <td>
+                        <%= incidencia.id %>
+                    </td>
+                    <td style="max-width: 250px;">
+                        <%= incidencia.descripcio %>
+                    </td>
+                    <td>
+                        <%= incidencia.prioritat %>
+                    </td>
+                    <td>
+                        <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
+                    </td>
+                    <td>
+                        <%= incidencia.Categoria.nombre %>
+                    </td>
+                    <td>
+                        <%= incidencia.horesactuacio %> h
+                    </td>
+                    <td>
+                        <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Veure
+                            Actuacions</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    <% } %>

@@ -7,7 +7,6 @@ const loginView = (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  // console.log('BODY:', JSON.stringify(req.body));
   const { nombre, contrasena } = req.body;
 
   let user = await Usuario.findOne({ where: { nombre, contrasena } });

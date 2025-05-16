@@ -17,15 +17,15 @@ module.exports = (req, res, next) => {
         usuario = 'moderador' ;
     }
 
-        const nuevaVisita = new Visita({
+    const nuevaVisita = new Visita({
         url,
         usuario,
         navegador: req.headers['user-agent']
     });
     
     nuevaVisita.save()
-        .then(() => console.log(`📝 Visita guardada: ${url}`))
-        .catch(err => console.error('❌ Error guardando visita:', err));
+        .then(() => console.log(`Visita guardada: ${usuario}`))
+        .catch(err => console.error('Error guardando visita:', err));
 
     next();
 };

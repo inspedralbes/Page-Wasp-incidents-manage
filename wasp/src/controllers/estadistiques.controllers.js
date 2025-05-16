@@ -1,17 +1,43 @@
-const Visita = require('../models/Stats');
+const Stats = require('../models/Stats'); 
 
-exports.listarEstadistiques = async (req, res) => {
+// Estadísticas por rol (usuario)
+exports.estadisticasRol = async (req, res) => {
     try {
-        const visitasPorRol = await Visita.aggregate([
-            { $group: { _id: "$usuario.rol", total: { $sum: 1 } } }
+        const datos = await Stats.aggregate([
+            {
+                $group: {
+                    _id: "$usuario",  
+                    total: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { total: -1 }
+            }
         ]);
+        res.json(datos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener estadísticas por rol' });
+    }
+};
 
-        res.render('estadistiques', {
-            visitasPorRol,
-            visitesJson: JSON.stringify(visitasPorRol)
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error carregant les estadístiques');
+// Estadísticas por hora
+exports.estadisticasHora = async (req, res) => {
+    try {
+        const datos = await Stats.aggregate([
+            {
+                $group: {
+                    _id: { $hour: "$timestamp" },  
+                    total: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]);
+        res.json(datos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener estadísticas por hora' });
     }
 };

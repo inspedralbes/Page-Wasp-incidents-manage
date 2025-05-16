@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('../controllers/estadistiques.controllers');
+const estadisticasController = require('../controllers/estadistiques.controllers');
 
-router.get('/estadistiques', controller.listarEstadistiques);
+// Ruta para estadísticas por rol (usuarios)
+router.get('/estadistiques-rols', estadisticasController.estadisticasRol);
+
+// Ruta para estadísticas por hora
+router.get('/estadistiques-hores', estadisticasController.estadisticasHora);
 
 module.exports = router;

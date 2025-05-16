@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 
 const Stats = new mongoose.Schema({
-    url: String,
     usuario: {
-        nombre: String,
-        rol: String
+        type: String,
     },
     timestamp: { 
         type: Date, 
@@ -13,4 +11,4 @@ const Stats = new mongoose.Schema({
     navegador: String
 });
 
-module.exports = mongoose.model('Visita', Stats);
+module.exports = mongoose.model('Stats', Stats);

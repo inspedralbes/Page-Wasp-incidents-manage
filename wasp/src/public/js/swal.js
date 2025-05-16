@@ -118,3 +118,15 @@ function confirmarDesasignar(id) {
         }
     });
 }
+
+function mostrarAccesDenegat(rol) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Accés denegat',
+        text: `Ets ${rol}!`,
+        confirmButtonText: 'Tornar enrere',
+        ...swalOptions
+    }).then(() => {
+        window.history.back();
+    });
+}

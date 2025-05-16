@@ -23,23 +23,30 @@ exports.listarUna = async (req, res) => {
 };
 
 exports.listarPorTecnico = async (req, res) => {
-    try {
-        const tecnico = await Tecnico.findByPk(req.params.id, { include: Incidencia, Categoria });
+try {
+    const tecnicoId = req.params.id;
 
-        if (!tecnico) {
-            return res.status(404).send('Tècnic no trobat');
-        }
+    const tecnico = await Tecnico.findByPk(tecnicoId, {
+        include: [{ model: Incidencia, include: [Departamento, Categoria] }]
+    });
 
-        res.render('incidencias/list_person', {
-            tecnico,
-            incidencias: tecnico.Incidencia
-        });
+    if (!tecnico) {
+        return res.status(404).send('Tècnic no trobat');
+    }
+
+    const incidencias = tecnico.Incidencias || [];
+
+    res.render('incidencias/list_person', {
+        tecnico,
+        incidencias
+    });
 
     } catch (error) {
-        console.error('Error al carregar incidències del tècnic: ' + error);
-        res.status(500).send('Error al cargar incidències del tècnic: ' + error);
+        console.error(error);
+        res.status(500).send('Error cargando la página del técnico'+error);
     }
 };
+
 
 exports.formCrear = async (req, res) => {
     try {

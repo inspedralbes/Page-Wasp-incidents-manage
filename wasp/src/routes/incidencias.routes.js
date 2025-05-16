@@ -14,8 +14,8 @@ router.get('/list/:id', incidenciaController.listarUna);
 router.get('/list/tecnic/:id', isAuthenticated, isTecnic, incidenciaController.listarPorTecnico);
 
 // Crear incidencia
-router.get('/new', incidenciaController.formCrear);
-router.post('/create', incidenciaController.crear);
+router.get('/new', isAuthenticated, isUsuari, incidenciaController.formCrear);
+router.post('/create', isAuthenticated, isUsuari, incidenciaController.crear);
 
 // Asignar incidencia
 router.get('/asignar', isAuthenticated, isModerador, incidenciaController.formAsignar);
@@ -25,13 +25,13 @@ router.post('/asignar/:id/update', isAuthenticated, isModerador, incidenciaContr
 router.get('/:id/desasignar', isAuthenticated, isModerador, incidenciaController.desasignarTecnico);
 
 // Editar incidencia
-router.get('/list/:id/editar', incidenciaController.formEditar);
-router.post('/:id/update', incidenciaController.actualizar);
+router.get('/list/:id/editar', isAuthenticated, isModerador, incidenciaController.formEditar);
+router.post('/:id/update', isAuthenticated, isModerador, incidenciaController.actualizar);
 
 // Actualizar todas
-router.post('/updateAll', incidenciaController.actualizarTodas);
+router.post('/updateAll', isAuthenticated, isModerador, incidenciaController.actualizarTodas);
 
 // Eliminar incidencia
-router.get('/:id/delete', incidenciaController.eliminar);
+router.get('/:id/delete', isAuthenticated, isModerador, incidenciaController.eliminar);
 
 module.exports = router;
