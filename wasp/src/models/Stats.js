@@ -6,7 +6,10 @@ const Stats = new mongoose.Schema({
         nombre: String,
         rol: String
     },
-    timestamp: { type: Date, default: Date.now },
+    timestamp: { 
+        type: Date, 
+        default: Date.now 
+    },
     navegador: String
 });
 

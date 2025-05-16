@@ -1,8 +1,8 @@
-const Categoria = require('../models/Tecnicos');
+const Tecnico = require('../models/Tecnicos');
 
 exports.list = async (req, res) => {
     try {
-        const categorias = await Categoria.findAll();
+        const tecnicos = await Tecnico.findAll();
         res.render('tecnicos/list_all', { tecnicos });
     } catch (error) {
         res.status(500).send('Error al recuperar categories: ' + error.message);
@@ -19,8 +19,8 @@ exports.formCrear = async (req, res) => {
 
 exports.crear = async (req, res) => {
     try {
-        const { nombre } = req.body;
-        await Categoria.create({ nombre });
+        const { nombre, contrasena } = req.body;
+        await Tecnico.create({ nombre, contrasena });
 
         res.redirect('/moderador');
     } catch (error) {
@@ -28,25 +28,40 @@ exports.crear = async (req, res) => {
     }
 };
 
-exports.update = async (req, res) => {
+exports.formEditar = async (req, res) => {
     try {
-        const id = req.params.id;
-
-        const categoria = await Categoria.findByPk(id);
-
-        if (!categoria) {
-            return res.status(404).send("Categoría no encontrada.");
-        }
-
-        const nuevoNombre = req.body.nombre;
-        if (nuevoNombre !== undefined) {
-            categoria.nombre = nuevoNombre;
-            await categoria.save();
-        }
-
-        res.redirect('/moderador');
+        const tecnico = await Tecnico.findByPk(req.params.id);
+        if (!tecnico) return res.status(404).send('Técnico no encontrado');
+        res.render('tecnicos/editar', { tecnico });
     } catch (error) {
-        res.status(500).send("Error al actualizar la categoría: " + error.message);
+        res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
     }
 };
 
+exports.actualizar = async (req, res) => {
+    try {
+        const tecnico = await Tecnico.findByPk(req.params.id);
+        if (!tecnico) return res.status(404).send('Técnico no encontrado');
+
+        const { nombre, contrasena } = req.body;
+        if (nombre !== undefined) tecnico.nombre = nombre;
+        if (contrasena !== undefined) tecnico.contrasena = contrasena;
+
+        await tecnico.save();
+
+        res.redirect('/moderador');
+    } catch (error) {
+        res.status(500).send('Error al actualizar el técnico: ' + error.message);
+    }
+};
+
+exports.eliminar = async (req, res) => {
+    try {
+        const tecnico = await Tecnico.findByPk(req.params.id);
+        if (!tecnico) return res.status(404).send('Incidència no trobada');
+        await tecnico.destroy();
+        res.redirect('/moderador');
+    } catch (error) {
+        res.status(500).send("Error al eliminar l'incidència");
+    }
+};

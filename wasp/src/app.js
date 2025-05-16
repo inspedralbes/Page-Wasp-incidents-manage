@@ -29,7 +29,7 @@ mongoose.connect('mongodb://root:example@mongo:27017/logs?authSource=admin', {
   useUnifiedTopology: true
 })
 .then(() => console.log('Conectado a MongoDB (logs)'))
-.catch(err => console.error('Error conectando a MongoDB:', err));
+.catch(error => console.error('Error conectando a MongoDB:', error));
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });

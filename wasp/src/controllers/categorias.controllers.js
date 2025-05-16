@@ -28,17 +28,22 @@ exports.crear = async (req, res) => {
     }
 };
 
-exports.update = async (req, res) => {
+exports.formEditar = async (req, res) => {
     try {
-        const id = req.params.id;
-        const categoria = await Categoria.findByPk(id);
+        const categoria = await Categoria.findByPk(req.params.id);
+        if (!categoria) return res.status(404).send('Categoría no encontrada');
+        res.render('categorias/editar', { categoria });
+    } catch (error) {
+        res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
+    }
+};
 
-        if (!categoria) {
-            return res.status(404).send("Categoría no encontrada.");
-        }
+exports.actualizar = async (req, res) => {
+    try {
+        const categoria = await Categoria.findByPk(req.params.id);
+        if (!categoria) return res.status(404).send('Categoría no encontrada');
 
         const { nombre } = req.body;
-
         if (nombre !== undefined) {
             categoria.nombre = nombre;
             await categoria.save();
@@ -46,7 +51,18 @@ exports.update = async (req, res) => {
 
         res.redirect('/moderador');
     } catch (error) {
-        res.status(500).send("Error al actualizar la categoría: " + error.message);
+        res.status(500).send('Error al actualizar la categoría: ' + error.message);
+    }
+};
+
+exports.eliminar = async (req, res) => {
+    try {
+        const categoria = await Categoria.findByPk(req.params.id);
+        if (!categoria) return res.status(404).send('Incidència no trobada');
+        await categoria.destroy();
+        res.redirect('/moderador');
+    } catch (error) {
+        res.status(500).send("Error al eliminar l'incidència");
     }
 };
 

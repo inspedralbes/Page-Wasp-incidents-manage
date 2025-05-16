@@ -28,26 +28,42 @@ exports.crear = async (req, res) => {
     }
 };
 
-exports.update = async (req, res) => {
+exports.formEditar = async (req, res) => {
     try {
-        const id = req.params.id;
-        const departamento = await Departamento.findByPk(id);
+        const departamento = await Departamento.findByPk(req.params.id);
+        if (!departamento) return res.status(404).send('Departamento no encontrado');
+        res.render('departamentos/editar', { departamento });
+    } catch (error) {
+        res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
+    }
+};
 
-        if (!departamento) {
-            return res.status(404).send("Departamento no encontrado.");
-        }
+exports.actualizar = async (req, res) => {
+    try {
+        const departamento = await Departamento.findByPk(req.params.id);
+        if (!departamento) return res.status(404).send('Departamento no encontrado');
 
         const { nombre, ubicacio } = req.body;
+        if (nombre !== undefined) departamento.nombre = nombre;
+        if (ubicacio !== undefined) departamento.ubicacio = ubicacio;
 
-        if (nombre !== undefined && ubicacio !== undefined) {
-            departamento.nombre = nombre;
-            departamento.ubicacio = ubicacio;
-            await departamento.save();
-        }
+        await departamento.save();
 
         res.redirect('/moderador');
     } catch (error) {
-        res.status(500).send("Error al actualizar el departamento: " + error.message);
+        res.status(500).send('Error al actualizar el departamento: ' + error.message);
     }
 };
+
+exports.eliminar = async (req, res) => {
+    try {
+        const departamento = await Departamento.findByPk(req.params.id);
+        if (!departamento) return res.status(404).send('Incidència no trobada');
+        await departamento.destroy();
+        res.redirect('/moderador');
+    } catch (error) {
+        res.status(500).send("Error al eliminar l'incidència");
+    }
+};
+
 

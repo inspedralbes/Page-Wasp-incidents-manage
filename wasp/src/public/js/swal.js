@@ -60,7 +60,7 @@ function confirmarEliminar(type, id) {
         ...swalOptions
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = `/${type}/${id}/delete`;
+            window.location.href = `/otros/${type}/${id}/delete`;
         }
     });
 }

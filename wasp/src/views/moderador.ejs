@@ -15,7 +15,7 @@
     <div class="card h-100 shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center">
         <span>Departaments</span>
-        <a href="/otros/departamentos/new" class="btn">Afegir</a>
+        <a href="/otros/departamentos/new" class="btn btn-primary">Afegir</a>
       </div>
       <div class="card-body overflow-auto" style="max-height: 500px;">
         <%- include('departamentos/list_all', { departamentos: departamentos }) %>
@@ -27,7 +27,7 @@
     <div class="card h-100 shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center">
         <span>Tecnics</span>
-        <a href="/otros/tecnicos/new" class="btn">Afegir</a>
+        <a href="/otros/tecnicos/new" class="btn btn-primary">Afegir</a>
       </div>
       <div class="card-body overflow-auto" style="max-height: 500px;">
         <%- include('tecnicos/list_all', { departamentos: departamentos }) %>
@@ -39,6 +39,7 @@
     <div class="card h-100 shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center">
         <span>Categories</span>
+        <a href="/otros/categorias/new" class="btn btn-primary">Afegir</a>
       </div>
       <div class="card-body overflow-auto" style="max-height: 500px;">
         <%- include('categorias/list_all', { categorias: categorias }) %>

@@ -10,11 +10,11 @@ module.exports = (req, res, next) => {
     let usuario;
 
     if (url === '/tecnic') {
-        usuario = { nombre: 'anonim', rol: 'tecnic' };
+        usuario = 'tecnic';
     } else if (url === '/usuari') {
-        usuario = { nombre: 'anonim', rol: 'usuari' };
+        usuario = 'usuari';
     } else if (url === '/moderador') {
-        usuario = { nombre: 'anonim', rol: 'moderador' };
+        usuario = 'moderador' ;
     }
 
         const nuevaVisita = new Visita({

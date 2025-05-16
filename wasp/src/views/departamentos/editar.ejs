@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+    <h1>Editar Departament</h1>
+    <form action="/otros/departamentos/<%= departamento.id %>/update" method="POST">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nom</label>
+            <input type="text" name="nombre" value="<%= departamento.nombre %>" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="ubicacio" class="form-label">Ubicació</label>
+            <input type="text" name="ubicacio" value="<%= departamento.ubicacio %>" class="form-control" required />
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a href="/moderador" class="btn btn-secondary">Volver atrás</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+    </form>
+
+<%- include('../partials/footer') %>
