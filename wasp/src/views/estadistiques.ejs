@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Estadístiques</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <h1>Visites per Rol</h1>
+    <canvas id="graficoVisites" width="400" height="200"></canvas>
+
+    <script>
+        // 👇 Aquí se inserta el array como JS válido
+        const visites = <% - visitesJson %>;
+
+        const labels = visites.map(v => v._id || 'Desconegut');
+        const dades = visites.map(v => v.total);
+
+        new Chart(document.getElementById('graficoVisites'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Nombre de visites',
+                    data: dades,
+                    backgroundColor: ['#0d6efd', '#198754', '#ffc107'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

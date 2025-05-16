@@ -3,35 +3,36 @@
         <tr>
             <th>ID</th>
             <th>Nom</th>
-            <th>Ubicació</th>
+            <th>Contrasena</th>
             <th>Accions</th>
         </tr>
     </thead>
     <tbody>
-        <% departamentos.forEach(dep=> { %>
+        <% tecnicos.forEach(tec=> { %>
             <tr>
                 <td>
-                    <%= dep.id %>
+                    <%= tec.id %>
                 </td>
                 <td>
-                    <input type="text" name="nombre_<%= dep.id %>" value="<%= dep.nombre %>"
+                    <input type="text" name="nombre_<%= tec.id %>" value="<%= tec.nombre %>"
                         class="form-control-plaintext" />
                 </td>
                 <td>
-                    <input type="text" name="ubicacio_<%= dep.id %>" value="<%= dep.ubicacio %>"
+                    <input type="text" name="contrasena_<%= tec.id %>" value="<%= tec.contrasena %>"
                         class="form-control-plaintext" />
                 </td>
                 <td>
                     <a href="#" title="Actualizar" style="width: 32px; height: 32px; padding: 0; margin-right: 5px;"
-                        onclick="confirmarActualizar('departamentos', '<%= dep.id %>')">
+                        onclick="confirmarActualizar('tecnicos', '<%= tec.id %>')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil" viewBox="0 0 16 16">
                             <path
                                 d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708L5.207 13.793l-3.5 1a.5.5 0 0 1-.63-.63l1-3.5L12.146.854zM11.207 2 3 10.207V11h.793L13 2.793 11.207 2z" />
                         </svg>
                     </a>
+
                     <a href="#" title="Eliminar" style="width: 32px; height: 32px; padding: 0;"
-                        onclick="confirmarEliminar('departamentos', '<%= dep.id %>')">
+                        onclick="confirmarEliminar('tecnicos', '<%= tec.id %>')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-trash3" viewBox="0 0 16 16">
                             <path
@@ -40,6 +41,7 @@
                     </a>
                 </td>
             </tr>
-        <% }) %>
+            <% }) %>
     </tbody>
 </table>
+</form>

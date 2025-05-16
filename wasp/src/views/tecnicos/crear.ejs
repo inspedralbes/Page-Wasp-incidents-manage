@@ -1,10 +1,14 @@
 <%- include('../partials/header') %>
 
-  <h1>Nova categoria</h1>
-  <form action="/otros/categorias/create" method="post">
+  <h1>Nou Tecnic</h1>
+  <form action="/otros/tecnicos/create" method="post">
     <div class="mb-3">
       <label for="Nombre" class="form-label">Nom</label>
       <textarea class="form-control" name="nombre" id="nombre" rows="1" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="Contrasena" class="form-label">Ubicacio</label>
+      <textarea class="form-control" name="contrasena" id="contrasena" rows="1" required></textarea>
     </div>
     <div class="d-flex justify-content-between">
       <a href="/moderador" class="btn btn-secondary">Tornar enrere</a>

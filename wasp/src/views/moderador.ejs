@@ -3,19 +3,49 @@
 <h1>Pàgina del Moderador</h1>
 <p>Aquesta és la pàgina dedicada al moderador.</p>
 
-<%- include('incidencias/asignar', { incidencias: incidenciasNoTecnic } ) %>
-<%- include('incidencias/list_all', { incidencias: incidenciasYesTecnic } ) %>
+<div class="mb-4 mt-4">
+  <%- include('incidencias/asignar', { incidencias: incidenciasNoTecnic } ) %>
+</div>
+<div class="mb-4 mt-4">
+  <%- include('incidencias/list_all', { incidencias: incidenciasYesTecnic } ) %>
+</div>
 
-<h3>Llista de Departaments i Categories</h3>
 <div class="row">
-  <div class="col-md-6">
-    <%- include('departamentos/list_all', { departamentos: departamentos }) %>
-    <a href="/departamentos/crear" class="btn btn-primary mt-2">Afegir departament</a>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Departaments</span>
+        <a href="/otros/departamentos/new" class="btn">Afegir</a>
+      </div>
+      <div class="card-body overflow-auto" style="max-height: 500px;">
+        <%- include('departamentos/list_all', { departamentos: departamentos }) %>
+      </div>
+    </div>
   </div>
-  <div class="col-md-6">
-    <%- include('categorias/list_all', { categorias: categorias }) %>
-    <a href="/categorias/crear" class="btn btn-primary mt-2">Afegir categoria</a>
+
+    <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Tecnics</span>
+        <a href="/otros/tecnicos/new" class="btn">Afegir</a>
+      </div>
+      <div class="card-body overflow-auto" style="max-height: 500px;">
+        <%- include('tecnicos/list_all', { departamentos: departamentos }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Categories</span>
+      </div>
+      <div class="card-body overflow-auto" style="max-height: 500px;">
+        <%- include('categorias/list_all', { categorias: categorias }) %>
+      </div>
+    </div>
   </div>
 </div>
+
 <br>
 <%- include('partials/footer') %>

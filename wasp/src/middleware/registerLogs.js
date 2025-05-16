@@ -1,4 +1,4 @@
-const Visita = require('../models/Visita');
+const Visita = require('../models/Stats');
 
 module.exports = (req, res, next) => {
     const url = req.originalUrl;

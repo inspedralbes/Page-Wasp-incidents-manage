@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const visitaSchema = new mongoose.Schema({
+const Stats = new mongoose.Schema({
     url: String,
     usuario: {
         nombre: String,
@@ -10,4 +10,4 @@ const visitaSchema = new mongoose.Schema({
     navegador: String
 });
 
-module.exports = mongoose.model('Visita', visitaSchema);
+module.exports = mongoose.model('Visita', Stats);

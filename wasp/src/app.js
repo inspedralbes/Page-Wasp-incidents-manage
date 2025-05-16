@@ -18,7 +18,7 @@ const registerLogs = require('./middleware/registerLogs');
 const Actuaciones = require('./models/Actuaciones');
 const Incidencias = require('./models/Incidencias');
 const Departamentos = require('./models/Departamentos');
-const Categorias = require('./models/Categorias');
+const Categorias = require('./models/Categorias')
 
 const Usuarios = require('./models/Usuarios');
 const Tecnicos = require('./models/Tecnicos');
@@ -28,8 +28,8 @@ mongoose.connect('mongodb://root:example@mongo:27017/logs?authSource=admin', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('✅ Conectado a MongoDB (logs)'))
-.catch(err => console.error('❌ Error conectando a MongoDB:', err));
+.then(() => console.log('Conectado a MongoDB (logs)'))
+.catch(err => console.error('Error conectando a MongoDB:', err));
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
@@ -56,16 +56,19 @@ app.use(setLocals);
 
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidencias.routes');
-const departamentoRoutesEJS = require('./routes/departamentos.routes');
 const actuacionRoutesEJS = require('./routes/actuaciones.routes');
+const estadisticaRoutesEJS = require('./routes/estadistiques.routes');
+
 const authRoutesEJS = require('./routes/auth.routes');
-const categoriaRoutesEJS = require('./routes/categorias.routes');
+const otroRoutesEJS = require('./routes/otros.routes');
+
 const { console } = require('inspector');
 
 app.use('/incidencias', incidenciaRoutesEJS);
-app.use('/departamentos', departamentoRoutesEJS);
 app.use('/actuaciones', actuacionRoutesEJS);
-app.use('/categorias', categoriaRoutesEJS);
+app.use('/estadistiques', estadisticaRoutesEJS);
+
+app.use('/otros', otroRoutesEJS);
 app.use('/', authRoutesEJS);
 
 app.locals.moment = moment;
