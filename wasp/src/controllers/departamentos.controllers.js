@@ -3,7 +3,7 @@ const Departamento = require('../models/Departamentos');
 exports.list = async (req, res) => {
     try {
         const departamentos = await Departamento.findAll();
-        res.render('departamentos/list_all', { departamentos });
+        res.render('otros/departamentos/list_all', { departamentos });
     } catch (error) {
         res.status(500).send('Error al recuperar departaments: ' + error.message);
     }
@@ -11,7 +11,7 @@ exports.list = async (req, res) => {
 
 exports.formCrear = async (req, res) => {
     try {
-        res.render('departamentos/crear');
+        res.render('/otros/departamentos/crear');
     } catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
     }
@@ -32,7 +32,7 @@ exports.formEditar = async (req, res) => {
     try {
         const departamento = await Departamento.findByPk(req.params.id);
         if (!departamento) return res.status(404).send('Departamento no encontrado');
-        res.render('departamentos/editar', { departamento });
+        res.render('otros/departamentos/editar', { departamento });
     } catch (error) {
         res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
     }

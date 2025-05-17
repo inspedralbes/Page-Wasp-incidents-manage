@@ -1,8 +1,8 @@
 require('dotenv').config();
 
-const mongoose = require('mongoose');
-const sequelize = require('./db');
+const sequelize = require('./config/db');
 const path = require('path');
+const { connectMongoDB } = require('./config/mongoose');
 
 const express = require('express');
 const app = express();
@@ -26,12 +26,7 @@ const Moderadores = require('./models/Moderadores');
 
 const Stats = require('./models/Stats');
 
-mongoose.connect('mongodb://root:example@mongo:27017/logs?authSource=admin', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Conectado a MongoDB (logs)'))
-.catch(error => console.error('Error conectando a MongoDB:', error));
+connectMongoDB();
 
 Departamentos.hasMany(Incidencias, { foreignKey: 'idd', onDelete: 'SET NULL' });
 Incidencias.belongsTo(Departamentos, { foreignKey: 'idd' });
@@ -61,7 +56,7 @@ const incidenciaRoutesEJS = require('./routes/incidencias.routes');
 const actuacionRoutesEJS = require('./routes/actuaciones.routes');
 const estadisticaRoutesEJS = require('./routes/estadistiques.routes');
 
-const authRoutesEJS = require('./routes/auth.routes');
+const autentificacionRoutesEJS = require('./routes/autentificaciones.routes');
 const otroRoutesEJS = require('./routes/otros.routes');
 
 const { console } = require('inspector');
@@ -71,7 +66,7 @@ app.use('/actuaciones', actuacionRoutesEJS);
 app.use('/api', estadisticaRoutesEJS);
 
 app.use('/otros', otroRoutesEJS);
-app.use('/', authRoutesEJS);
+app.use('/', autentificacionRoutesEJS);
 
 
 app.locals.moment = moment;

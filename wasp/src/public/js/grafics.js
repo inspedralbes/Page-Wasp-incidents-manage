@@ -1,13 +1,13 @@
 async function obtenerDatosRoles() {
-    const respuesta = await fetch('http://localhost:3000/api/estadisticas');
+    const respuesta = await fetch('http://localhost:3000/api/estadistiques-rols');
     const datos = await respuesta.json();
 
     const labels = datos.map(item => item._id || 'Anónimo');
     const values = datos.map(item => item.total);
 
-    const ctx = document.getElementById('miGrafico').getContext('2d');
+    const ctx = document.getElementById('graficoRoles').getContext('2d');
     new Chart(ctx, {
-        type: 'pie',  // cambio aquí a gráfico de queso
+        type: 'pie',
         data: {
             labels: labels,
             datasets: [{
@@ -20,7 +20,6 @@ async function obtenerDatosRoles() {
                     'rgba(75, 192, 192, 0.6)',
                     'rgba(153, 102, 255, 0.6)',
                     'rgba(255, 159, 64, 0.6)',
-                    // puedes agregar más colores si hay más usuarios
                 ],
                 borderColor: 'rgba(255, 255, 255, 1)',
                 borderWidth: 1
@@ -41,7 +40,7 @@ async function obtenerDatosRoles() {
 }
 
 async function obtenerDatosHora() {
-    const respuesta = await fetch('http://localhost:3000/api/estadisticas-horas');
+    const respuesta = await fetch('http://localhost:3000/api/estadistiques-hores');
     const datos = await respuesta.json();
 
     const labels = datos.map(item => `${item._id}:00`);
@@ -74,3 +73,8 @@ async function obtenerDatosHora() {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    obtenerDatosRoles();
+    obtenerDatosHora();
+});

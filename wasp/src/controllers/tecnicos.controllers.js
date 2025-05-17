@@ -3,7 +3,7 @@ const Tecnico = require('../models/Tecnicos');
 exports.list = async (req, res) => {
     try {
         const tecnicos = await Tecnico.findAll();
-        res.render('tecnicos/list_all', { tecnicos });
+        res.render('otros/tecnicos/list_all', { tecnicos });
     } catch (error) {
         res.status(500).send('Error al recuperar categories: ' + error.message);
     }
@@ -11,7 +11,7 @@ exports.list = async (req, res) => {
 
 exports.formCrear = async (req, res) => {
     try {
-        res.render('tecnicos/crear');
+        res.render('otros/tecnicos/crear');
     } catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
     }
@@ -32,7 +32,7 @@ exports.formEditar = async (req, res) => {
     try {
         const tecnico = await Tecnico.findByPk(req.params.id);
         if (!tecnico) return res.status(404).send('Técnico no encontrado');
-        res.render('tecnicos/editar', { tecnico });
+        res.render('otros/tecnicos/editar', { tecnico });
     } catch (error) {
         res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
     }

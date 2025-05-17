@@ -18,7 +18,7 @@
         <a href="/otros/departamentos/new" class="btn btn-primary">Afegir</a>
       </div>
       <div class="card-body overflow-auto" style="max-height: 500px;">
-        <%- include('departamentos/list_all', { departamentos: departamentos }) %>
+        <%- include('otros/departamentos/list_all', { departamentos: departamentos }) %>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
         <a href="/otros/tecnicos/new" class="btn btn-primary">Afegir</a>
       </div>
       <div class="card-body overflow-auto" style="max-height: 500px;">
-        <%- include('tecnicos/list_all', { departamentos: departamentos }) %>
+        <%- include('otros/tecnicos/list_all', { departamentos: departamentos }) %>
       </div>
     </div>
   </div>
@@ -42,14 +42,12 @@
         <a href="/otros/categorias/new" class="btn btn-primary">Afegir</a>
       </div>
       <div class="card-body overflow-auto" style="max-height: 500px;">
-        <%- include('categorias/list_all', { categorias: categorias }) %>
+        <%- include('otros/categorias/list_all', { categorias: categorias }) %>
       </div>
     </div>
   </div>
 </div>
 
-<canvas id="miGrafico" width="400" height="200"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="js/canvas.js"></script>
+<%- include('grafics') %>
 
 <%- include('partials/footer') %>
