@@ -1,9 +1,9 @@
 <% if (incidencias.length === 0) { %>
-    <div class="alert alert-warning">No hi han incidencias per asignar</div>
+    <div class="alert alert-primary">No hi han incidencias per asignar</div>
 <% } else { %>
   <form action="/incidencias/updateAll" method="POST">
-    <table class="table table-striped align-middle">
-      <tr>
+    <table class="table align-middle">
+      <tr class="table-active">
         <th>ID</th>
         <th>Descripció</th>
         <th>Prioritat</th>
@@ -13,7 +13,7 @@
         <th>Tècnic</th>
       </tr>
       <% incidencias.forEach(incidencia=> { %>
-        <tr>
+        <tr class="incidencia-row" data-id="<%= incidencia.id %>">
           <td>
             <%= incidencia.id %>
           </td>
@@ -48,6 +48,13 @@
         </tr>
       <% }) %>
     </table>
-    <button type="submit" class="btn btn-primary">Actualitzar Incidencies</button>
+
+    <div class="d-flex justify-content-between align-items-center ">
+      <nav>
+        <ul class="pagination justify-content-center mt-3 pagination-controls"></ul>
+      </nav>
+      <button type="submit" class="btn btn-primary">Actualitzar Incidencies</button>
+    </div>
+
   </form>
 <% } %>

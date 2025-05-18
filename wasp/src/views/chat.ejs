@@ -1,31 +1,45 @@
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas"
-    aria-controls="chatOffcanvas">
-    Chat
+<button class="btn btn-primary d-flex align-items-center justify-content-center gap-2"
+    data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"
+    style="height: 40px; padding: 0 12px;">
+    Xat Privat
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+        class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+        <path
+            d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0m4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+    </svg>
 </button>
 
-<div class="offcanvas offcanvas-end d-flex flex-column" tabindex="-1" id="chatOffcanvas" aria-labelledby="chatOffcanvasLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="chatOffcanvasLabel">Xat</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Tancar"></button>
+<div class="offcanvas offcanvas-end d-flex flex-column" tabindex="-1" id="chatOffcanvas"
+    aria-labelledby="chatOffcanvasLabel">
+    <div class="offcanvas-header bg-primary text-white py-3 px-4">
+        <h5 class="offcanvas-title mb-0" id="chatOffcanvasLabel">Xat dels tècnics</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+            aria-label="Tancar"></button>
     </div>
 
     <div class="offcanvas-body d-flex flex-column flex-grow-1 p-0">
 
         <div class="chat-container flex-grow-1 overflow-auto p-3">
-            <% mensajes.forEach(msg => { %>
+            <% mensajes.forEach(msg=> { %>
                 <div class="message-wrapper d-flex mb-3 <%= msg.autor === nombre ? 'message-right' : 'message-left' %>">
                     <div class="message p-2 rounded-3">
-                        <p class="mb-1"><%= msg.mensaje %></p>
-                        <small class="text-muted d-block text-end"><%= msg.autor %></small>
+                        <p class="mb-1">
+                            <%= msg.mensaje %>
+                        </p>
+                        <small class="text-muted d-block text-end">
+                            <%= msg.autor %>
+                        </small>
                     </div>
                 </div>
-            <% }) %>
+                <% }) %>
         </div>
 
         <form method="POST" action="/api/chat" class="container mt-3 d-flex" style="padding: 0 1rem 1rem;">
-            <input type="text" name="mensaje" class="form-control rounded-pill me-2" placeholder="Escriu un missatge..." autocomplete="off" required />
-            <button type="submit" class="btn btn-success rounded-pill px-4">Enviar</button>
+            <input type="text" name="mensaje" class="form-control me-2" placeholder="Escriu un missatge..."
+                autocomplete="off" required style="height: 40px; font-size: 1.1rem; padding-left: 20px;" />
+
+            <button type="submit" class="btn btn-success px-4"
+                style="height: 40px; font-size: 1.1rem;">Enviar</button>
         </form>
     </div>
 </div>
-

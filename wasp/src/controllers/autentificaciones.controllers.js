@@ -33,8 +33,7 @@ const loginUser = async (req, res) => {
     return res.redirect('/tecnic');
   }
 
-
-  res.status(401).send('Usuari o contrasenya incorrectes');
+  return res.redirect('/login?error=1');
 };
 
 module.exports = { loginView, loginUser };

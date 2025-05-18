@@ -15,7 +15,7 @@ exports.listarTodas = async (req, res) => {
 exports.listarUna = async (req, res) => {
     try {
         const incidencia = await Incidencia.findByPk(req.params.id, { include: [Departamento, Categoria] });
-        if (!incidencia) return res.status(404).send('Incidència no trobada');
+        if (!incidencia) res.redirect('/usuari?no-trobat=1')
         res.render('incidencias/list_one', { incidencia });
     } catch (error) {
         res.status(500).send("Error al recuperar l'incidència");

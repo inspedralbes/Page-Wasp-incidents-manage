@@ -92,11 +92,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get('/no-autoritzat', (req, res) => {
-  const rol = req.query.rol;
-  res.render('no-autoritzat', { rol });
-});
-
 app.get('/usuari', isAuthenticated, isUsuari, async (req, res) => {
   res.render('usuari', {
     id: req.session.id,
@@ -201,6 +196,17 @@ app.get('/', detectRole, (req, res) => {
     default:
       res.status(403).send('No autoritzat');
   }
+});
+
+// Redirecciones
+app.get('/incidencias/incidencia', (req, res) => {
+  const page = parseInt(req.query.page);
+  res.redirect(`/incidencias/list/${page}`);
+});
+
+app.get('/incidencias/tecnic', (req, res) => {
+  const page = parseInt(req.query.page);
+  res.redirect(`/incidencias/list/tecnic/${page}`);
 });
 
 const port = process.env.PORT || 3000;

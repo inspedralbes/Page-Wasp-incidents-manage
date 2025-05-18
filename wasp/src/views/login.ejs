@@ -8,37 +8,47 @@
   
   <link rel="icon" href="images/wasp-icon.svg">
   <link rel="stylesheet" href="/css/bootstrap.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
 <body class="d-flex align-items-center justify-content-center vh-100">
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-      <div class="card shadow rounded-4 p-4">
-        <h2 class="text-center mb-4 text-primary">Login</h2>
-        <form method="POST" action="/login">
-          
-          <div class="mb-3">
-            <label for="nombre" class="form-label">Nom</label>
-            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Introduce tu nombre" required />
-          </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg border-0 rounded-4">
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <img src="images/wasp-icon.svg" alt="Logo" width="300px" class="img-fluid rounded-circle shadow-sm mb-3 bg-white p-1" />
+              <h2 class="text-primary fw-bold">Wasp</h2>
+              <p class="text-muted mb-0">Inicia sessió per continuar</p>
+            </div>
+            <hr>
+            <form method="POST" action="/login">
 
-          <div class="mb-3">
-            <label for="contrasena" class="form-label">Contrasenya</label>
-            <input type="password" name="contrasena" id="contrasena" class="form-control" placeholder="••••••••" required />
-          </div>
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nom</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Introdueix el teu nom" required />
+              </div>
 
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Accedir</button>
+              <div class="mb-4">
+                <label for="contrasena" class="form-label">Contrasenya</label>
+                <input type="password" name="contrasena" id="contrasena" class="form-control" placeholder="••••••••" required />
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill">Accedir</button>
+              </div>
+
+            </form>
           </div>
-          
-        </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</body>
+
 
 
 <%- include('partials/footer') %>

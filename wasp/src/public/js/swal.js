@@ -60,53 +60,15 @@ function confirmarEliminar(type, id) {
         ...swalOptions
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = `/otros/${type}/${id}/delete`;
+            window.location.href = `otros/${type}/${id}/delete`;
         }
     });
 }
-
-function confirmarActualizar(type, id) {
-    Swal.fire({
-        title: '¿Actualizar?',
-        text: '¿Quieres guardar los cambios realizados?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, actualizar',
-        cancelButtonText: 'Cancelar',
-        ...swalOptions
-    }).then((result) => {
-        
-        if (result.isConfirmed) {
-            const inputSelector = `input[name="nombre_${id}"]`;
-            const input = document.querySelector(inputSelector);
-            if (!input) {
-                Swal.fire('Error', 'No se encontró el campo para actualizar', 'error');
-                return;
-            }
-
-            const nombre = input.value;
-
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = `/${type}/${id}/update`;
-
-            const inputNombre = document.createElement('input');
-            inputNombre.type = 'hidden';
-            inputNombre.name = 'nombre';
-            inputNombre.value = nombre;
-
-            form.appendChild(inputNombre);
-            document.body.appendChild(form);
-            form.submit();
-        }
-    });
-}
-
 
 function confirmarDesasignar(id) {
     Swal.fire({
-        title: '¿Desasignar técnico?',
-        text: 'Esta acción desasignará el técnico actual.',
+        title: '¿Desasignar técnic?',
+        text: 'Aquesta acció desasignarà al técnic actual',
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: 'Sí, desasignar',
@@ -119,14 +81,63 @@ function confirmarDesasignar(id) {
     });
 }
 
-function mostrarAccesDenegat(rol) {
+function confirmarEliminarT(id) {
+    Swal.fire({
+        title: '¿Eliminar técnic?',
+        text: 'Aquesta acció eliminarà al tecnic actual',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        ...swalOptions
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `incidencias/${id}/delete`;
+        }
+    });
+}
+
+function mostrarAccesDenegat() {
     Swal.fire({
         icon: 'error',
         title: 'Accés denegat',
-        text: `Ets ${rol}!`,
+        text: `No tens permissos per accedir!`,
         confirmButtonText: 'Tornar enrere',
         ...swalOptions
-    }).then(() => {
-        window.history.back();
     });
 }
+
+function mostrarErrorBuscar() {
+    Swal.fire({
+        title: 'Incidéncia no trobada',
+        icon: 'question',
+        confirmButtonText: 'Tornar enrere',
+        ...swalOptions
+    });
+}
+
+function mostrarErrorLogin() {
+        Swal.fire({
+        icon: 'error',
+        title: 'Accés denegat',
+        text: `Contrasenya o usuari incorrecte`,
+        confirmButtonText: 'Tornar enrere',
+        ...swalOptions
+    });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error') === '1') {
+        mostrarErrorLogin();
+    }
+
+    if (params.get('no-autoritzat') === '1') {
+        mostrarAccesDenegat();
+    }
+    
+    if (params.get('no-trobat') === '1') {
+        mostrarErrorBuscar();
+    }
+    
+});

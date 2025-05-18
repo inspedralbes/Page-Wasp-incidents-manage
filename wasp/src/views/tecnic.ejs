@@ -1,41 +1,46 @@
 <%- include('partials/header') %>
 
-<h1>Pàgina del Tècnic</h1>
-<p>Hola <%= tecnico.nombre %>, aquesta és la pàgina dedicada als tècnics.</p>
+<h1 class="display-6 text-center">Pàgina del técnic</h1>
+<p class="lead text-center">Hola <%= tecnico.nombre %>, aquesta és la pàgina dedicada als tècnics.</p>
+<hr>
 
-<form method="GET" class="d-flex align-items-center gap-2 flex-wrap mb-4">
+<div class="d-flex justify-content-between align-items-start flex-wrap mb-4">
+    <form method="GET" class="d-flex align-items-center gap-2 flex-wrap mb-4">
 
-<select name="ordre" class="form-select w-auto">
-    <option value="">-- Ordenar per --</option>
-    <option value="hores" <%= ordre === 'hores' ? 'selected' : '' %>>Hores d'actuació</option>
-    <option value="prioritat" <%= ordre === 'prioritat' ? 'selected' : '' %>>Prioritat</option>
-    <option value="data" <%= ordre === 'data' ? 'selected' : '' %>>Data d'incidència</option>
-</select>
+    <select name="ordre" class="form-select w-auto">
+        <option value="">-- Ordenar per --</option>
+        <option value="hores" <%= ordre === 'hores' ? 'selected' : '' %>>Hores d'actuació</option>
+        <option value="prioritat" <%= ordre === 'prioritat' ? 'selected' : '' %>>Prioritat</option>
+        <option value="data" <%= ordre === 'data' ? 'selected' : '' %>>Data d'incidència</option>
+    </select>
 
-<button type="submit" name="sentit" value="<%= sentit === 'asc' ? 'desc' : 'asc' %>" class="btn btn-outline-primary">
-<%= sentit === 'asc' ? '↓ Descendent' : '↑ Ascendent' %>
-</button>
+    <button type="submit" name="sentit" value="<%= sentit === 'asc' ? 'desc' : 'asc' %>" class="btn btn-outline-primary">
+    <%= sentit === 'asc' ? '↓ Descendent' : '↑ Ascendent' %>
+    </button>
 
-<select name="categoria" class="form-select w-auto">
-    <option value="">-- Categoria --</option>
-    <% categorias.forEach(cat => { %>
-        <option value="<%= cat.nombre %>" <%= categoria === cat.nombre ? 'selected' : '' %>><%= cat.nombre %></option>
-    <% }) %>
-</select>
+    <select name="categoria" class="form-select w-auto">
+        <option value="">-- Categoria --</option>
+        <% categorias.forEach(cat => { %>
+            <option value="<%= cat.nombre %>" <%= categoria === cat.nombre ? 'selected' : '' %>><%= cat.nombre %></option>
+        <% }) %>
+    </select>
 
-<select name="departamento" class="form-select w-auto">
-    <option value="">-- Departament --</option>
-    <% departamentos.forEach(dep => { %>
-        <option value="<%= dep.nombre %>" <%= departament === dep.nombre ? 'selected' : '' %>><%= dep.nombre %></option>
-    <% }) %>
-</select>
+    <select name="departament" class="form-select w-auto">
+        <option value="">-- Departament --</option>
+        <% departamentos.forEach(dep => { %>
+            <option value="<%= dep.nombre %>" <%= departament === dep.nombre ? 'selected' : '' %>><%= dep.nombre %></option>
+        <% }) %>
+    </select>
 
-<button type="submit" class="btn btn-primary">Filtrar</button>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
 
-</form>
+    </form>
+
+    <div>
+        <%- include('chat', { nombre: tecnico.nombre, mensajes: mensajes }) %>
+    </div>
+</div>
 
 <%- include('incidencias/list_person', { tecnico, incidencias, categoria}) %>
-
-<%- include('chat', { nombre: tecnico.nombre, mensajes: mensajes }) %>
 
 <%- include('partials/footer') %>

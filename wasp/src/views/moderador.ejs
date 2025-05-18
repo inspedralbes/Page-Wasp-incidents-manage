@@ -1,16 +1,28 @@
 <%- include('partials/header') %>
 
-<h1>Pàgina del Moderador</h1>
-<p>Aquesta és la pàgina dedicada al moderador.</p>
+<h1 class="display-6 text-center">Pàgina del Moderador</h1>
+<p class="lead text-center">Edició, creació i control de l'aplicació.</p>
+<hr>
+
+<div class="mb-4 mt-4 card">
+  <div class="card-body">
+    <h2 class="mb-4">Incidenciés no asignades</h2>
+    <%- include('incidencias/asignar', { incidencias: incidenciasNoTecnic } ) %>
+  </div>
+</div>
+
+
+<div class="mb-4 mt-4 card">
+  <div class="card-body">
+  <h2 class="mb-4">Veure Incidenciés Asignades</h2>
+    <%- include('incidencias/list_all', { incidencias: incidenciasYesTecnic } ) %>
+  </div>
+</div>
 
 <div class="mb-4 mt-4">
-  <%- include('incidencias/asignar', { incidencias: incidenciasNoTecnic } ) %>
-</div>
-<div class="mb-4 mt-4">
-  <%- include('incidencias/list_all', { incidencias: incidenciasYesTecnic } ) %>
-</div>
+  <h2 class="mb-4">Gestió de les dades</h2>
 
-<div class="row">
+  <div class="row">
   <div class="col-md-4 mb-4">
     <div class="card h-100 shadow-sm">
       <div class="card-header d-flex justify-content-between align-items-center">
@@ -48,6 +60,11 @@
   </div>
 </div>
 
-<%- include('grafics') %>
+<div class="mb-4 mt-4 card">
+  <div class="card-body">
+    <h2 class="mb-4">Estadistiqués de l'aplicació</h2>
+    <%- include('grafics') %>
+  </div>
+</div>
 
 <%- include('partials/footer') %>
