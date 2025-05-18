@@ -1,13 +1,31 @@
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas"
+    aria-controls="chatOffcanvas">
+    Chat
+</button>
 
-    <h2>Chat de Técnicos</h2>
-
-    <div id="mensajes">
-        <% mensajes.forEach(m => { %>
-            <p><b><%= m.autor %></b>: <%= m.mensaje %></p>
-        <% }) %>
+<div class="offcanvas offcanvas-end d-flex flex-column" tabindex="-1" id="chatOffcanvas" aria-labelledby="chatOffcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="chatOffcanvasLabel">Xat</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Tancar"></button>
     </div>
 
-    <form action="api/chat" method="POST">
-        <input type="text" name="mensaje" placeholder="Escribe un mensaje" required />
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="offcanvas-body d-flex flex-column flex-grow-1 p-0">
+
+        <div class="chat-container flex-grow-1 overflow-auto p-3">
+            <% mensajes.forEach(msg => { %>
+                <div class="message-wrapper d-flex mb-3 <%= msg.autor === nombre ? 'message-right' : 'message-left' %>">
+                    <div class="message p-2 rounded-3">
+                        <p class="mb-1"><%= msg.mensaje %></p>
+                        <small class="text-muted d-block text-end"><%= msg.autor %></small>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+
+        <form method="POST" action="/api/chat" class="container mt-3 d-flex" style="padding: 0 1rem 1rem;">
+            <input type="text" name="mensaje" class="form-control rounded-pill me-2" placeholder="Escriu un missatge..." autocomplete="off" required />
+            <button type="submit" class="btn btn-success rounded-pill px-4">Enviar</button>
+        </form>
+    </div>
+</div>
+

@@ -49,7 +49,7 @@ app.use(express.json());
 
 app.use(registerLogs);
 
-app.use(session({ secret: 'secreto', resave: false, saveUninitialized: true }));
+app.use(session({ secret: 'tortillapatata', resave: false, saveUninitialized: true }));
 app.use(setLocals);
 
 // Rutes EJS
@@ -106,20 +106,58 @@ app.get('/usuari', isAuthenticated, isUsuari, async (req, res) => {
 
 app.get('/tecnic', isAuthenticated, isTecnic, async (req, res) => {
   try {
-    const tecnico = await Tecnicos.findByPk(req.session.userId, { include: [{ model: Incidencias, include: [Departamentos, Categorias] }] });
+    const { categoria, prioritat, departament, ordre, sentit } = req.query;
+    const direccio = sentit === 'asc' ? 1 : -1;
+
+    const tecnico = await Tecnicos.findByPk(req.session.userId, {
+      include: [{ model: Incidencias, include: [Departamentos, Categorias] }]
+    });
+
+    const categorias = await Categorias.findAll();
+    const departamentos = await Departamentos.findAll();
+
 
     if (!tecnico) {
       return res.status(404).send('Tècnic no trobat');
+    }
+
+    let incidencias = tecnico.Incidencias;
+
+    if (categoria) {
+      incidencias = incidencias.filter(i => i.Categoria.nombre === categoria);
+    }
+    if (departament) {
+      incidencias = incidencias.filter(i => i.Departamento && i.Departamento.nombre === departament);
+    }
+
+    if (ordre === 'hores') {
+      incidencias.sort((a, b) => direccio * (a.horesactuacio - b.horesactuacio));
+    } else if (ordre === 'prioritat') {
+      const prioridadOrden = { Alta: 3, Mitjana: 2, Baixa: 1 };
+      incidencias.sort((a, b) => direccio * ((prioridadOrden[a.prioritat] || 0) - (prioridadOrden[b.prioritat] || 0)));
+    } else if (ordre === 'data') {
+      incidencias.sort((a, b) => direccio * (new Date(a.dataincidencia) - new Date(b.dataincidencia)));
     }
 
     const mensajes = await Mensajes.find().sort({ timestamp: 1 });
 
     res.render('tecnic', {
       tecnico,
-      incidencias: tecnico.Incidencias,
+      incidencias,
+
+      categoria,
+      prioritat,
+      departament,
+
+      categorias,
+      departamentos,
+
       rol: req.session.rol,
       id: req.session.userId,
-      mensajes
+
+      mensajes,
+      ordre,
+      sentit
     });
 
   } catch (error) {
@@ -127,7 +165,6 @@ app.get('/tecnic', isAuthenticated, isTecnic, async (req, res) => {
     res.status(500).send('Error al carregar la pàgina del tècnic: ' + error);
   }
 });
-
 
 app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
   try {
@@ -164,17 +201,6 @@ app.get('/', detectRole, (req, res) => {
     default:
       res.status(403).send('No autoritzat');
   }
-});
-
-// Redirecciones
-app.get('/incidencias/incidencia', (req, res) => {
-  const page = parseInt(req.query.page);
-  res.redirect(`/incidencias/list/${page}`);
-});
-
-app.get('/incidencias/tecnic', (req, res) => {
-  const page = parseInt(req.query.page);
-  res.redirect(`/incidencias/list/tecnic/${page}`);
 });
 
 const port = process.env.PORT || 3000;

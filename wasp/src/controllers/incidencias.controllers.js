@@ -23,27 +23,43 @@ exports.listarUna = async (req, res) => {
 };
 
 exports.listarPorTecnico = async (req, res) => {
-try {
-    const tecnicoId = req.params.id;
+    try {
+        const tecnicoId = req.params.id;
+        const { prioritat, categoria, departament } = req.query;
+        console.log("Query recibida:", req.query);
 
-    const tecnico = await Tecnico.findByPk(tecnicoId, {
-        include: [{ model: Incidencia, include: [Departamento, Categoria] }]
-    });
+        const tecnico = await Tecnico.findByPk(tecnicoId, {
+            include: [{
+                model: Incidencia,
+                include: [Departamento, Categoria],
+                where: {
+                    ...(prioritat ? { prioritat } : {}),
+                }
+            }]
+        });
 
-    if (!tecnico) {
-        return res.status(404).send('Tècnic no trobat');
-    }
+        if (!tecnico) {
+            return res.status(404).send('Tècnic no trobat');
+        }
 
-    const incidencias = tecnico.Incidencias || [];
+        let incidencias = tecnico.Incidencias || [];
 
-    res.render('incidencias/list_person', {
-        tecnico,
-        incidencias
-    });
+        if (categoria) {
+            incidencias = incidencias.filter(i => i.Categoria?.nombre?.toLowerCase().includes(categoria.toLowerCase()));
+        }
+
+        if (departament) {
+            incidencias = incidencias.filter(i => i.Departamento?.nombre?.toLowerCase().includes(departament.toLowerCase()));
+        }
+
+        res.render('incidencias/list_person', {
+            tecnico,
+            incidencias
+        });
 
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error cargando la página del técnico'+error);
+        res.status(500).send('Error cargando la página del técnico: ' + error);
     }
 };
 

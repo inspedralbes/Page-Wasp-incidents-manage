@@ -1,0 +1,30 @@
+.chat-container {
+    max-width: 600px;
+    background-color: var(--bs-body-bg);
+    border-radius: 0.5rem;
+}
+
+.message-left {
+    justify-content: flex-start;
+}
+
+.message-right {
+    justify-content: flex-end;
+}
+
+.message {
+    max-width: 70%;
+    color: var(--bs-body-color);
+    background-color: var(--bs-secondary-bg-subtle);
+}
+
+.message-right .message {
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+}
+
+#chatOffcanvas {
+    width: 80vw;
+    max-width: 600px;
+    transition: none !important; 
+}
