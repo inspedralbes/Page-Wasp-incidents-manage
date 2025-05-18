@@ -25,6 +25,7 @@ const Tecnicos = require('./models/Tecnicos');
 const Moderadores = require('./models/Moderadores');
 
 const Stats = require('./models/Stats');
+const Mensajes = require('./models/Mensajes');
 
 connectMongoDB();
 
@@ -54,7 +55,7 @@ app.use(setLocals);
 // Rutes EJS
 const incidenciaRoutesEJS = require('./routes/incidencias.routes');
 const actuacionRoutesEJS = require('./routes/actuaciones.routes');
-const estadisticaRoutesEJS = require('./routes/estadistiques.routes');
+const datomongodbRoutesEJS = require('./routes/datosmongodb.routes');
 
 const autentificacionRoutesEJS = require('./routes/autentificaciones.routes');
 const otroRoutesEJS = require('./routes/otros.routes');
@@ -63,7 +64,7 @@ const { console } = require('inspector');
 
 app.use('/incidencias', incidenciaRoutesEJS);
 app.use('/actuaciones', actuacionRoutesEJS);
-app.use('/api', estadisticaRoutesEJS);
+app.use('/api', datomongodbRoutesEJS);
 
 app.use('/otros', otroRoutesEJS);
 app.use('/', autentificacionRoutesEJS);
@@ -111,11 +112,14 @@ app.get('/tecnic', isAuthenticated, isTecnic, async (req, res) => {
       return res.status(404).send('Tècnic no trobat');
     }
 
+    const mensajes = await Mensajes.find().sort({ timestamp: 1 });
+
     res.render('tecnic', {
       tecnico,
       incidencias: tecnico.Incidencias,
       rol: req.session.rol,
-      id: req.session.userId
+      id: req.session.userId,
+      mensajes
     });
 
   } catch (error) {

@@ -1,0 +1,13 @@
+
+    <h2>Chat de Técnicos</h2>
+
+    <div id="mensajes">
+        <% mensajes.forEach(m => { %>
+            <p><b><%= m.autor %></b>: <%= m.mensaje %></p>
+        <% }) %>
+    </div>
+
+    <form action="api/chat" method="POST">
+        <input type="text" name="mensaje" placeholder="Escribe un mensaje" required />
+        <button type="submit">Enviar</button>
+    </form>

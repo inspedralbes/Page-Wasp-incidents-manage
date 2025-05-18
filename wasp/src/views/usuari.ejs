@@ -1,19 +1,64 @@
 <%- include('partials/header') %>
 
-<h1>Pàgina del Usuari</h1>
-<p>Aquesta és la pàgina dedicada als usuaris.</p>
+  <h1>Pàgina del Usuari</h1>
+  <p>Des d'aquesta pàgina pots gestionar les teves incidències.</p>
 
-<a href="incidencias/new" class="btn btn-primary">Afegir incidència</a>
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="row g-4">
 
-<div class="card mt-4">
-  <div class="card-body">
-    <h5 class="card-title">Buscar Incidència</h5>
-    <form method="GET" action="/incidencias/incidencia">
-      <div class="mb-3">
-        <input type="number" name="page" placeholder="ID de la incidència" class="form-control" min="1" required>
+      <!-- Nova Incidència -->
+      <div class="col-md-6">
+        <div class="card border-dark mb-3 mb-3 h-100">
+          <div class="card-header">Nova Incidència</div>
+          <div class="card-body">
+            <p class="card-text">Registra una nova incidència perquè sigui revisada pel personal tècnic.</p>
+            <a href="/incidencias/new" class="btn btn-primary">Crear Incidència</a>
+          </div>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary w-100">Buscar</button>
-    </form>    
+
+
+      <!-- Buscar Incidència -->
+      <div class="col-md-6">
+        <div class="card border-dark h-100">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Buscar Incidència</h5>
+            <p class="card-text">Introdueix l'ID de la incidència per veure els seus detalls (el trobaràs en el tiquet
+              després de crear-la).</p>
+            <form method="GET" action="/incidencias/incidencia">
+              <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-primary">#</span>
+                <input type="number" name="page" class="form-control" placeholder="ID de la incidència" min="1"
+                  required>
+              </div>
+              <button type="submit" class="btn btn-primary">Buscar Incidència</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card border-dark h-100">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Exemple de Tiquet</h5>
+            <p class="card-text">
+              Quan creïs una incidència, et mostrarà un tiquet amb tots els detalls i un <strong>ID únic</strong>, com
+              aquest:
+            </p>
+            <div class="border rounded p-3">
+              <p class="mb-1"><strong>Títol:</strong> No funciona el portàtil</p>
+              <p class="mb-1"><strong>ID:</strong> <span class="text-primary">#12345</span></p>
+              <p class="mb-1"><strong>Estat:</strong> Obert</p>
+              <p class="mb-0"><strong>Data:</strong> 05/04/2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    
   </div>
 </div>
 
