@@ -63,6 +63,26 @@ exports.listarPorTecnico = async (req, res) => {
     }
 };
 
+exports.listarPorSolicitado = async (req, res) => {
+    try {
+        const email = req.query.email;
+        console.log("email"+email);
+
+        if (!email) {
+            return res.status(400).send('Cal proporcionar un correu electrònic');
+        }
+
+        const incidencias = await Incidencia.findAll({
+            where: { solicitat: email },
+            include: [Departamento, Tecnico, Categoria]
+        });
+
+        res.render('incidencias/list_email', { incidencias, email });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error carregant la pàgina del tècnic: ' + error);
+    }
+};
 
 exports.formCrear = async (req, res) => {
     try {
@@ -76,8 +96,8 @@ exports.formCrear = async (req, res) => {
 
 exports.crear = async (req, res) => {
     try {
-        const { descripcio, prioritat, dataincidencia, idd, idc } = req.body;
-        const incidencia = await Incidencia.create({ descripcio, prioritat, dataincidencia, idd, idc });
+        const { descripcio, prioritat, solicitat, dataincidencia, idd, idc } = req.body;
+        const incidencia = await Incidencia.create({ descripcio, prioritat, solicitat, dataincidencia, idd, idc });
 
         res.render('incidencias/ticket', { incidencia });
     } catch (error) {
@@ -121,10 +141,10 @@ exports.desasignarTecnico = async (req, res) => {
         const incidencia = await Incidencia.findByPk(req.params.id);
         if (!incidencia) return res.status(404).send('Incidència no trobada');
 
-        incidencia.idt = null; 
+        incidencia.idt = null;
         await incidencia.save();
 
-        res.redirect('/moderador'); 
+        res.redirect('/moderador');
     } catch (error) {
         res.status(500).send('Error al desasignar el tècnic');
     }

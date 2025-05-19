@@ -24,6 +24,10 @@ const Incidencias = sequelize.define('Incidencias', {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW, 
+  },
+  solicitat: {
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 });
 

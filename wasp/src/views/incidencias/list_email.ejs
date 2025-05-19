@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+
+<h2>Incidències sol·licitades per: <%= email %>
+</h2>
+
+<% if (incidencias.length===0) { %>
+    <div class="alert alert-primary">No hi ha incidències assignades / completades</div>
+<% } else { %>
+    <table class="table align-middle">
+        <tr class="table-active">
+            <th>ID</th>
+            <th>Descripció</th>
+            <th>Departament</th>
+            <th>Categoria</th>
+            <th>Estat</th> 
+            <th>Hores d'actuacions</th>
+            <th>Data d'incidència</th>
+            <th>Actuacions</th>
+        </tr>
+        <tr>
+            <% incidencias.forEach(incidencia=> { %>
+                <td><%= incidencia.id %></td>
+                <td style="max-width: 250px;"><%= incidencia.descripcio %></td>
+                <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
+                <td><%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %></td>
+                <td>
+                    <% if (incidencia.resolt === true) { %>
+                        <span class="badge bg-success fs-6 py-2 px-2">Completada</span>
+                    <% } else if (incidencia.idt) { %>
+                        <span class="badge bg-warning fs-6 py-2 px-2">En procés</span>
+                    <% } else { %>
+                        <span class="badge bg-danger fs-6 py-2 px-2">Pendent</span>
+                    <% } %>
+                </td>
+                <td class="horesactuacio"><%= incidencia.horesactuacio %> h</td>
+                <td><%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %></td>
+                <td>
+                    <a class="btn btn-primary" href="/actuaciones/list/incidencias/public/<%= incidencia.id %>">Veure Actuacions</a>
+                </td>
+            <% }); %>
+        </tr>
+    </table>
+<% } %>
+<div class="d-flex justify-content-between">
+    <a href="/usuari" class="btn btn-secondary">Tornar enrere</a>
+</div>
+
+<%- include('../partials/footer') %>

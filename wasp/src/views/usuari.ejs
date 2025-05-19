@@ -4,46 +4,46 @@
   <p class="lead text-center">Des d'aquesta pàgina pots gestionar les teves incidències.</p>
   <hr>
 
-  <div class="row g-4">
+  <div class="row g-4 mb-4">
     <div class="col-md-6">
       <div class="row g-4">
 
         <div class="col-md-6">
-          <div class="card border-dark mb-3 mb-3 h-100">
+          <div class="card mb-3 mb-3 h-100">
             <div class="card-header">
               <h5>Nova Incidència</h>
             </div>
             <div class="card-body">
-              <p class="card-text">Registra una nova incidència perquè sigui revisada pel personal tècnic.</p>
+              <p class="card-text">Registra una nova incidència perquè sigui revisada pel personal tècnic. Molt
+                important guardar el Id.</p>
               <a href="/incidencias/new" class="btn btn-primary">Crear Incidència</a>
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
-          <div class="card border-dark h-100">
+          <div class="card h-100">
             <div class="card-header">
               <h5>Buscar Incidència</h5>
             </div>
             <div class="card-body">
               <p class="card-text">Introdueix l'ID de la incidència per veure els seus detalls (el trobaràs en el tiquet
                 després de crear-la).</p>
-              <form method="GET" action="/incidencias/incidencia">
-                <div class="input-group mb-3">
+              <form method="GET" action="/incidencias/incidencia" class="d-flex">
+                <div class="input-group me-2">
                   <span class="input-group-text text-white bg-primary">#</span>
-                  <input type="number" name="page" class="form-control" placeholder="ID de la incidència" min="1"
-                    required>
+                  <input type="number" name="page" class="form-control" placeholder="id de incidencia" min="1" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Buscar Incidència</button>
+                <button type="submit" class="btn btn-primary">Buscar</button>
               </form>
             </div>
           </div>
         </div>
 
         <div class="col-md-12">
-          <div class="card border-dark h-100">
+          <div class="card h-100">
             <div class="card-header">
-              <h5>Exemple de Tiquet</h5>
+              <h5>Suport del Tiquet</h5>
             </div>
             <div class="card-body">
               <p class="card-text">
@@ -51,43 +51,66 @@
                 aquest:
               </p>
               <div class="border rounded p-3">
-                <p class="mb-1"><strong>Títol:</strong> No funciona el portàtil</p>
-                <p class="mb-1"><strong>ID:</strong> <span class="text-primary">#12345</span></p>
-                <p class="mb-1"><strong>Estat:</strong> Obert</p>
-                <p class="mb-0"><strong>Data:</strong> 05/04/2025</p>
+                <p class="mb-1"><strong>ID:</strong> <span class="text-primary">#12345</span> (es posa un
+                  automaticament)</p>
+                <p class="mb-1"><strong>Descripció:</strong> No funciona el portàtil</p>
+                <p class="mb-1"><strong>Departament:</strong> Departament Informàtica</p>
+                <p class="mb-0"><strong>Categoria:</strong> Manteniment</p>
+                <p class="mb-0"><strong>Email:</strong> marti.castano@gmail.com</p>
               </div>
+            </div>
+            <div class="p-3">
+              <form method="GET" action="/incidencias/solicitant" class="d-flex gap-2 mb-4">
+                <input type="email" name="email" class="form-control" placeholder="Correu electrònic per veure les teves incidenices"
+                  required>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="card border-dark h-100">
-            <div class="card-header">
-              <h5>Guia Aplicació</h5>
-            </div>
+      <div class="card h-100">
+        <div class="card-header">
+          <h5>Guia de l'Aplicació</h5>
+        </div>
         <div class="card-body">
-          <p class="card-text">Wasp és una aplicació web pensada per a registrar, gestionar i fer seguiment d’incidències informàtiques en una empresa, institut o qualsevol organització. Amb Docker Compose, tens tot el sistema al teu abast en pocs minuts, sense complicacions.</p>
-          <p class="card-text">Seguir estos pasos para registrar una incidencia correctamente:</p>
+          <p class="card-text">
+            Wasp és una aplicació web pensada per registrar, gestionar i fer seguiment d’incidències informàtiques en
+            una empresa, institut o qualsevol organització. Amb Docker Compose, tens tot el sistema al teu abast en pocs
+            minuts, sense complicacions.
+          </p>
+          <p class="card-text">
+            Som un grup petit, i en cas que us agradi el nostre projecte ens agradaria que visitéssiu el nostre
+            repositori per trobar més informació sobre aquest.
+          </p>
+          <hr>
+          <h6>Consells per a les Incidències</h6>
+          <p class="card-text">Es recomana seguir aquests passos per registrar una incidència correctament:</p>
           <ul>
-            <li><strong>Descripción detallada:</strong> Explica el error, pasos para reproducirlo y impacto.</li>
-            <li><strong>Categoría:</strong> Selecciona entre <em>Hardware</em>, <em>Software</em>, <em>Red</em>,
-              <em>Otro</em>.</li>
-            <li><strong>Departamento:</strong> Área responsable (TI, Contabilidad, RRHH…).</li>
-            <li><strong>Usuario solicitante:</strong> Nombre y correo para notificaciones.</li>
+            <li><strong>Descripció detallada:</strong> Explica l'error, els passos per reproduir-lo i l'impacte que té.
+            </li>
+            <li><strong>Categoria:</strong> Selecciona entre <em>Hardware</em>, <em>Software</em>, <em>Xarxa</em>,
+              <em>Altres</em>.
+            </li>
+            <li><strong>Departament:</strong> Àrea responsable (TI, Comptabilitat, RRHH…).</li>
+            <li><strong>Usuari sol·licitant:</strong> Nom i correu electrònic per a notificacions.</li>
           </ul>
-          <p class="card-text">Una vez enviado:</p>
+          <p class="card-text">Un cop enviada:</p>
           <ol>
-            <li>El sistema asigna un número único de ticket.</li>
-            <li>Recibes un email de confirmación con todos los datos.</li>
-            <li>El ticket pasa a estado <span class="badge bg-secondary">Pendiente</span>.</li>
-            <li>Un técnico lo analizará y cambiará el estado (En curso, Resuelto, Cerrado).</li>
+            <li>El sistema assigna un número únic de tiquet.</li>
+            <li>El tiquet passarà a estat <span class="badge bg-secondary">Pendent</span>.</li>
+            <li>Podràs veure en tot moment les actuacions publiques del tecnic asignat veient que coses a solucionat.
+            </li>
+            <li>Finalment el tècnic l'analitzarà i canviarà l'estat a <span class="badge bg-secondary">Resolta</span>.
+            </li>
           </ol>
         </div>
         <div class="card-text"></div>
       </div>
     </div>
-    <hr>
+
   </div>
 
   <%- include('partials/footer') %>

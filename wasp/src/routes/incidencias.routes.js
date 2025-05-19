@@ -13,6 +13,9 @@ router.get('/list/:id', incidenciaController.listarUna);
 // Incidencias por técnico
 router.get('/list/tecnic/:id', isAuthenticated, isTecnic, incidenciaController.listarPorTecnico);
 
+// Incidencias por solicitado
+router.get('/solicitant', isAuthenticated, incidenciaController.listarPorSolicitado);
+
 // Crear incidencia
 router.get('/new', isAuthenticated, isUsuari, incidenciaController.formCrear);
 router.post('/create', isAuthenticated, isUsuari, incidenciaController.crear);
