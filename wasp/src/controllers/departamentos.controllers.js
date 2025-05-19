@@ -11,7 +11,7 @@ exports.list = async (req, res) => {
 
 exports.formCrear = async (req, res) => {
     try {
-        res.render('/otros/departamentos/crear');
+        res.render('otros/departamentos/crear');
     } catch (error) {
         res.status(500).send('Error al carregar el formulari' + error.message);
     }
