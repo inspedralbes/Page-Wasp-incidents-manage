@@ -19,7 +19,7 @@
 
 <div align="center">
 
-[🔑 Key Features](#🔑-key-features) • [🛠️ How To Use](#🛠️-how-to-use) • [🧩 Units](#🧩-units) • [🗄️ Database](#️🗄️-database) • [🔗 Related](#🔗-related)
+[🔑 Key Features](#🔑-key-features) • [🛠️ How To Use](#🛠️-how-to-use) • [📚 Architecture & Docs](#📚-architecture--docs) • [🧩 Dependencies](#🧩-dependencies) • [📦 DataBase](#📦-database)
 
 </div>
 
@@ -64,9 +64,54 @@ If you need have the application in the background, you can use:
 docker compose up -d
 ```
 
-## 🧩 Units
+## 📚 Architecture & Docs
 
-## 🗄️ Database
+If you are interested in knowing more or expanding the project, here is part of the project documentation, how it works, what is needed, and more...
+
+### Documentation
+- [Explanation Scripts – Step-by-step code walkthrough](/doc/Explanation-Scripts.md)  
+- [Faq – Common questions answered](/doc/Frequently-Asked-Questions.md)  
+- [Guide Connection – How to start the system](/doc/Guide-Connection.md)
+
+### Diagrams
+- [Related Entity ](/diag/related-entity.pdf)  
+- [Screens Overview](/diag/screens.pdf)  
+- [Use Cases – How to start the system](/diag/use-cases.pdf)
+
+## 🧩 Dependencies
+
+**Dependencies** are external packages or libraries that our project needs to work properly. In Node.js applications, they are managed through the `package.json` file, where we define all the tools we use to simplify tasks such as running a server, connecting to databases, rendering views, or managing sessions.
+
+This project uses two types of dependencies:
+
+* **Main dependencies (`dependencies`)**: required for the app to run in production.
+* **Development dependencies (`devDependencies`)**: only used during development (e.g., to automatically restart the server when code changes).
+
+#### Main Dependencies (`dependencies`)
+
+| Package           | Version | Description                                               |
+| ----------------- | ------- | --------------------------------------------------------- |
+| `express`         | ^5.1.0  | Web framework for building the backend in Node.js.        |
+| `ejs`             | ^3.1.10 | Templating engine to render HTML with JavaScript.         |
+| `dotenv`          | ^16.5.0 | Loads environment variables from a `.env` file.           |
+| `express-session` | ^1.18.1 | Middleware to manage user sessions.                       |
+| `mongoose`        | ^8.14.3 | ODM to interact with MongoDB in a more structured way.    |
+| `mongodb`         | ^6.16.0 | Official MongoDB driver for Node.js.                      |
+| `mysql2`          | ^3.14.0 | MySQL client compatible with `async/await` and Sequelize. |
+| `sequelize`       | ^6.37.7 | ORM for SQL databases like MySQL.                         |
+| `sweetalert`      | ^2.1.2  | Stylish and customizable alert boxes for the frontend.    |
+| `bootstrap`       | ^5.3.6  | CSS framework for responsive design.                      |
+| `bootswatch`      | ^5.3.6  | Ready-made Bootstrap themes.                              |
+| `bootstrap-icons` | ^1.13.1 | Collection of SVG icons for Bootstrap.                    |
+
+#### Development Dependencies (`devDependencies`)
+
+| Package   | Version | Description                                           |
+| --------- | ------- | ----------------------------------------------------- |
+| `nodemon` | ^3.1.10 | Automatically restarts the server during development. |
+
+
+## 📦 Database
 
 The Page-Wasp Incident Management System uses two databases: MySQL for core application data and MongoDB for logging. MySQL stores structured data such as incidents, users, departments, categories, and technician actions, all managed via Sequelize ORM.
 
@@ -75,13 +120,5 @@ The MySQL connection is set up in db.js, with model relationships and sample dat
 MongoDB handles unstructured logging data, like user activity and usage stats. It’s connected in app.js and uses a simple schema in Stats.js, with logs recorded via middleware.
 
 Both databases are configured in the docker-compose.yml file, along with Adminer (for MySQL) and Mongo Express (for MongoDB). This separation improves scalability, maintainability, and performance.
-
-## 🔗 Related
-
-If you're interested in learning more or extending the project, here are some useful links:
-
-- [Explanation Scripts – Step-by-step code walkthrough](/doc/Explanation-Scripts.md)  
-- [Faq – Common questions answered](/doc/Frequently-Asked-Questions.md)  
-- [User Guide – How to use the system](/doc/User-Guide.md)
 
 <p align="right">(<a href="#🔑-key-features">back to top</a>)</p>
