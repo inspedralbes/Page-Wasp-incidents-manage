@@ -168,10 +168,11 @@ app.get('/moderador', isAuthenticated, isModerador, async (req, res) => {
     const categorias = await Categorias.findAll();
     const departamentos = await Departamentos.findAll();
 
-    const incidenciasNoTecnic = incidencias.filter(incidencia => !incidencia.idt);
-    const incidenciasYesTecnic = incidencias.filter(incidencia => incidencia.idt);
+    const incidenciasNoTecnic = incidencias.filter(incidencia => !incidencia.idt && !incidencia.resolt);
+    const incidenciasYesTecnic = incidencias.filter(incidencia => incidencia.idt && !incidencia.resolt);
+    const incidenciasComplete = incidencias.filter(incidencia => incidencia.resolt);
 
-    res.render('moderador', { tecnicos, categorias, departamentos, incidenciasNoTecnic, incidenciasYesTecnic, id: req.session.id, rol: req.session.rol });
+    res.render('moderador', { tecnicos, categorias, departamentos, incidenciasNoTecnic, incidenciasYesTecnic, incidenciasComplete, id: req.session.id, rol: req.session.rol });
 
   } catch (error) {
     console.error('Error al carregar la vista del moderador: ' + error);
@@ -268,6 +269,54 @@ const port = process.env.PORT || 3000;
       idt: juan.id,
       idi: 1,
     });
+
+    await Incidencias.create({
+      descripcio: 'Pantalla parpadea constantemente',
+      prioritat: 'Alta',
+      horesactuacio: '0.6',
+      dataincidencia: '2025-05-18',
+      idd: informatic.id,
+      idt: juan.id,
+      idc: manteniment.id,
+    });
+
+    await Incidencias.create({
+      descripcio: 'Ordenador muy lento al iniciar sesión',
+      prioritat: 'Mitjana',
+      horesactuacio: '0.4',
+      dataincidencia: '2025-05-10',
+      idd: administracio.id,
+      idt: juan.id,
+      idc: informatic.id,
+    });
+
+    await Incidencias.create({
+      descripcio: 'No funciona el aire acondicionado',
+      prioritat: 'Alta',
+      horesactuacio: '1.2',
+      dataincidencia: '2025-05-15',
+      idd: logistica.id,
+      idt: juan.id,
+      idc: manteniment.id,
+    });
+
+    await Incidencias.create({
+      descripcio: 'Problemas con la red local',
+      prioritat: 'Mitjana',
+      dataincidencia: '2025-05-12',
+      idd: fisica.id,
+      idt: juan.id,
+      idc: informatic.id,
+    });
+
+    await Incidencias.create({
+      descripcio: 'Falta tóner en la impresora',
+      prioritat: 'Baixa',
+      dataincidencia: '2025-05-11',
+      idd: administracio.id,
+      idc: logistica.id,
+    });
+
 
     app.listen(port, () => {
       console.log(`Servidor escoltant a http://localhost:${port}`);

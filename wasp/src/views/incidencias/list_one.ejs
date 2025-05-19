@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 
-<table class="table table-striped align-middle">
-    <tr>
+<table class="table align-middle">
+    <tr class="table-active">
         <th>ID</th>
         <th>Descripció</th>
         <th>Departament</th>
@@ -25,7 +25,7 @@
                 <span class="badge bg-danger fs-6 py-2 px-2">Pendent</span>
             <% } %>
         </td>
-        <td><%= incidencia.horesactuacio %> h</td>
+        <td class="horesactuacio"><%= incidencia.horesactuacio %> h</td>
         <td><%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %></td>
         <td>
             <a class="btn btn-primary" href="/actuaciones/list/incidencias/public/<%= incidencia.id %>">Veure Actuacions</a>

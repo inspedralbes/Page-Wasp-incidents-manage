@@ -1,5 +1,5 @@
 <% if (incidencias.length===0) { %>
-    <div class="alert alert-primary">No hi han incidencias asignades</div>
+    <div class="alert alert-primary">No hi han incidencias asignades / completades</div>
 <% } else { %>
     <table class="table align-middle">
         <tr class="table-active">
@@ -11,11 +11,10 @@
             <th>Hores d'actuacions</th>
             <th>Data d'incidència</th>
             <th>Tècnic</th>
-            <th>Resolt</th>
             <th class="text-center">Accions</th>
         </tr>
         <% incidencias.forEach(incidencia=> { %>
-            <tr class="incidencia-row" data-id="<%= incidencia.id %>">
+            <tr>
                 <td>
                     <%= incidencia.id %>
                 </td>
@@ -31,7 +30,7 @@
                 <td>
                     <%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %>
                 </td>
-                <td>
+                <td class="horesactuacio">
                     <%= incidencia.horesactuacio %> h
                 </td>
                 <td>
@@ -39,9 +38,6 @@
                 </td>
                 <td>
                     <%= incidencia.Tecnico ? incidencia.Tecnico.nombre : 'Sense Tècnic' %>
-                </td>
-                <td>
-                    <%= incidencia.resolt ? 'Si' : 'No' %>
                 </td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
@@ -80,8 +76,4 @@
             </tr>
             <% }); %>
     </table>
-
-    <nav>
-        <ul class="pagination justify-content-center mt-3 pagination-controls"></ul>
-    </nav>
 <% } %>

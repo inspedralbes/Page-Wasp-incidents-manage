@@ -1,49 +1,54 @@
 <% if (incidencias.length===0) { %>
     <div class="alert alert-primary">No hi han incidencias per a tu</div>
 <% } else { %>
-    <table class="table table-striped align-middle">
-        <tr>
-            <th>ID</th>
-            <th>Descripció</th>
-            <th>Prioritat</th>
-            <th>Departament</th>
-            <th>Categoria</th>
-            <th>Hores d'actuacions</th>
-            <th>Data d'incidència</th>
-            <th>Actuacions</th>
-        </tr>
-        <% incidencias.forEach(incidencia=> { %>
-            <tr class="incidencia-row" data-id="<%= incidencia.id %>">
-                <td>
-                    <%= incidencia.id %>
-                </td>
-                <td style="max-width: 250px;">
-                    <%= incidencia.descripcio %>
-                </td>
-                <td>
-                    <%= incidencia.prioritat %>
-                </td>
-                <td>
-                    <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
-                </td>
-                <td>
-                    <%= incidencia.Categoria.nombre %>
-                </td>
-                <td>
-                    <%= incidencia.horesactuacio %> h
-                </td>
-                <td>
-                    <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %>
-                </td>
-                <td>
-                    <a class="btn btn-primary" href="/actuaciones/list/incidencias/<%= incidencia.id %>">Veure
-                        Actuacions</a>
-                </td>
+    <div class="paginable" data-table="list_person">
+        <table class="table align-middle">
+            <tr class="table-active">
+                <th>ID</th>
+                <th>Descripció</th>
+                <th>Prioritat</th>
+                <th>Departament</th>
+                <th>Categoria</th>
+                <th>Hores d'actuacions</th>
+                <th>Data d'incidència</th>
+                <th class="text-center">Actuacions</th>
             </tr>
-            <% }) %>
-    </table>
+            <% incidencias.forEach(incidencia=> { %>
+                <tr class="incidencia-row">
+                    <td>
+                        <%= incidencia.id %>
+                    </td>
+                    <td style="max-width: 250px;">
+                        <%= incidencia.descripcio %>
+                    </td>
+                    <td>
+                        <%= incidencia.prioritat %>
+                    </td>
+                    <td>
+                        <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
+                    </td>
+                    <td>
+                        <%= incidencia.Categoria.nombre %>
+                    </td>
+                    <td class="horesactuacio">
+                        <%= incidencia.horesactuacio %>
+                    </td>
+                    <td>
+                        <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %>
+                    </td>
+                    <td class="text-center align-middle">                
+                        <a href="/actuaciones/list/incidencias/<%= incidencia.id %>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
+                                <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5 5 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334"/>
+                            </svg>      
+                        </a>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
 
-    <nav>
-        <ul class="pagination justify-content-center mt-3 pagination-controls"></ul>
-    </nav>
+        <nav>
+            <ul class="pagination justify-content-center mt-3" id="pagination-controls"></ul>
+        </nav>
+    </div>
 <% } %>

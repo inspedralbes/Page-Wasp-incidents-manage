@@ -1,60 +1,65 @@
 <% if (incidencias.length === 0) { %>
     <div class="alert alert-primary">No hi han incidencias per asignar</div>
 <% } else { %>
-  <form action="/incidencias/updateAll" method="POST">
-    <table class="table align-middle">
-      <tr class="table-active">
-        <th>ID</th>
-        <th>Descripció</th>
-        <th>Prioritat</th>
-        <th>Departament</th>
-        <th>Categoria</th>
-        <th>Data d'incidència</th>
-        <th>Tècnic</th>
-      </tr>
-      <% incidencias.forEach(incidencia=> { %>
-        <tr class="incidencia-row" data-id="<%= incidencia.id %>">
-          <td>
-            <%= incidencia.id %>
-          </td>
-          <td style="max-width: 250px;">
-            <%= incidencia.descripcio %>
-          </td>
-          <td>
-            <select name="prioridad_<%= incidencia.id %>" class="form-select">
-              <option value="" disabled selected>Selecciona una prioritat</option>
-              <option value="Alta" <%=incidencia.prioritat==='Alta' ? 'selected' : '' %>>Alta</option>
-              <option value="Mitjana" <%=incidencia.prioritat==='Mitjana' ? 'selected' : '' %>>Mitjana</option>
-              <option value="Baixa" <%=incidencia.prioritat==='Baixa' ? 'selected' : '' %>>Baixa</option>
-            </select>
-          </td>
-          <td>
-            <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
-          </td>
-          <td>
-            <%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %>
-          </td>
-          <td>
-            <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
-          </td>
-          <td>
-            <select name="tecnico_<%= incidencia.id %>" class="form-select">
-              <option value="" disabled selected>Selecciona un tècnic</option>
-              <% tecnicos.forEach(tec=> { %>
-                <option value="<%= tec.id %>" <%=incidencia.idt===tec.id ? 'selected' : '' %>><%= tec.nombre %></option>
-              <% }) %>
-            </select>
-          </td>
+  <div class="paginable" data-table="asignar">
+    <form action="/incidencias/updateAll" method="POST">
+      <table class="table align-middle">
+        <tr class="table-active">
+          <th>ID</th>
+          <th>Descripció</th>
+          <th>Prioritat</th>
+          <th>Departament</th>
+          <th>Categoria</th>
+          <th>Data d'incidència</th>
+          <th>Tècnic</th>
         </tr>
-      <% }) %>
-    </table>
+        <% incidencias.forEach(incidencia=> { %>
+          <tr class="incidencia-row">
+            <td>
+              <%= incidencia.id %>
+            </td>
+            <td style="max-width: 250px;">
+              <%= incidencia.descripcio %>
+            </td>
+            <td>
+              <select name="prioridad_<%= incidencia.id %>" class="form-select">
+                <option value="" disabled selected>Selecciona una prioritat</option>
+                <option value="Alta" <%=incidencia.prioritat==='Alta' ? 'selected' : '' %>>Alta</option>
+                <option value="Mitjana" <%=incidencia.prioritat==='Mitjana' ? 'selected' : '' %>>Mitjana</option>
+                <option value="Baixa" <%=incidencia.prioritat==='Baixa' ? 'selected' : '' %>>Baixa</option>
+              </select>
+            </td>
+            <td>
+              <%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %>
+            </td>
+            <td>
+              <%= incidencia.Categoria ? incidencia.Categoria.nombre : 'Sense categoria' %>
+            </td>
+            <td>
+              <%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %> 
+            </td>
+            <td>
+              <select name="tecnico_<%= incidencia.id %>" class="form-select">
+                <option value="" disabled selected>Selecciona un tècnic</option>
+                <% tecnicos.forEach(tec=> { %>
+                  <option value="<%= tec.id %>" <%=incidencia.idt===tec.id ? 'selected' : '' %>><%= tec.nombre %></option>
+                <% }) %>
+              </select>
+            </td>
+          </tr>
+        <% }) %>
+      </table>
 
-    <div class="d-flex justify-content-between align-items-center ">
-      <nav>
-        <ul class="pagination justify-content-center mt-3 pagination-controls"></ul>
-      </nav>
-      <button type="submit" class="btn btn-primary">Actualitzar Incidencies</button>
-    </div>
 
-  </form>
+      <div class="d-flex justify-content-between align-items-center">
+        <nav style="flex-shrink: 0;">
+          <ul class="pagination pagination-sm mb-0">
+            <ul class="pagination justify-content-center mt-3" id="pagination-controls"></ul>
+          </ul>
+        </nav>
+        <button type="submit" class="btn btn-primary">Actualitzar Incidencies</button>
+      </div>
+
+    </form>
+  </div>
 <% } %>

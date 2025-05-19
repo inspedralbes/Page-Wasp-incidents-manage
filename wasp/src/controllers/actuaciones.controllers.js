@@ -4,14 +4,15 @@ const Incidencia = require('../models/Incidencias');
 
 exports.listarPublicas = async (req, res) => {
   try {
-    const incidencia = await Incidencia.findByPk(req.params.id, {
-      include: [{
+  const incidencia = await Incidencia.findByPk(req.params.id, {
+    include: [
+      {
         model: Actuacion,
         where: { visibilitat: true },
-        required: false ,
+        required: false,
+        include: [Tecnico] 
       }]
-    });
-
+  });
     if (!incidencia) {  
       return res.status(404).send('Incidència no trobada');
     }
