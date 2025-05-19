@@ -66,8 +66,6 @@ docker compose up -d
 
 ## 🧩 Units
 
-asd
-
 ## 🗄️ Database
 
 The Page-Wasp Incident Management System uses two databases: MySQL for core application data and MongoDB for logging. MySQL stores structured data such as incidents, users, departments, categories, and technician actions, all managed via Sequelize ORM.
