@@ -31,17 +31,17 @@ exports.crear = async (req, res) => {
 exports.formEditar = async (req, res) => {
     try {
         const categoria = await Categoria.findByPk(req.params.id);
-        if (!categoria) return res.status(404).send('Categoría no encontrada');
+        if (!categoria) return res.status(404).send('Categoria no trobada');
         res.render('otros/categorias/editar', { categoria });
     } catch (error) {
-        res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
+        res.status(500).send("Error al carregar el formulari d'edició: " + error.message);
     }
 };
 
 exports.actualizar = async (req, res) => {
     try {
         const categoria = await Categoria.findByPk(req.params.id);
-        if (!categoria) return res.status(404).send('Categoría no encontrada');
+        if (!categoria) return res.status(404).send('Categoria no trobada');
 
         const { nombre } = req.body;
         if (nombre !== undefined) {
@@ -51,7 +51,7 @@ exports.actualizar = async (req, res) => {
 
         res.redirect('/moderador');
     } catch (error) {
-        res.status(500).send('Error al actualizar la categoría: ' + error.message);
+        res.status(500).send('Error al actualitzar la categoria: ' + error.message);
     }
 };
 

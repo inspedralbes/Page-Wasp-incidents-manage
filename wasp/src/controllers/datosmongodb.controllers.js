@@ -22,7 +22,7 @@ exports.estadisticasRol = async (req, res) => {
         res.json(datos);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener estadísticas por rol' });
+        res.status(500).json({ error: 'Error al obtenir estadístiques per rol' });
     }
 };
 
@@ -42,7 +42,7 @@ exports.estadisticasHora = async (req, res) => {
         res.json(datos);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener estadísticas por hora' });
+        res.status(500).json({ error: 'Error al obtenir estadístiques per hora' });
     }
 };
 

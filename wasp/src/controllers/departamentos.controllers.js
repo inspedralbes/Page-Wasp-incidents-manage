@@ -31,17 +31,17 @@ exports.crear = async (req, res) => {
 exports.formEditar = async (req, res) => {
     try {
         const departamento = await Departamento.findByPk(req.params.id);
-        if (!departamento) return res.status(404).send('Departamento no encontrado');
+        if (!departamento) return res.status(404).send('Departament no trobat');
         res.render('otros/departamentos/editar', { departamento });
     } catch (error) {
-        res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
+        res.status(500).send("Error al carregar el formulari d'edició: " + error.message);
     }
 };
 
 exports.actualizar = async (req, res) => {
     try {
         const departamento = await Departamento.findByPk(req.params.id);
-        if (!departamento) return res.status(404).send('Departamento no encontrado');
+        if (!departamento) return res.status(404).send('Departament no trobat');
 
         const { nombre, ubicacio } = req.body;
         if (nombre !== undefined) departamento.nombre = nombre;
@@ -51,7 +51,7 @@ exports.actualizar = async (req, res) => {
 
         res.redirect('/moderador');
     } catch (error) {
-        res.status(500).send('Error al actualizar el departamento: ' + error.message);
+        res.status(500).send('Error al actualitzar el departament: ' + error.message);
     }
 };
 

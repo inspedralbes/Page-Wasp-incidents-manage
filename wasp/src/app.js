@@ -310,7 +310,7 @@ const port = process.env.PORT || 3000;
     });
 
     await Incidencias.create({
-      descripcio: 'Falta tóner en la impresora',
+      descripcio: 'Falta poner en la impresora',
       prioritat: 'Baixa',
       dataincidencia: '2025-05-11',
       idd: administracio.id,

@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
 );
 
 sequelize.authenticate()
-  .then(() => console.log('Conexión a la base de datos exitosa'))
-  .catch(err => console.error('Error al conectar a la base de datos:', err));
+  .then(() => console.log('Connexió a la base de dades exitosa'))
+  .catch(err => console.error('Error al connectar a la base de dades:', err));
   
 module.exports = sequelize;

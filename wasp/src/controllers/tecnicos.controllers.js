@@ -31,17 +31,17 @@ exports.crear = async (req, res) => {
 exports.formEditar = async (req, res) => {
     try {
         const tecnico = await Tecnico.findByPk(req.params.id);
-        if (!tecnico) return res.status(404).send('Técnico no encontrado');
+        if (!tecnico) return res.status(404).send('Tècnic no trobat');
         res.render('otros/tecnicos/editar', { tecnico });
     } catch (error) {
-        res.status(500).send('Error al cargar el formulario de edición: ' + error.message);
+        res.status(500).send("Error al carregar el formulari d'edició: " + error.message);
     }
 };
 
 exports.actualizar = async (req, res) => {
     try {
         const tecnico = await Tecnico.findByPk(req.params.id);
-        if (!tecnico) return res.status(404).send('Técnico no encontrado');
+        if (!tecnico) return res.status(404).send('Tècnic no trobat');
 
         const { nombre, contrasena } = req.body;
         if (nombre !== undefined) tecnico.nombre = nombre;
@@ -51,7 +51,7 @@ exports.actualizar = async (req, res) => {
 
         res.redirect('/moderador');
     } catch (error) {
-        res.status(500).send('Error al actualizar el técnico: ' + error.message);
+        res.status(500).send('Error al actualitzar el tècnic: ' + error.message);
     }
 };
 

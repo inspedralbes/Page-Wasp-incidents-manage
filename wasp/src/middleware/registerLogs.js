@@ -25,7 +25,7 @@ module.exports = (req, res, next) => {
     
     nuevaVisita.save()
         .then(() => console.log(`Visita guardada: ${usuario}`))
-        .catch(err => console.error('Error guardando visita:', err));
+        .catch(err => console.error('Error guardant visita:', err));
 
     next();
 };

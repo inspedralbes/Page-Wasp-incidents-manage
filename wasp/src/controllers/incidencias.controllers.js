@@ -26,7 +26,7 @@ exports.listarPorTecnico = async (req, res) => {
     try {
         const tecnicoId = req.params.id;
         const { prioritat, categoria, departament } = req.query;
-        console.log("Query recibida:", req.query);
+        console.log("Query rebuda:", req.query);
 
         const tecnico = await Tecnico.findByPk(tecnicoId, {
             include: [{
@@ -59,7 +59,7 @@ exports.listarPorTecnico = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error cargando la página del técnico: ' + error);
+        res.status(500).send('Error carregant la pagina del tècnic: ' + error);
     }
 };
 
