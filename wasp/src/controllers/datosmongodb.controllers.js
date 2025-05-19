@@ -46,6 +46,33 @@ exports.estadisticasHora = async (req, res) => {
     }
 };
 
+exports.estadisticasPorDia = async (req, res) => {
+    try {
+        const datos = await Stat.aggregate([
+            {
+                $match: { url: '/create' }
+            },
+            {
+                $group: {
+                    _id: {
+                        año: { $year: "$timestamp" },
+                        mes: { $month: "$timestamp" },
+                        dia: { $dayOfMonth: "$timestamp" }
+                    },
+                    total: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { "_id.año": 1, "_id.mes": 1, "_id.dia": 1 }
+            }
+        ]);
+        res.json(datos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtenir estadístiques per dia' });
+    }
+};
+
 exports.verChat = async (req, res) => {
     try {
         const mensajes = await Mensaje.find().sort({ timestamp: 1 });

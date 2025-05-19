@@ -1,59 +1,71 @@
 <%- include('../partials/header') %>
 
-  <h1>Editar Incidencia</h1>
-  <form action="/incidencias/<%= incidencia.id %>/update" method="POST">
-    <div class="mb-3">
-      <label for="name" class="form-label">Descripció</label>
-      <input
-        type="text"
-        name="descripcio"
-        value="<%= incidencia.descripcio %>"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="mb-3">
-      <label for="prioritat" class="form-label">Prioritat</label>
-      <select name="prioritat" class="form-select">
-        <option value="Alta" <%= incidencia.prioritat === 'Alta' ? 'selected' : '' %>>Alta</option>
-        <option value="Mitjana" <%= incidencia.prioritat === 'Mitjana' ? 'selected' : '' %>>Mitjana</option>
-        <option value="Baixa" <%= incidencia.prioritat === 'Baixa' ? 'selected' : '' %>>Baixa</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="idd" class="form-label">Departament</label>
-      <select name="idd" class="form-select">
-        <% departamentos.forEach(departament => { %>
-          <option value="<%= departament.id %>" <%= incidencia.idd === departament.id ? 'selected' : '' %>>
-            <%= departament.nombre %>
-          </option>
-        <% }) %>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="idc" class="form-label">Categoria</label>
-      <select name="idc" id="idc" class="form-control" required>
-          <% categorias.forEach(categoria => { %>
-          <option value="<%= categoria.id %>" <%= incidencia.idd === categoria.id ? 'selected' : '' %>>
-            <%= categoria.nombre %>
-          </option>
-          <% }); %>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="dataincidencia" class="form-label">Data incidència</label>
-      <input
-        type="text"
-        name="dataincidencia"
-        value="<%= moment(incidencia.dataincidencia).format('DD/MM/YYYY') %>"
-        class="form-control"
-        required
-      />
-    </div>
-    <div class="d-flex justify-content-between">
-      <a href="/moderador" class="btn btn-secondary">Tornar enrere</a>
-      <button type="submit" class="btn btn-primary">Actualitzar</button>
-    </div>
-  </form>
+<h1>Editar Incidencia</h1>
+<form action="/incidencias/<%= incidencia.id %>/update" method="POST">
+  <div class="mb-3">
+    <label for="descripcio" class="form-label">Descripció</label>
+    <input
+      type="text"
+      name="descripcio"
+      value="<%= incidencia.descripcio %>"
+      class="form-control"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="prioritat" class="form-label">Prioritat</label>
+    <select name="prioritat" class="form-select">
+      <option value="Alta" <%= incidencia.prioritat === 'Alta' ? 'selected' : '' %>>Alta</option>
+      <option value="Mitjana" <%= incidencia.prioritat === 'Mitjana' ? 'selected' : '' %>>Mitjana</option>
+      <option value="Baixa" <%= incidencia.prioritat === 'Baixa' ? 'selected' : '' %>>Baixa</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="idd" class="form-label">Departament</label>
+    <select name="idd" class="form-select">
+      <% departamentos.forEach(departament => { %>
+        <option value="<%= departament.id %>" <%= incidencia.idd === departament.id ? 'selected' : '' %>>
+          <%= departament.nombre %>
+        </option>
+      <% }) %>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="idc" class="form-label">Categoria</label>
+    <select name="idc" id="idc" class="form-control" required>
+      <% categorias.forEach(categoria => { %>
+        <option value="<%= categoria.id %>" <%= incidencia.idc === categoria.id ? 'selected' : '' %>>
+          <%= categoria.nombre %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="dataincidencia" class="form-label">Data incidència</label>
+    <input
+      type="date"
+      name="dataincidencia"
+      value="<%= incidencia.dataincidencia.toISOString().split('T')[0] %>"
+      class="form-control"
+      required
+    />
+  </div>
+  <div class="mb-3 form-check">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      name="resolt"
+      id="resolt"
+      <%= incidencia.resolt ? 'checked' : '' %>
+    />
+    <label class="form-check-label" for="resolt">Resolt</label>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <a href="/moderador" class="btn btn-secondary">Tornar enrere</a>
+    <button type="submit" class="btn btn-primary">Actualitzar</button>
+  </div>
+</form>
+
 
 <%- include('../partials/footer') %>

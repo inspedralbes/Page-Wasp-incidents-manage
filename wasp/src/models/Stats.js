@@ -8,7 +8,8 @@ const Stats = new mongoose.Schema({
         type: Date, 
         default: Date.now 
     },
-    navegador: String
+    navegador: String,
+    url: String 
 });
 
 module.exports = mongoose.model('Stats', Stats);

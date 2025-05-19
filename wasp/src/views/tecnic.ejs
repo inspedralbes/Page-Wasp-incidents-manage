@@ -8,7 +8,7 @@
     <form method="GET" class="d-flex align-items-center gap-2 flex-wrap mb-4">
 
     <select name="ordre" class="form-select w-auto">
-        <option value="">-- Ordenar per --</option>
+        <option disabled selected value="">-- Ordenar per --</option>
         <option value="hores" <%= ordre === 'hores' ? 'selected' : '' %>>Hores d'actuació</option>
         <option value="prioritat" <%= ordre === 'prioritat' ? 'selected' : '' %>>Prioritat</option>
         <option value="data" <%= ordre === 'data' ? 'selected' : '' %>>Data d'incidència</option>
@@ -19,14 +19,14 @@
     </button>
 
     <select name="categoria" class="form-select w-auto">
-        <option value="">-- Categoria --</option>
+        <option disabled selected value="">-- Categoria --</option>
         <% categorias.forEach(cat => { %>
             <option value="<%= cat.nombre %>" <%= categoria === cat.nombre ? 'selected' : '' %>><%= cat.nombre %></option>
         <% }) %>
     </select>
 
     <select name="departament" class="form-select w-auto">
-        <option value="">-- Departament --</option>
+        <option disabled selected value="">-- Departament --</option>
         <% departamentos.forEach(dep => { %>
             <option value="<%= dep.nombre %>" <%= departament === dep.nombre ? 'selected' : '' %>><%= dep.nombre %></option>
         <% }) %>

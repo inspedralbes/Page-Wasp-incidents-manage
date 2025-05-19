@@ -217,6 +217,7 @@ const port = process.env.PORT || 3000;
     await sequelize.sync({ force: true });
     console.log('Base de dades sincronitzada (API JSON)');
 
+    // EJEMPLOS DE PRUEBA; ELIMINAR EN CASO DE USO REAL
     const fisica = await Departamentos.create({ nombre: 'Física', ubicacio: 'Planta baixa' });
     const administracio = await Departamentos.create({ nombre: 'Administració', ubicacio: 'Planta mitjana' });
     const informatica = await Departamentos.create({ nombre: 'Informàtica', ubicacio: 'Planta alta' });
@@ -281,42 +282,66 @@ const port = process.env.PORT || 3000;
     });
 
     await Incidencias.create({
-      descripcio: 'Ordenador muy lento al iniciar sesión',
+      descripcio: 'Impresora atascada',
       prioritat: 'Mitjana',
-      horesactuacio: '0.4',
-      dataincidencia: '2025-05-10',
-      idd: administracio.id,
-      idt: juan.id,
-      idc: informatic.id,
-    });
-
-    await Incidencias.create({
-      descripcio: 'No funciona el aire acondicionado',
-      prioritat: 'Alta',
-      horesactuacio: '1.2',
       dataincidencia: '2025-05-15',
-      idd: logistica.id,
-      idt: juan.id,
+      idd: administracio.id,
+      idt: marcos.id,
       idc: manteniment.id,
     });
 
     await Incidencias.create({
-      descripcio: 'Problemas con la red local',
-      prioritat: 'Mitjana',
-      dataincidencia: '2025-05-12',
-      idd: fisica.id,
-      idt: juan.id,
+      descripcio: 'Error en software contable',
+      prioritat: 'Alta',
+      horesactuacio: '1.0',
+      dataincidencia: '2025-05-16',
+      idd: administracio.id,
+      idt: ana.id,
       idc: informatic.id,
     });
 
     await Incidencias.create({
-      descripcio: 'Falta poner en la impresora',
-      prioritat: 'Baixa',
-      dataincidencia: '2025-05-11',
-      idd: administracio.id,
-      idc: logistica.id,
+      descripcio: 'Red inalámbrica caida',
+      prioritat: 'Alta',
+      horesactuacio: '0.8',
+      dataincidencia: '2025-05-17',
+      idd: informatic.id,
+      idt: lucia.id,
+      idc: informatic.id,
     });
 
+    await Incidencias.create({
+      descripcio: 'Luz del laboratorio fundida',
+      prioritat: 'Baixa',
+      dataincidencia: '2025-05-14',
+      idd: quimica.id,
+      idc: manteniment.id,
+    });
+
+    await Actuaciones.create({
+      descripcio: 'Limpieza y reconfiguración de la impresora',
+      hores: '0.5',
+      resolt: true,
+      idt: marcos.id,
+      idi: 6, 
+    });
+
+    await Actuaciones.create({
+      descripcio: 'Actualización del software contable',
+      hores: '1.2',
+      resolt: false,
+      idt: ana.id,
+      idi: 7,
+    });
+
+    await Actuaciones.create({
+      descripcio: 'Reinicio y cambio de router',
+      hores: '0.7',
+      resolt: true,
+      idt: lucia.id,
+      idi: 8,
+    });
+    // EJEMPLOS DE PRUEBA; ELIMINAR EN CASO DE USO REAL
 
     app.listen(port, () => {
       console.log(`Servidor escoltant a http://localhost:${port}`);

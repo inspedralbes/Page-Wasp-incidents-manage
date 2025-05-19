@@ -5,15 +5,17 @@
 <% if (actuaciones.length === 0) { %>
     <div class="alert alert-primary">Encara no hi ha actuacions per aquesta incidència.</div>
 <% } else { %>
-    <table class="table table-striped align-middle">
-        <tr>
+    <table class="table align-middle">
+        <tr class="table-active">
             <th>Descripció</th>
+            <th>Tècnic</th>
             <th>Data</th>
             <th>Hores</th>
         </tr>
         <% actuaciones.forEach(actuacion => { %>
         <tr>
             <td><%= actuacion.descripcio %></td>
+            <td><%= actuacion.Tecnico ? actuacion.Tecnico.nombre : 'No asignat' %></td>
             <td><%= moment(actuacion.dataactuacio).format('DD/MM/YYYY') %></td>
             <td><%= actuacion.hores %>h</td>
         </tr>

@@ -2,6 +2,7 @@ const Incidencia = require('../models/Incidencias');
 const Departamento = require('../models/Departamentos');
 const Tecnico = require('../models/Tecnicos');
 const Categoria = require('../models/Categorias');
+const Stats = require('../models/Stats');
 
 exports.listarTodas = async (req, res) => {
     try {
@@ -98,6 +99,14 @@ exports.crear = async (req, res) => {
     try {
         const { descripcio, prioritat, solicitat, dataincidencia, idd, idc } = req.body;
         const incidencia = await Incidencia.create({ descripcio, prioritat, solicitat, dataincidencia, idd, idc });
+
+        const incidenciaVisita = new Stats({
+            url: '/create',
+            usuario: 'usuari',
+            navegador: req.headers['user-agent']
+        });
+
+        await incidenciaVisita.save();
 
         res.render('incidencias/ticket', { incidencia });
     } catch (error) {

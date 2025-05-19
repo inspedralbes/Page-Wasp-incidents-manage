@@ -5,16 +5,19 @@
 <% if (actuaciones.length === 0) { %>
     <div class="alert alert-primary">Encara no hi ha actuacions per aquesta incidència.</div>
 <% } else { %>
-    <table class="table table-striped align-middle">
-        <tr>
+    <table class="table align-middle">
+        <tr class="table-active">
             <th>Descripció</th>
+            <th>Tècnic</th>
             <th>Data</th>
             <th>Hores</th>
             <th>Visibilitat</th>
         </tr>
         <% actuaciones.forEach(actuacion => { %>
+
         <tr>
             <td><%= actuacion.descripcio %></td>
+            <td><%= actuacion.Tecnico ? actuacion.Tecnico.nombre : 'No asignat' %></td>
             <td><%= moment(actuacion.dataactuacio).format('DD/MM/YYYY') %></td>
             <td><%= actuacion.hores %>h</td>
             <td><%= actuacion.visibilitat ? 'Publica' : 'Privada' %></td>
@@ -25,7 +28,7 @@
 
 <div class="d-flex justify-content-between">
     <a href="/tecnic" class="btn btn-secondary">Tornar enrere</a>
-    <a href="/actuaciones/new/incidencias/<%= incidencia.id %>" class="btn btn-success">Crear nova actuació</a>
+    <a href="/actuaciones/new/incidencias/<%= incidencia.id %>?idt=<%= incidencia.idt %>" class="btn btn-success">Crear nova actuació</a>
 </div>
 
 <%- include('../partials/footer') %>

@@ -48,7 +48,7 @@ async function obtenerDatosHora() {
 
     const ctx = document.getElementById('graficoHoras').getContext('2d');
     new Chart(ctx, {
-        type: 'line', 
+        type: 'line',
         data: {
             labels: labels,
             datasets: [{
@@ -74,7 +74,68 @@ async function obtenerDatosHora() {
     });
 }
 
+async function obtenerDatosDia() {
+    const respuesta = await fetch('http://localhost:3000/api/estadistiques-dias');
+    const datos = await respuesta.json();
+
+    const labels = datos.map(item => {
+        const d = item._id.dia.toString().padStart(2, '0');
+        const m = item._id.mes.toString().padStart(2, '0');
+        return `${d}/${m}`;
+    });
+
+    const values = datos.map(item => item.total);
+
+    const ctx = document.getElementById('graficoDias').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Incidències creades per dia',
+                data: values,
+                backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                        stepSize: 1   
+                    },
+                    title: {
+                        display: true,
+                        text: 'Incidències'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Dia (DD/MM)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        }
+    });
+}
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     obtenerDatosRoles();
     obtenerDatosHora();
+    obtenerDatosDia();
 });

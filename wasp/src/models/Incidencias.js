@@ -8,6 +8,7 @@ const Incidencias = sequelize.define('Incidencias', {
   },
   prioritat: {
     type: DataTypes.STRING,
+    defaultValue: 'Baixa',
     allowNull: true,
   },
   horesactuacio: {

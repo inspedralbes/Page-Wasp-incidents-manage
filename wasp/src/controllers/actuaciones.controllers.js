@@ -4,20 +4,26 @@ const Incidencia = require('../models/Incidencias');
 
 exports.listarPublicas = async (req, res) => {
   try {
-  const incidencia = await Incidencia.findByPk(req.params.id, {
-    include: [
-      {
+    const incidencia = await Incidencia.findByPk(req.params.id, {
+      include: {
         model: Actuacion,
-        where: { visibilitat: true },
-        required: false,
-        include: [Tecnico] 
-      }]
-  });
-    if (!incidencia) {  
+        where: { visibilitat: true }, 
+        required: false,              
+        include: {
+          model: Tecnico,
+          attributes: ['nombre']
+        }
+      }
+    });
+
+    if (!incidencia) {
       return res.status(404).send('Incidència no trobada');
     }
 
-    res.render('actuaciones/list_public', { incidencia, actuaciones: incidencia.Actuaciones });
+    res.render('actuaciones/list_public', {
+      incidencia,
+      actuaciones: incidencia.Actuaciones
+    });
 
   } catch (error) {
     console.error('Error al carregar actuacions de la incidència:' + error);
@@ -37,7 +43,13 @@ exports.listarTodas = async (req, res) => {
 exports.listarPorIncidencia = async (req, res) => {
   try {
     const incidencia = await Incidencia.findByPk(req.params.id, {
-      include: [Actuacion, Tecnico]
+      include: {
+        model: Actuacion,
+        include: {
+          model: Tecnico,
+          attributes: ['nombre']
+        }
+      }
     });
 
     if (!incidencia) {
@@ -47,7 +59,6 @@ exports.listarPorIncidencia = async (req, res) => {
     res.render('actuaciones/list_incidencia', {
       incidencia,
       actuaciones: incidencia.Actuaciones,
-      tecnic: incidencia.Tecnico
     });
 
   } catch (error) {
@@ -60,17 +71,20 @@ exports.listarPorIncidencia = async (req, res) => {
 exports.formCrear = async (req, res) => {
   try {
     const idi = req.params.id;
+    const idt = req.query.idt;
+
     const incidencia = await Incidencia.findByPk(idi);
 
     if (!incidencia) {
       return res.status(404).send('Incidència no trobada');
     }
 
-    res.render('actuaciones/crear', { incidencia, idi });
+    res.render('actuaciones/crear', { incidencia, idi, idt });
   } catch (error) {
-    res.status(500).send('Error al carregar el formulari: ' + error.message);
+    res.status(500).send('Error al cargar formulario: ' + error.message);
   }
 };
+
 
 exports.crear = async (req, res) => {
   try {
