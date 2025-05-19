@@ -17,8 +17,8 @@
             <th>Data d'incidència</th>
             <th>Actuacions</th>
         </tr>
-        <tr>
-            <% incidencias.forEach(incidencia=> { %>
+        <% incidencias.forEach(incidencia=> { %>
+            <tr>
                 <td><%= incidencia.id %></td>
                 <td style="max-width: 250px;"><%= incidencia.descripcio %></td>
                 <td><%= incidencia.Departamento ? incidencia.Departamento.nombre : 'Sense departament' %></td>
@@ -37,8 +37,9 @@
                 <td>
                     <a class="btn btn-primary" href="/actuaciones/list/incidencias/public/<%= incidencia.id %>">Veure Actuacions</a>
                 </td>
-            <% }); %>
-        </tr>
+            </tr>
+        <% }); %>
+
     </table>
 <% } %>
 <div class="d-flex justify-content-between">
