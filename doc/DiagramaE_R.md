@@ -1,1 +1,0 @@
-<img src="../content/diagE_R.png">

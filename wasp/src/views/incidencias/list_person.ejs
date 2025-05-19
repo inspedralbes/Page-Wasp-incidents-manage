@@ -14,7 +14,8 @@
                 <th class="text-center">Actuacions</th>
             </tr>
             <% incidencias.forEach(incidencia=> { %>
-                <tr class="incidencia-row">
+                <% if (incidencia.resolt === false) { %> 
+                    <tr class="incidencia-row">
                     <td>
                         <%= incidencia.id %>
                     </td>
@@ -44,7 +45,8 @@
                         </a>
                     </td>
                 </tr>
-                <% }) %>
+                <% } %>
+            <% }) %>
         </table>
 
         <nav>

@@ -19,9 +19,13 @@
 
 <div align="center">
 
-[🔑 Key Features](#🔑-key-features) • [🛠️ How To Use](#🛠️-how-to-use) • [📦 Download](#📦-download) • [👥 Credits](#👥-credits) • [🔗 Related](#🔗-related)
+[🔑 Key Features](#🔑-key-features) • [🛠️ How To Use](#🛠️-how-to-use) • [🧩 Units](#🧩-units) • [🗄️ Database](#️🗄️-database) • [🔗 Related](#🔗-related)
 
 </div>
+
+---
+
+![Demo de la app](content/wasp.gif)
 
 ## 🔑 Key Features
 
@@ -60,17 +64,26 @@ If you need have the application in the background, you can use:
 docker compose up -d
 ```
 
-## 📦 Download
+## 🧩 Units
 
-## 👥 Credits
+asd
+
+## 🗄️ Database
+
+The Page-Wasp Incident Management System uses two databases: MySQL for core application data and MongoDB for logging. MySQL stores structured data such as incidents, users, departments, categories, and technician actions, all managed via Sequelize ORM.
+
+The MySQL connection is set up in db.js, with model relationships and sample data initialized in app.js. Adminer is included for easy web-based database management.
+
+MongoDB handles unstructured logging data, like user activity and usage stats. It’s connected in app.js and uses a simple schema in Stats.js, with logs recorded via middleware.
+
+Both databases are configured in the docker-compose.yml file, along with Adminer (for MySQL) and Mongo Express (for MongoDB). This separation improves scalability, maintainability, and performance.
 
 ## 🔗 Related
 
 If you're interested in learning more or extending the project, here are some useful links:
 
-- [Express.js – Minimalist web framework for Node](https://expressjs.com/)
-- [Sequelize – Promise-based Node.js ORM](https://sequelize.org/)
-- [Docker Compose – Define and run multi-container apps](https://docs.docker.com/compose/)
-- [EJS – Embedded JavaScript templates](https://ejs.co/)
+- [Explanation Scripts – Step-by-step code walkthrough](/doc/Explanation-Scripts.md)  
+- [Faq – Common questions answered](/doc/Frequently-Asked-Questions.md)  
+- [User Guide – How to use the system](/doc/User-Guide.md)
 
----
+<p align="right">(<a href="#🔑-key-features">back to top</a>)</p>

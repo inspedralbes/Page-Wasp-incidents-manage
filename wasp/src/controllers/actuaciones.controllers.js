@@ -37,7 +37,7 @@ exports.listarTodas = async (req, res) => {
 exports.listarPorIncidencia = async (req, res) => {
   try {
     const incidencia = await Incidencia.findByPk(req.params.id, {
-      include: Actuacion
+      include: [Actuacion, Tecnico]
     });
 
     if (!incidencia) {
@@ -46,7 +46,8 @@ exports.listarPorIncidencia = async (req, res) => {
 
     res.render('actuaciones/list_incidencia', {
       incidencia,
-      actuaciones: incidencia.Actuaciones
+      actuaciones: incidencia.Actuaciones,
+      tecnic: incidencia.Tecnico
     });
 
   } catch (error) {
@@ -80,7 +81,6 @@ exports.crear = async (req, res) => {
 
     if (resolt) {
       incidencia.resolt = true;
-      actuacion.descripcio = descripcio + " (resolt)";
 
       await actuacion.save();
       await incidencia.save();
