@@ -69,9 +69,9 @@ docker compose up -d
 If you are interested in knowing more or expanding the project, here is part of the project documentation, how it works, what is needed, and more...
 
 ### Documentation
-- [Explanation Scripts – Step-by-step code walkthrough](/doc/Explanation-Scripts.md)  
+- [Explanation Scripts – External part of App](/doc/Explanation-Scripts.md)  
 - [Faq – Common questions answered](/doc/Frequently-Asked-Questions.md)  
-- [Guide Connection – How to start the system](/doc/Guide-Connection.md)
+- [Guide Interface – Explanation about Frontend Part](/doc/User%20Guide.pdf)
 
 ### Diagrams
 - [Related Entity ](/diag/related-entity.pdf)  
