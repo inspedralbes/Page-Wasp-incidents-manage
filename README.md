@@ -29,7 +29,13 @@
 
 ## 🔑 Key Features
 
-Develop a web application to record, manage and track computer incidents within a company, institute or others. The system allows communication between users, technicians and IT managers, as well as the generation of reports and statistics.
+WASP is a web-based incident management system built with Node.js and Express.js, using a multi-database architecture with role-based access control.
+
+Main features, logging, management and tracking of computer incidents within a company, institute or others. The system allows communication between users, technicians and IT managers, as well as the generation of reports and statistics.
+
+The system architecture follows a traditional MVC pattern with additional middleware layers for authentication and logging. It uses a hybrid database approach where MySQL handles structured business data while MongoDB manages user activity logs. The Docker Compose setup provides easy deployment and development environment management.
+
+The role-based access control ensures proper security boundaries between different user types in the incident management workflow.
 
 ## 🛠️ How To Use
 
@@ -76,7 +82,8 @@ If you are interested in knowing more or expanding the project, here is part of 
 ### Diagrams
 - [Related Entity ](/diag/related-entity.pdf)  
 - [Screens Overview](/diag/screens.pdf)  
-- [Use Cases – How to start the system](/diag/use-cases.pdf)
+- [Use Cases](/diag/use-cases.pdf)
+- [System Architecture](/diag/system-architecture.pdf)
 
 ## 🧩 Dependencies
 
